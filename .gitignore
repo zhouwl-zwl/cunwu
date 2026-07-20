@@ -80,3 +80,9 @@ build/
 # H2 Database
 *.db
 h2-data/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
