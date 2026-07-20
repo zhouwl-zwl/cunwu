@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cunwu",
+  "compatibility_date": "2026-07-20",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "mobile-h5"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
