@@ -1,1 +1,0 @@
-const t=(t,c="/")=>{var h,n;try{const o=(null==(n=null==(h=t.currentRoute.value)?void 0:h.matched)?void 0:n.length)||0,u=window.history.length||0;o>1||u>1?t.back().catch(()=>{t.push(c)}):t.push(c)}catch(o){t.push(c)}};export{t as g};
