@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="population-page page-container">
     <van-nav-bar title="人口户籍" left-arrow @click-left="onBack" />
     
@@ -92,27 +92,18 @@
 
       <div class="action-bar">
         <van-button type="primary" icon="plus" @click="showAddModal = true">新增户籍</van-button>
-        <van-button type="default" icon="download" @click="exportExcel">导出台账</van-button>
       </div>
 
       <div class="search-bar">
         <van-search v-model="searchKeyword" placeholder="搜索户主姓名" @search="onSearch" />
       </div>
 
-      <div class="card-list">
-        <div v-for="item in householdList" :key="item.id" class="household-card" @click="showHouseholdDetail(item)">
-          <div class="household-header">
-            <span class="household-group">{{ item.group }}</span>
-            <span class="special-tag" v-if="item.special">特殊人群</span>
-          </div>
-          <div class="household-info">
-            <div class="household-head">{{ item.headName }}</div>
-            <div class="household-count">家庭人数：{{ item.memberCount }}人</div>
-            <div class="household-special" v-if="item.specialType">
-              {{ item.specialType }}
-            </div>
-          </div>
-        </div>
+      <div class="table-section">
+        <ExcelTable 
+          :data="householdList" 
+          :columns="householdColumns" 
+          export-filename="全村户籍.xlsx"
+        />
       </div>
     </div>
 
@@ -121,52 +112,22 @@
         <van-button type="primary" icon="plus" @click="showAddMigrantModal = true">新增务工记录</van-button>
       </div>
 
-      <div class="card-list">
-        <div v-for="item in migrantList" :key="item.id" class="migrant-card">
-          <div class="migrant-header">
-            <div class="migrant-avatar">{{ item.name.charAt(0) }}</div>
-            <div class="migrant-basic">
-              <div class="migrant-name">{{ item.name }}</div>
-              <div class="migrant-group">{{ item.group }}</div>
-            </div>
-          </div>
-          <div class="migrant-detail">
-            <div class="detail-row">
-              <span>务工城市</span>
-              <span>{{ item.city }}</span>
-            </div>
-            <div class="detail-row">
-              <span>联系电话</span>
-              <span>{{ item.phone }}</span>
-            </div>
-            <div class="detail-row">
-              <span>预计返乡</span>
-              <span>{{ item.returnDate }}</span>
-            </div>
-          </div>
-          <van-button v-if="isSelf(item)" type="primary" size="mini" @click="updateMigrant(item)">更新信息</van-button>
-        </div>
+      <div class="table-section">
+        <ExcelTable 
+          :data="migrantList" 
+          :columns="migrantColumns" 
+          export-filename="外出务工.xlsx"
+        />
       </div>
     </div>
 
     <div class="tab-content" v-if="activeTab === 'change'">
-      <div class="card-list">
-        <div v-for="item in changeList" :key="item.id" class="change-card">
-          <div class="change-header">
-            <span class="change-type" :class="item.type">{{ getChangeTypeLabel(item.type) }}</span>
-            <span class="change-time">{{ item.createTime }}</span>
-          </div>
-          <div class="change-info">
-            <div class="change-name">{{ item.name }}</div>
-            <div class="change-id">{{ item.idCard }}</div>
-          </div>
-          <div class="change-operator">
-            经办人：{{ item.operator }}
-          </div>
-          <div class="change-photos">
-            <img v-for="photo in item.photos" :key="photo" :src="photo" class="change-photo" />
-          </div>
-        </div>
+      <div class="table-section">
+        <ExcelTable 
+          :data="changeList" 
+          :columns="changeColumns" 
+          export-filename="户籍变动.xlsx"
+        />
       </div>
     </div>
 
@@ -194,6 +155,7 @@ import { useRouter } from 'vue-router'
 import { showToast, showDialog } from 'vant'
 import request from '../utils/request'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const activeTab = ref('my')
@@ -262,6 +224,30 @@ const ageColumns = [
 
 const editForm = ref({ field: '', newValue: '', reason: '' })
 const addForm = ref({ headName: '', group: '', memberCount: '' })
+
+const householdColumns = [
+  { key: 'group', title: '村组' },
+  { key: 'headName', title: '户主姓名' },
+  { key: 'memberCount', title: '家庭人数', formatter: (val) => `${val || 0}人` },
+  { key: 'special', title: '特殊标记', formatter: (val) => val ? '是' : '否' },
+  { key: 'specialType', title: '特殊类型', formatter: (val) => val || '无' }
+]
+
+const migrantColumns = [
+  { key: 'name', title: '姓名' },
+  { key: 'group', title: '村组' },
+  { key: 'city', title: '务工城市' },
+  { key: 'phone', title: '联系电话' },
+  { key: 'returnDate', title: '预计返乡' }
+]
+
+const changeColumns = [
+  { key: 'type', title: '变动类型', formatter: (val) => getChangeTypeLabel(val) },
+  { key: 'name', title: '姓名' },
+  { key: 'idCard', title: '身份证号' },
+  { key: 'createTime', title: '变动时间' },
+  { key: 'operator', title: '经办人' }
+]
 
 const onBack = () => { goBack(router) }
 
@@ -362,6 +348,10 @@ onMounted(() => {
 <style scoped>
 .population-page {
   padding-bottom: calc(env(safe-area-inset-bottom) + 60px);
+}
+
+.table-section {
+  margin: 10px 12px;
 }
 
 .card {

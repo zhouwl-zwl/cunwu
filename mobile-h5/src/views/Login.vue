@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="login-page" :class="{ loading: isLoading }">
     <div v-if="isLoading" class="loading-overlay">
       <div class="loading-star"></div>
@@ -356,8 +356,11 @@ const handleInputBlur = () => {
 onMounted(() => {
   setTimeout(() => {
     isLoading.value = false
-    router.push('/')
   }, 1200)
+  
+  setTimeout(() => {
+    router.push('/')
+  }, 2000)
   
   window.addEventListener('resize', handleResize)
 })

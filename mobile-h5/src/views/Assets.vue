@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="assets-page page-container">
     <van-nav-bar title="三资管理" left-arrow @click-left="handleBack" />
 
@@ -19,107 +19,32 @@
 
     <van-tabs v-model:active="activeTab" @change="onTabChange">
       <van-tab title="资产台账" name="asset">
-        <div class="filter-bar">
-          <van-search v-model="searchKeyword" placeholder="搜索资产名称" @search="onSearch" />
-        </div>
-
-        <div class="card-list">
-          <div v-for="asset in assets" :key="asset.id" class="asset-card" @click="goDetail(asset.id, 'asset')">
-            <div class="card-header">
-              <div class="card-icon">{{ asset.icon }}</div>
-              <div class="card-title">{{ asset.name }}</div>
-              <span class="card-tag" :class="asset.type">{{ getAssetType(asset.type) }}</span>
-            </div>
-            <div class="card-info">
-              <div class="info-row">
-                <span>资产编号</span>
-                <span>{{ asset.code }}</span>
-              </div>
-              <div class="info-row">
-                <span>原值</span>
-                <span class="highlight">¥{{ asset.value.toLocaleString() }}</span>
-              </div>
-              <div class="info-row">
-                <span>净值</span>
-                <span>¥{{ asset.netValue.toLocaleString() }}</span>
-              </div>
-              <div class="info-row">
-                <span>使用状态</span>
-                <span :class="{ warning: asset.status === '闲置' }">{{ asset.status }}</span>
-              </div>
-            </div>
-            <div class="card-footer">
-              <span>查看详情</span>
-              <van-icon name="arrow-right" size="16" color="#999" />
-            </div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="assets" 
+            :columns="assetColumns" 
+            export-filename="资产台账.xlsx"
+          />
         </div>
       </van-tab>
 
       <van-tab title="资金流水" name="fund">
-        <div class="filter-bar">
-          <van-picker :columns="fundTypeColumns" @confirm="onFundTypeSelect" placeholder="收支类型" />
-        </div>
-
-        <div class="card-list">
-          <div v-for="flow in fundFlows" :key="flow.id" class="fund-card">
-            <div class="card-header">
-              <div class="card-icon" :class="flow.type === 'INCOME' ? 'income' : 'expense'">
-                {{ flow.type === 'INCOME' ? '📥' : '📤' }}
-              </div>
-              <div class="card-info">
-                <div class="card-title">{{ flow.description }}</div>
-                <div class="card-subtitle">{{ flow.date }} · {{ flow.type === 'INCOME' ? '收入' : '支出' }}</div>
-              </div>
-              <div class="card-amount" :class="flow.type === 'INCOME' ? 'income' : 'expense'">
-                {{ flow.type === 'INCOME' ? '+' : '-' }}¥{{ flow.amount.toLocaleString() }}
-              </div>
-            </div>
-            <div class="card-detail">
-              <div class="detail-row">
-                <span>经手人</span>
-                <span>{{ flow.handler }}</span>
-              </div>
-              <div class="detail-row">
-                <span>备注</span>
-                <span>{{ flow.remark }}</span>
-              </div>
-            </div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="fundFlows" 
+            :columns="fundColumns" 
+            export-filename="资金流水.xlsx"
+          />
         </div>
       </van-tab>
 
       <van-tab title="资源台账" name="resource">
-        <div class="card-list">
-          <div v-for="resource in resources" :key="resource.id" class="resource-card" @click="goDetail(resource.id, 'resource')">
-            <div class="card-header">
-              <div class="card-icon">{{ resource.icon }}</div>
-              <div class="card-title">{{ resource.name }}</div>
-              <span class="card-tag" :class="resource.type">{{ getResourceType(resource.type) }}</span>
-            </div>
-            <div class="card-info">
-              <div class="info-row">
-                <span>面积</span>
-                <span class="highlight">{{ resource.area }}亩</span>
-              </div>
-              <div class="info-row">
-                <span>位置</span>
-                <span>{{ resource.location }}</span>
-              </div>
-              <div class="info-row">
-                <span>用途</span>
-                <span>{{ resource.useType }}</span>
-              </div>
-              <div class="info-row">
-                <span>承包状态</span>
-                <span :class="{ warning: resource.contractStatus === '未承包' }">{{ resource.contractStatus }}</span>
-              </div>
-            </div>
-            <div class="card-footer">
-              <span>查看详情</span>
-              <van-icon name="arrow-right" size="16" color="#999" />
-            </div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="resources" 
+            :columns="resourceColumns" 
+            export-filename="资源台账.xlsx"
+          />
         </div>
       </van-tab>
     </van-tabs>
@@ -136,6 +61,7 @@ import { useRouter } from 'vue-router'
 import { showToast } from 'vant'
 import request from '../utils/request'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const activeTab = ref('asset')
@@ -147,6 +73,33 @@ const fundTypeColumns = [
   { text: '全部', value: '' },
   { text: '收入', value: 'INCOME' },
   { text: '支出', value: 'EXPENSE' }
+]
+
+const assetColumns = [
+  { key: 'name', title: '资产名称' },
+  { key: 'type', title: '资产类型', formatter: (val) => getAssetType(val) },
+  { key: 'code', title: '资产编号' },
+  { key: 'value', title: '原值(元)', formatter: (val) => `¥${(val || 0).toLocaleString()}` },
+  { key: 'netValue', title: '净值(元)', formatter: (val) => `¥${(val || 0).toLocaleString()}` },
+  { key: 'status', title: '使用状态' }
+]
+
+const fundColumns = [
+  { key: 'description', title: '描述' },
+  { key: 'type', title: '类型', formatter: (val) => val === 'INCOME' ? '收入' : '支出' },
+  { key: 'amount', title: '金额(元)', formatter: (val) => `¥${(val || 0).toLocaleString()}` },
+  { key: 'date', title: '日期' },
+  { key: 'handler', title: '经手人' },
+  { key: 'remark', title: '备注' }
+]
+
+const resourceColumns = [
+  { key: 'name', title: '资源名称' },
+  { key: 'type', title: '资源类型', formatter: (val) => getResourceType(val) },
+  { key: 'area', title: '面积(亩)', formatter: (val) => `${val || 0}亩` },
+  { key: 'location', title: '位置' },
+  { key: 'useType', title: '用途' },
+  { key: 'contractStatus', title: '承包状态' }
 ]
 
 const statistics = reactive({
@@ -321,179 +274,8 @@ onMounted(() => {
   margin-top: 4px;
 }
 
-.filter-bar {
-  padding: 0 12px;
-  margin-bottom: 12px;
-}
-
-.card-list {
-  padding: 0 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.asset-card, .fund-card, .resource-card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 2px 12px rgba(210, 38, 48, 0.08);
-  border: 1px solid rgba(210, 38, 48, 0.1);
-}
-
-.card-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.card-icon {
-  font-size: 32px;
-  margin-right: 12px;
-}
-
-.card-icon.income {
-  color: #07c160;
-}
-
-.card-icon.expense {
-  color: #ee0a24;
-}
-
-.card-info {
-  flex: 1;
-}
-
-.card-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 4px;
-}
-
-.card-subtitle {
-  font-size: 12px;
-  color: #999;
-}
-
-.card-tag {
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 10px;
-}
-
-.card-tag.building {
-  background: rgba(33, 150, 243, 0.2);
-  color: #2196F3;
-}
-
-.card-tag.equipment {
-  background: rgba(156, 39, 176, 0.2);
-  color: #9C27B0;
-}
-
-.card-tag.vehicle {
-  background: rgba(255, 152, 0, 0.2);
-  color: #FF9800;
-}
-
-.card-tag.forest {
-  background: rgba(76, 175, 80, 0.2);
-  color: #4CAF50;
-}
-
-.card-tag.water {
-  background: rgba(33, 150, 243, 0.2);
-  color: #2196F3;
-}
-
-.card-tag.land {
-  background: rgba(255, 152, 0, 0.2);
-  color: #FF9800;
-}
-
-.card-amount {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.card-amount.income {
-  color: #07c160;
-}
-
-.card-amount.expense {
-  color: #ee0a24;
-}
-
-.card-info {
-  background: #fafafa;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 12px;
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
-  font-size: 13px;
-  border-bottom: 1px solid #eee;
-}
-
-.info-row:last-child {
-  border-bottom: none;
-}
-
-.info-row span:first-child {
-  color: #999;
-}
-
-.info-row span:last-child {
-  color: #333;
-}
-
-.info-row span:last-child.highlight {
-  color: #D22630;
-  font-weight: bold;
-}
-
-.info-row span:last-child.warning {
-  color: #F44336;
-}
-
-.card-detail {
-  background: #fafafa;
-  border-radius: 10px;
-  padding: 12px;
-}
-
-.detail-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
-  font-size: 13px;
-  border-bottom: 1px solid #eee;
-}
-
-.detail-row:last-child {
-  border-bottom: none;
-}
-
-.detail-row span:first-child {
-  color: #999;
-}
-
-.detail-row span:last-child {
-  color: #333;
-}
-
-.card-footer {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: #D22630;
+.table-section {
+  margin: 10px 12px;
 }
 
 .action-bar {

@@ -1,4 +1,4 @@
-﻿
+
 <template>
   <div class="safety-hazard-page page-container">
     <van-nav-bar title="安全隐患排查" left-arrow @click-left="onBack" />
@@ -28,37 +28,12 @@
       <van-button type="primary" icon="plus" @click="handleReport">上报隐患</van-button>
     </div>
 
-    <div class="card" v-for="item in list" :key="item.id" @click="handleItemClick(item)">
-      <div class="card-header">
-        <van-tag :type="getLevelType(item.level)" size="medium">{{ getLevelName(item.level) }}</van-tag>
-        <van-tag :type="getStatusType(item.status)" plain size="medium">{{ getStatusName(item.status) }}</van-tag>
-      </div>
-      <div class="card-title">{{ item.title || item.hazardType }}</div>
-      <div class="card-content">{{ item.description || item.content || '暂无描述' }}</div>
-      <div class="info-row">
-        <span class="label">隐患类型</span>
-        <span class="value">{{ item.hazardType || '—' }}</span>
-      </div>
-      <div class="info-row">
-        <span class="label">隐患位置</span>
-        <span class="value">{{ item.location || '—' }}</span>
-      </div>
-      <div class="info-row">
-        <span class="label">排查人</span>
-        <span class="value">{{ item.inspector || '—' }}</span>
-      </div>
-      <div class="info-row">
-        <span class="label">排查时间</span>
-        <span class="value">{{ formatTime(item.inspectDate || item.createTime) }}</span>
-      </div>
-      <div class="info-row" v-if="item.deadline">
-        <span class="label">整改期限</span>
-        <span class="value">{{ formatTime(item.deadline) }}</span>
-      </div>
-      <div class="info-row" v-if="item.remark">
-        <span class="label">整改说明</span>
-        <span class="value">{{ item.remark }}</span>
-      </div>
+    <div class="table-section">
+      <ExcelTable 
+        :data="list" 
+        :columns="columns" 
+        export-filename="安全隐患排查.xlsx"
+      />
     </div>
 
     <van-empty v-if="!loading && !list.length" description="暂无隐患记录" />
@@ -72,6 +47,7 @@ import { showToast } from 'vant'
 import request from '../utils/request'
 import { safetyHazardData } from '../data/mockData'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const list = ref([])
@@ -85,9 +61,10 @@ const onTypeChange = () => {
   fetchData()
 }
 
-const getLevelType = (level) => {
-  const map = { HIGH: 'danger', MEDIUM: 'warning', LOW: 'primary' }
-  return map[level] || 'default'
+const formatTime = (time) => {
+  if (!time) return '—'
+  const date = new Date(time)
+  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
 }
 
 const getLevelName = (level) => {
@@ -95,25 +72,19 @@ const getLevelName = (level) => {
   return map[level] || '一般隐患'
 }
 
-const getStatusType = (status) => {
-  const map = { PENDING: 'warning', PROCESSING: 'primary', DONE: 'success', REJECTED: 'danger' }
-  return map[status] || 'default'
-}
-
 const getStatusName = (status) => {
   const map = { PENDING: '待整改', PROCESSING: '整改中', DONE: '已整改', REJECTED: '已驳回' }
   return map[status] || '未知'
 }
 
-const formatTime = (time) => {
-  if (!time) return '—'
-  const date = new Date(time)
-  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
-}
-
-const handleItemClick = (item) => {
-  showToast(`查看：${item.title}`)
-}
+const columns = [
+  { key: 'level', title: '隐患等级', formatter: (val) => getLevelName(val) },
+  { key: 'hazardType', title: '隐患类型' },
+  { key: 'location', title: '隐患位置' },
+  { key: 'inspector', title: '排查人' },
+  { key: 'inspectDate', title: '排查时间', formatter: (val, row) => formatTime(val || row.createTime) },
+  { key: 'status', title: '状态', formatter: (val) => getStatusName(val) }
+]
 
 const handleReport = () => {
   showToast('功能开发中，敬请期待')
@@ -193,58 +164,7 @@ onMounted(() => {
   opacity: 0.9;
 }
 
-.card {
-  background: #fff;
+.table-section {
   margin: 10px 12px;
-  border-radius: 14px;
-  padding: 14px;
-  box-shadow: 0 2px 12px rgba(210, 38, 48, 0.08);
-  border: 1px solid rgba(210, 38, 48, 0.1);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.card-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.card-content {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #f5f5f5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 0;
-}
-
-.label {
-  color: #969799;
-  font-size: 13px;
-}
-
-.value {
-  color: #333;
-  font-size: 13px;
-  font-weight: 500;
-  text-align: right;
-  max-width: 60%;
 }
 </style>

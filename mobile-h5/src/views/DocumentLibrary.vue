@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="document-library-page page-container">
     <van-nav-bar title="文件资料库" left-arrow @click-left="onBack" />
 
@@ -12,6 +12,14 @@
       <van-tab title="工作汇报" name="工作汇报" />
       <van-tab title="其他" name="其他" />
     </van-tabs>
+
+    <div class="table-section">
+      <ExcelTable 
+        :data="tableData" 
+        :columns="columns" 
+        export-filename="文件资料库.xlsx"
+      />
+    </div>
 
     <div class="card" v-for="item in list" :key="item.id">
       <div class="card-row" @click="previewDoc(item)">
@@ -65,11 +73,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { showToast, showDialog } from 'vant'
 import request from '../utils/request'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const list = ref([])
@@ -117,6 +126,16 @@ const getDocIcon = (fileType) => {
   }
   return icons[fileType?.toLowerCase()] || '📄'
 }
+
+const columns = [
+  { key: 'title', title: '文件名称' },
+  { key: 'type', title: '类型', formatter: (val) => val || '其他' },
+  { key: 'fileType', title: '格式', formatter: (val) => getDocIcon(val) + ' ' + (val || '-') },
+  { key: 'fileSize', title: '大小', formatter: (val) => formatSize(val) },
+  { key: 'createTime', title: '创建时间', formatter: (val) => formatTime(val) }
+]
+
+const tableData = computed(() => list.value)
 
 const previewDoc = (item) => {
   currentPreviewItem.value = item
@@ -221,6 +240,10 @@ onMounted(() => {
 <style scoped>
 .document-library-page {
   padding-bottom: calc(env(safe-area-inset-bottom) + 60px);
+}
+
+.table-section {
+  margin: 10px 12px;
 }
 
 .card {

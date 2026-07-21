@@ -1,4 +1,4 @@
-﻿
+
 <template>
   <div class="task-supervision-page page-container">
     <van-nav-bar title="任务督办" left-arrow @click-left="onBack" />
@@ -30,34 +30,12 @@
       <van-button type="primary" icon="plus" @click="handleAdd">新增任务</van-button>
     </div>
 
-    <div class="card" v-for="item in list" :key="item.id" @click="handleItemClick(item)">
-      <div class="card-header">
-        <van-tag :type="getPriorityType(item.priority)" size="medium">{{ getPriorityName(item.priority) }}</van-tag>
-        <van-tag :type="getStatusType(item.status)" plain size="medium">{{ getStatusName(item.status) }}</van-tag>
-      </div>
-      <div class="card-title">{{ item.title }}</div>
-      <div class="card-content">{{ item.content || item.description || '暂无描述' }}</div>
-      <div class="info-row">
-        <span class="label">任务来源</span>
-        <span class="value">{{ item.source || '—' }}</span>
-      </div>
-      <div class="info-row">
-        <span class="label">责任人</span>
-        <span class="value">{{ item.assignee || '—' }}</span>
-      </div>
-      <div class="info-row">
-        <span class="label">下发时间</span>
-        <span class="value">{{ formatTime(item.createTime) }}</span>
-      </div>
-      <div class="info-row">
-        <span class="label">截止时间</span>
-        <span class="value" :class="{ 'text-danger': isOverdue(item) }">{{ formatTime(item.deadline) }}</span>
-      </div>
-      <div class="info-row" v-if="item.progress !== undefined">
-        <span class="label">完成进度</span>
-        <span class="value">{{ item.progress || 0 }}%</span>
-      </div>
-      <van-progress v-if="item.progress !== undefined" :percentage="item.progress || 0" color="#D22630" stroke-width="6" />
+    <div class="table-section">
+      <ExcelTable 
+        :data="list" 
+        :columns="columns" 
+        export-filename="任务督办.xlsx"
+      />
     </div>
 
     <van-empty v-if="!loading && !list.length" description="暂无督办任务" />
@@ -71,6 +49,7 @@ import { showToast } from 'vant'
 import request from '../utils/request'
 import { taskSupervisionData } from '../data/mockData'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const list = ref([])
@@ -78,15 +57,19 @@ const loading = ref(false)
 const activeType = ref('')
 const stat = reactive({ total: 0, overdue: 0, done: 0 })
 
+const columns = [
+  { key: 'title', title: '任务标题' },
+  { key: 'priority', title: '优先级', formatter: (val) => getPriorityName(val) },
+  { key: 'status', title: '状态', formatter: (val) => getStatusName(val) },
+  { key: 'assignee', title: '责任人', formatter: (val) => val || '—' },
+  { key: 'deadline', title: '截止时间', formatter: (val) => formatTime(val) },
+  { key: 'progress', title: '进度', formatter: (val) => `${val || 0}%` }
+]
+
 const onBack = () => { goBack(router) }
 
 const onTypeChange = () => {
   fetchData()
-}
-
-const getPriorityType = (priority) => {
-  const map = { URGENT: 'danger', HIGH: 'warning', NORMAL: 'primary', LOW: 'default' }
-  return map[priority] || 'default'
 }
 
 const getPriorityName = (priority) => {
@@ -94,29 +77,15 @@ const getPriorityName = (priority) => {
   return map[priority] || '一般'
 }
 
-const getStatusType = (status) => {
-  const map = { PENDING: 'warning', PROCESSING: 'primary', DONE: 'success', OVERDUE: 'danger' }
-  return map[status] || 'default'
-}
-
 const getStatusName = (status) => {
   const map = { PENDING: '待办理', PROCESSING: '进行中', DONE: '已完成', OVERDUE: '已逾期' }
   return map[status] || '未知'
-}
-
-const isOverdue = (item) => {
-  if (!item.deadline || item.status === 'DONE') return false
-  return new Date(item.deadline).getTime() < Date.now()
 }
 
 const formatTime = (time) => {
   if (!time) return '—'
   const date = new Date(time)
   return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
-}
-
-const handleItemClick = (item) => {
-  showToast(`查看：${item.title}`)
 }
 
 const handleAdd = () => {
@@ -197,63 +166,7 @@ onMounted(() => {
   opacity: 0.9;
 }
 
-.card {
-  background: #fff;
+.table-section {
   margin: 10px 12px;
-  border-radius: 14px;
-  padding: 14px;
-  box-shadow: 0 2px 12px rgba(210, 38, 48, 0.08);
-  border: 1px solid rgba(210, 38, 48, 0.1);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.card-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.card-content {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #f5f5f5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 0;
-}
-
-.label {
-  color: #969799;
-  font-size: 13px;
-}
-
-.value {
-  color: #333;
-  font-size: 13px;
-  font-weight: 500;
-  text-align: right;
-  max-width: 60%;
-}
-
-.text-danger {
-  color: #D22630;
-  font-weight: bold;
 }
 </style>

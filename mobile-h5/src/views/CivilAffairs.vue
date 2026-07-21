@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="civil-page page-container">
     <van-nav-bar title="民政社保" left-arrow @click-left="onBack" />
     
@@ -33,14 +33,12 @@
           <div class="header-title">📋 低保户台账</div>
           <van-button type="primary" size="mini" @click="showAddModal = true">新增</van-button>
         </div>
-        <div class="list">
-          <div v-for="item in lowIncomeList" :key="item.id" class="list-item">
-            <div class="item-info">
-              <div class="item-name">{{ item.name }}</div>
-              <div class="item-group">{{ item.group }} | {{ item.type }}</div>
-            </div>
-            <div class="item-status" :class="item.status">{{ item.status }}</div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="lowIncomeList" 
+            :columns="lowIncomeColumns" 
+            export-filename="低保户台账.xlsx"
+          />
         </div>
       </div>
     </div>
@@ -85,14 +83,12 @@
         <div class="card-header">
           <div class="header-title">📑 补贴发放记录</div>
         </div>
-        <div class="list">
-          <div v-for="item in subsidyRecords" :key="item.id" class="list-item">
-            <div class="item-info">
-              <div class="item-name">{{ item.type }}</div>
-              <div class="item-date">{{ item.date }}</div>
-            </div>
-            <div class="item-amount">¥{{ item.amount }}</div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="subsidyRecords" 
+            :columns="subsidyColumns" 
+            export-filename="补贴发放记录.xlsx"
+          />
         </div>
       </div>
     </div>
@@ -118,14 +114,12 @@
         <div class="card-header">
           <div class="header-title">📋 未认证人员名单</div>
         </div>
-        <div class="list">
-          <div v-for="item in uncertList" :key="item.id" class="list-item">
-            <div class="item-info">
-              <div class="item-name">{{ item.name }}</div>
-              <div class="item-group">{{ item.group }} | {{ item.age }}岁</div>
-            </div>
-            <van-button size="mini" @click="certForOthers(item)">代办认证</van-button>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="uncertList" 
+            :columns="uncertColumns" 
+            export-filename="未认证人员名单.xlsx"
+          />
         </div>
       </div>
     </div>
@@ -167,14 +161,12 @@
         <div class="card-header">
           <div class="header-title">📋 未缴费人员</div>
         </div>
-        <div class="list">
-          <div v-for="item in unpaidList" :key="item.id" class="list-item">
-            <div class="item-info">
-              <div class="item-name">{{ item.name }}</div>
-              <div class="item-group">{{ item.group }}</div>
-            </div>
-            <div class="item-tag">未缴费</div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="unpaidList" 
+            :columns="unpaidColumns" 
+            export-filename="未缴费人员.xlsx"
+          />
         </div>
       </div>
     </div>
@@ -205,14 +197,12 @@
         <div class="card-header">
           <div class="header-title">📋 我的救助记录</div>
         </div>
-        <div class="list">
-          <div v-for="item in assistanceRecords" :key="item.id" class="list-item">
-            <div class="item-info">
-              <div class="item-name">{{ item.reason }}</div>
-              <div class="item-date">{{ item.date }}</div>
-            </div>
-            <div class="item-status" :class="item.status">{{ item.status }}</div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="assistanceRecords" 
+            :columns="assistanceRecordsColumns" 
+            export-filename="我的救助记录.xlsx"
+          />
         </div>
       </div>
 
@@ -220,17 +210,12 @@
         <div class="card-header">
           <div class="header-title">📋 待审核申请</div>
         </div>
-        <div class="list">
-          <div v-for="item in pendingApplications" :key="item.id" class="list-item">
-            <div class="item-info">
-              <div class="item-name">{{ item.name }}</div>
-              <div class="item-detail">{{ item.reason }} | ¥{{ item.amount }}</div>
-            </div>
-            <div class="item-actions">
-              <van-button size="mini" type="primary" @click="approveApplication(item)">通过</van-button>
-              <van-button size="mini" type="danger" @click="rejectApplication(item)">驳回</van-button>
-            </div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="pendingApplications" 
+            :columns="pendingApplicationsColumns" 
+            export-filename="待审核申请.xlsx"
+          />
         </div>
       </div>
     </div>
@@ -252,6 +237,7 @@ import { useRouter } from 'vue-router'
 import { showToast } from 'vant'
 import request from '../utils/request'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const activeTab = ref('lowIncome')
@@ -318,6 +304,43 @@ const pendingApplications = ref([
 ])
 
 const applyForm = ref({ name: '', idCard: '', group: '', reason: '' })
+
+const lowIncomeColumns = [
+  { key: 'name', title: '姓名' },
+  { key: 'group', title: '村组' },
+  { key: 'type', title: '类型' },
+  { key: 'status', title: '状态' }
+]
+
+const subsidyColumns = [
+  { key: 'type', title: '补贴类型' },
+  { key: 'date', title: '发放日期' },
+  { key: 'amount', title: '金额', formatter: (val) => `¥${val}` }
+]
+
+const uncertColumns = [
+  { key: 'name', title: '姓名' },
+  { key: 'group', title: '村组' },
+  { key: 'age', title: '年龄', formatter: (val) => `${val}岁` }
+]
+
+const unpaidColumns = [
+  { key: 'name', title: '姓名' },
+  { key: 'group', title: '村组' }
+]
+
+const assistanceRecordsColumns = [
+  { key: 'reason', title: '救助事由' },
+  { key: 'date', title: '申请日期' },
+  { key: 'status', title: '状态' }
+]
+
+const pendingApplicationsColumns = [
+  { key: 'name', title: '申请人' },
+  { key: 'reason', title: '困难原因' },
+  { key: 'amount', title: '申请金额', formatter: (val) => `¥${val}` },
+  { key: 'status', title: '状态', formatter: (val) => val === 'pending' ? '待审核' : val }
+]
 
 const onBack = () => { goBack(router) }
 
@@ -617,5 +640,9 @@ onMounted(() => {
   justify-content: center;
   font-size: 24px;
   color: #999;
+}
+
+.table-section {
+  margin: 0 -14px -14px;
 }
 </style>

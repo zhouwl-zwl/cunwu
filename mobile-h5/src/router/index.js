@@ -1,4 +1,4 @@
-﻿import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   {
@@ -259,6 +259,222 @@ const routes = [
         component: () => import('../views/SearchResult.vue'),
         meta: {
           title: '搜索结果',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'party-member',
+        name: 'PartyMember',
+        component: () => import('../views/PartyMember.vue'),
+        meta: {
+          title: '党员管理',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'party-activity',
+        name: 'PartyActivity',
+        component: () => import('../views/PartyActivity.vue'),
+        meta: {
+          title: '党组织生活',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'party-building',
+        name: 'PartyBuilding',
+        component: () => import('../views/PartyBuilding.vue'),
+        meta: {
+          title: '党建工作',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'industry',
+        name: 'Industry',
+        component: () => import('../views/Industry.vue'),
+        meta: {
+          title: '产业发展',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'environment',
+        name: 'Environment',
+        component: () => import('../views/Environment.vue'),
+        meta: {
+          title: '环境整治',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'traffic-management',
+        name: 'TrafficManagement',
+        component: () => import('../views/TrafficManagement.vue'),
+        meta: {
+          title: '交通治理',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'rural-revitalization',
+        name: 'RuralRevitalization',
+        component: () => import('../views/RuralRevitalization.vue'),
+        meta: {
+          title: '乡村振兴',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'assets',
+        name: 'Assets',
+        component: () => import('../views/Assets.vue'),
+        meta: {
+          title: '三资管理',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'governance',
+        name: 'Governance',
+        component: () => import('../views/Governance.vue'),
+        meta: {
+          title: '村务治理',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'civil-affairs',
+        name: 'CivilAffairs',
+        component: () => import('../views/CivilAffairs.vue'),
+        meta: {
+          title: '民政事务',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'special-group',
+        name: 'SpecialGroup',
+        component: () => import('../views/SpecialGroup.vue'),
+        meta: {
+          title: '特殊群体',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'population',
+        name: 'Population',
+        component: () => import('../views/Population.vue'),
+        meta: {
+          title: '人口信息',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'fire-safety',
+        name: 'FireSafety',
+        component: () => import('../views/FireSafety.vue'),
+        meta: {
+          title: '消防安全',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'food-safety',
+        name: 'FoodSafety',
+        component: () => import('../views/FoodSafety.vue'),
+        meta: {
+          title: '食品安全',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'forest-fire',
+        name: 'ForestFire',
+        component: () => import('../views/ForestFire.vue'),
+        meta: {
+          title: '森林防火',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'road-traffic',
+        name: 'RoadTraffic',
+        component: () => import('../views/RoadTraffic.vue'),
+        meta: {
+          title: '道路交通',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'policy',
+        name: 'PolicyQuery',
+        component: () => import('../views/PolicyQuery.vue'),
+        meta: {
+          title: '政策查询',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'village-meeting',
+        name: 'VillageMeeting',
+        component: () => import('../views/VillageMeeting.vue'),
+        meta: {
+          title: '村会议事',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'project-engineering',
+        name: 'ProjectEngineering',
+        component: () => import('../views/ProjectEngineering.vue'),
+        meta: {
+          title: '工程项目',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'land-management',
+        name: 'LandManagement',
+        component: () => import('../views/LandManagement.vue'),
+        meta: {
+          title: '土地管理',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'media-promotion',
+        name: 'MediaPromotion',
+        component: () => import('../views/MediaPromotion.vue'),
+        meta: {
+          title: '媒体宣传',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'document-library',
+        name: 'DocumentLibrary',
+        component: () => import('../views/DocumentLibrary.vue'),
+        meta: {
+          title: '文档库',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'task-supervision',
+        name: 'TaskSupervision',
+        component: () => import('../views/TaskSupervision.vue'),
+        meta: {
+          title: '任务督办',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'material-warehouse',
+        name: 'MaterialWarehouse',
+        component: () => import('../views/MaterialWarehouse.vue'),
+        meta: {
+          title: '物资仓库',
           requireAuth: false
         }
       }

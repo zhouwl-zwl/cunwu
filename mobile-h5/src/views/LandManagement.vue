@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="land-page page-container">
     <van-nav-bar title="土地管理" left-arrow @click-left="onBack" />
     
@@ -15,31 +15,12 @@
           <div class="header-title">🏠 我的宅基地信息</div>
           <van-button type="primary" size="mini" @click="showApplyModal = true">申请翻建</van-button>
         </div>
-        <div class="info-grid">
-          <div class="info-item">
-            <span class="info-label">地块编号</span>
-            <span class="info-value">{{ homesteadInfo.code }}</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">面积</span>
-            <span class="info-value">{{ homesteadInfo.area }}㎡</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">四至</span>
-            <span class="info-value">{{ homesteadInfo.boundary }}</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">审批时间</span>
-            <span class="info-value">{{ homesteadInfo.approveTime }}</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">房屋层数</span>
-            <span class="info-value">{{ homesteadInfo.floors }}层</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">使用状态</span>
-            <span class="info-value">{{ homesteadInfo.status }}</span>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="homesteadData" 
+            :columns="homesteadColumns" 
+            export-filename="宅基地信息.xlsx"
+          />
         </div>
       </div>
 
@@ -76,18 +57,12 @@
         <div class="card-header">
           <div class="header-title">🌾 我的耕地信息</div>
         </div>
-        <div class="farmland-list">
-          <div v-for="item in farmlandList" :key="item.id" class="farmland-card">
-            <div class="farmland-header">
-              <span class="farmland-code">{{ item.code }}</span>
-              <span class="farmland-status">{{ item.status }}</span>
-            </div>
-            <div class="farmland-info">
-              <div class="farmland-area">面积：{{ item.area }}亩</div>
-              <div class="farmland-crop">种植作物：{{ item.crop }}</div>
-              <div class="farmland-subsidy">地力补贴：¥{{ item.subsidy }}/年</div>
-            </div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="farmlandList" 
+            :columns="farmlandColumns" 
+            export-filename="承包耕地信息.xlsx"
+          />
         </div>
       </div>
 
@@ -117,6 +92,19 @@
     <div class="tab-content" v-if="activeTab === 'transfer'">
       <div class="action-bar">
         <van-button type="primary" icon="plus" @click="showAddTransferModal = true">新增流转</van-button>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="header-title">📊 流转列表</div>
+        </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="transferList" 
+            :columns="transferColumns" 
+            export-filename="土地流转信息.xlsx"
+          />
+        </div>
       </div>
 
       <div class="card-list">
@@ -154,6 +142,19 @@
         <van-picker :columns="statusColumns" @confirm="onStatusSelect" placeholder="处理状态" />
       </div>
 
+      <div class="card">
+        <div class="card-header">
+          <div class="header-title">📊 违建列表</div>
+        </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="violationList" 
+            :columns="violationColumns" 
+            export-filename="违建巡查信息.xlsx"
+          />
+        </div>
+      </div>
+
       <div class="card-list">
         <div v-for="item in violationList" :key="item.id" class="violation-card" :class="{ urgent: item.riskLevel === 'high' }">
           <div class="violation-header">
@@ -183,11 +184,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { showToast, showDialog } from 'vant'
 import request from '../utils/request'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const activeTab = ref('homestead')
@@ -247,6 +249,43 @@ const statusColumns = [
 ]
 
 const applyForm = ref({ type: '', reason: '', floors: '' })
+
+const homesteadColumns = [
+  { key: 'code', title: '地块编号' },
+  { key: 'area', title: '面积', formatter: (val) => `${val}㎡` },
+  { key: 'boundary', title: '四至' },
+  { key: 'approveTime', title: '审批时间' },
+  { key: 'floors', title: '房屋层数', formatter: (val) => `${val}层` },
+  { key: 'status', title: '使用状态' }
+]
+
+const farmlandColumns = [
+  { key: 'code', title: '地块编号' },
+  { key: 'area', title: '面积', formatter: (val) => `${val}亩` },
+  { key: 'crop', title: '种植作物' },
+  { key: 'subsidy', title: '地力补贴', formatter: (val) => `¥${val}/年` },
+  { key: 'status', title: '状态' }
+]
+
+const transferColumns = [
+  { key: 'code', title: '流转编号' },
+  { key: 'seller', title: '出让方' },
+  { key: 'buyer', title: '受让方' },
+  { key: 'area', title: '面积', formatter: (val) => `${val}亩` },
+  { key: 'rent', title: '租金', formatter: (val) => `¥${val}/年` },
+  { key: 'term', title: '期限', formatter: (val, row) => `${row.startDate} - ${row.endDate}` },
+  { key: 'status', title: '状态', formatter: (val) => getStatusLabel(val) }
+]
+
+const violationColumns = [
+  { key: 'location', title: '位置' },
+  { key: 'area', title: '占地面积', formatter: (val) => `${val}㎡` },
+  { key: 'riskLevel', title: '风险等级', formatter: (val) => getRiskLabel(val) },
+  { key: 'discoverTime', title: '发现时间' },
+  { key: 'status', title: '处理状态', formatter: (val) => getViolationStatus(val) }
+]
+
+const homesteadData = computed(() => [homesteadInfo.value])
 
 const onBack = () => { goBack(router) }
 
@@ -334,6 +373,10 @@ onMounted(() => {
 <style scoped>
 .land-page {
   padding-bottom: calc(env(safe-area-inset-bottom) + 60px);
+}
+
+.table-section {
+  margin: 10px 0;
 }
 
 .card {

@@ -1,4 +1,4 @@
-﻿
+
 <template>
   <div class="party-member-page page-container">
     <van-nav-bar title="党员管理" left-arrow @click-left="onBack" />
@@ -24,41 +24,22 @@
     </van-tabs>
 
     <template v-if="activeTab === 'ledger'">
-      <div class="card" v-for="item in list" :key="item.id">
-        <div class="member-row">
-          <div class="member-avatar">
-            <span>{{ item.name ? item.name.charAt(0) : '党' }}</span>
-          </div>
-          <div class="member-info">
-            <div class="member-name">
-              {{ item.name }}
-              <van-tag :type="item.memberType === '正式党员' ? 'danger' : 'warning'" size="mini">
-                {{ item.memberType || '正式党员' }}
-              </van-tag>
-            </div>
-            <div class="member-meta">入党时间：{{ formatTime(item.joinDate) }}</div>
-            <div class="member-meta">所在支部：{{ item.branch || '村党支部' }}</div>
-            <div class="member-meta">职务：{{ item.position || '党员' }}</div>
-          </div>
-        </div>
+      <div class="table-section">
+        <ExcelTable 
+          :data="ledgerData" 
+          :columns="ledgerColumns" 
+          export-filename="党员台账.xlsx"
+        />
       </div>
     </template>
 
     <template v-else>
-      <div class="card" v-for="item in list" :key="item.id">
-        <div class="member-row">
-          <div class="member-avatar">
-            <span>{{ item.name ? item.name.charAt(0) : '党' }}</span>
-          </div>
-          <div class="member-info">
-            <div class="member-name">{{ item.name }}</div>
-            <div class="score-row">
-              <span class="score-label">年度积分：</span>
-              <span class="score-value">{{ item.score || 0 }}分</span>
-            </div>
-            <van-progress :percentage="getScorePercent(item.score)" :color="getScoreColor(item.score)" stroke-width="6" />
-          </div>
-        </div>
+      <div class="table-section">
+        <ExcelTable 
+          :data="scoreData" 
+          :columns="scoreColumns" 
+          export-filename="党员积分.xlsx"
+        />
       </div>
     </template>
 
@@ -67,10 +48,11 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import request from '../utils/request'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const list = ref([])
@@ -106,6 +88,25 @@ const getScoreColor = (score) => {
   if (s >= 60) return '#FFD700'
   return '#D22630'
 }
+
+const ledgerColumns = [
+  { key: 'name', title: '姓名' },
+  { key: 'memberType', title: '党员类型', formatter: (val) => val || '正式党员' },
+  { key: 'branch', title: '所在支部', formatter: (val) => val || '村党支部' },
+  { key: 'joinDate', title: '入党时间', formatter: (val) => formatTime(val) },
+  { key: 'position', title: '职务', formatter: (val) => val || '党员' }
+]
+
+const scoreColumns = [
+  { key: 'name', title: '姓名' },
+  { key: 'score', title: '年度积分', formatter: (val) => `${val || 0}分` },
+  { key: 'branch', title: '所在支部', formatter: (val) => val || '村党支部' },
+  { key: 'rank', title: '排名', formatter: (val) => `第${val || '-'}名` },
+  { key: 'level', title: '等级', formatter: (val) => val || '普通' }
+]
+
+const ledgerData = computed(() => list.value)
+const scoreData = computed(() => list.value)
 
 const fetchData = async () => {
   loading.value = true
@@ -171,60 +172,7 @@ onMounted(() => {
   opacity: 0.9;
 }
 
-.card {
-  background: #fff;
+.table-section {
   margin: 10px 12px;
-  border-radius: 14px;
-  padding: 14px;
-  box-shadow: 0 2px 12px rgba(210, 38, 48, 0.08);
-  border: 1px solid rgba(210, 38, 48, 0.1);
-}
-
-.member-row {
-  display: flex;
-  align-items: flex-start;
-}
-
-.member-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #D22630 0%, #B01A26 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: bold;
-  color: #FFD700;
-  margin-right: 12px;
-  flex-shrink: 0;
-}
-
-.member-info {
-  flex: 1;
-}
-
-.member-name {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 6px;
-}
-
-.member-meta {
-  font-size: 12px;
-  color: #969799;
-  margin-top: 4px;
-}
-
-.score-row {
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 8px;
-}
-
-.score-value {
-  color: #D22630;
-  font-weight: bold;
 }
 </style>

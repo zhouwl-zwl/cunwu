@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="environment-page page-container">
     <van-nav-bar title="人居环境" left-arrow @click-left="onBack" />
     
@@ -66,6 +66,14 @@
           </div>
         </div>
       </div>
+
+      <div class="table-section">
+        <ExcelTable 
+          :data="inspectionList" 
+          :columns="inspectionColumns" 
+          export-filename="环境巡查.xlsx"
+        />
+      </div>
     </div>
 
     <div class="tab-content" v-if="activeTab === 'courtyard'">
@@ -119,6 +127,14 @@
         <van-button type="primary" icon="plus" @click="showEvaluateModal = true">新增评比</van-button>
         <van-button type="warning" @click="generateNotice">生成公示</van-button>
       </div>
+
+      <div class="table-section">
+        <ExcelTable 
+          :data="courtyardList" 
+          :columns="courtyardColumns" 
+          export-filename="美丽庭院.xlsx"
+        />
+      </div>
     </div>
 
     <div class="tab-content" v-if="activeTab === 'cleaner'">
@@ -164,6 +180,14 @@
           </div>
         </div>
       </div>
+
+      <div class="table-section">
+        <ExcelTable 
+          :data="cleanerList" 
+          :columns="cleanerColumns" 
+          export-filename="保洁员管理.xlsx"
+        />
+      </div>
     </div>
 
     <div class="tab-content" v-if="activeTab === 'facility'">
@@ -205,6 +229,14 @@
       <div v-if="isOfficial" class="action-bar">
         <van-button type="primary" icon="plus" @click="showAddFacilityModal = true">新增设施</van-button>
       </div>
+
+      <div class="table-section">
+        <ExcelTable 
+          :data="facilityList" 
+          :columns="facilityColumns" 
+          export-filename="环卫设施.xlsx"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -215,6 +247,7 @@ import { useRouter } from 'vue-router'
 import { showToast } from 'vant'
 import request from '../utils/request'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const activeTab = ref('inspection')
@@ -268,6 +301,38 @@ const facilityList = ref([
   { id: 3, icon: '💧', type: 'sewage', location: '村污水处理站', quantity: 1, installDate: '2022-06-10', maintenanceStatus: '正常', lastMaintenance: '2024-01-10' },
   { id: 4, icon: '🚰', type: 'water', location: '第三村民组饮水点', quantity: 2, installDate: '2023-08-15', maintenanceStatus: '正常', lastMaintenance: '2024-01-05' }
 ])
+
+const inspectionColumns = [
+  { key: 'location', title: '位置' },
+  { key: 'type', title: '问题类型', formatter: (val) => getTypeLabel(val) },
+  { key: 'discoverTime', title: '发现时间' },
+  { key: 'status', title: '状态', formatter: (val) => getStatusLabel(val) },
+  { key: 'deadline', title: '整改时限' }
+]
+
+const courtyardColumns = [
+  { key: 'name', title: '庭院主人' },
+  { key: 'group', title: '村民组' },
+  { key: 'score', title: '评分', formatter: (val) => `${val || 0}分` },
+  { key: 'rank', title: '等级' },
+  { key: 'comment', title: '评语' }
+]
+
+const cleanerColumns = [
+  { key: 'name', title: '姓名' },
+  { key: 'phone', title: '电话' },
+  { key: 'area', title: '负责片区' },
+  { key: 'attendance', title: '本月出勤', formatter: (val) => `${val || 0}天` },
+  { key: 'salaryStatus', title: '工资状态' }
+]
+
+const facilityColumns = [
+  { key: 'location', title: '位置' },
+  { key: 'type', title: '设施类型', formatter: (val) => getFacilityType(val) },
+  { key: 'quantity', title: '数量', formatter: (val) => `${val || 0}个` },
+  { key: 'installDate', title: '安装时间' },
+  { key: 'maintenanceStatus', title: '维护状态' }
+]
 
 const onBack = () => { goBack(router) }
 
@@ -382,6 +447,10 @@ onMounted(() => {
 <style scoped>
 .environment-page {
   padding-bottom: calc(env(safe-area-inset-bottom) + 60px);
+}
+
+.table-section {
+  margin: 10px 12px;
 }
 
 .card {

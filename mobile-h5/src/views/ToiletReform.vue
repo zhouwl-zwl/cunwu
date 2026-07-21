@@ -1,7 +1,7 @@
-﻿
+
 <template>
   <div class="toilet-reform-page page-container">
-    <van-nav-bar title="厕所革命" left-arrow @click-left="onBack" />
+    <van-nav-bar title="交通治理" left-arrow @click-left="onBack" />
 
     <div class="stat-card">
       <div class="stat-item">
@@ -29,40 +29,12 @@
       <van-button type="primary" icon="plus" @click="handleApply">申请改造</van-button>
     </div>
 
-    <div class="card" v-for="item in list" :key="item.id" @click="handleItemClick(item)">
-      <div class="card-header">
-        <van-tag :type="getStatusType(item.status)" size="medium">{{ getStatusName(item.status) }}</van-tag>
-        <span class="card-time">申请：{{ formatTime(item.applyDate || item.createTime) }}</span>
-      </div>
-      <div class="card-title">{{ item.householder }} 户厕改造</div>
-      <div class="info-row">
-        <span class="label">户主姓名</span>
-        <span class="value">{{ item.householder || '—' }}</span>
-      </div>
-      <div class="info-row">
-        <span class="label">联系电话</span>
-        <span class="value">{{ item.phone || '—' }}</span>
-      </div>
-      <div class="info-row">
-        <span class="label">家庭住址</span>
-        <span class="value">{{ item.address || '—' }}</span>
-      </div>
-      <div class="info-row">
-        <span class="label">改造类型</span>
-        <span class="value">{{ item.reformType || '三格式化粪池' }}</span>
-      </div>
-      <div class="info-row">
-        <span class="label">补贴金额</span>
-        <span class="value highlight">{{ item.subsidy ? item.subsidy + '元' : '—' }}</span>
-      </div>
-      <div class="info-row" v-if="item.completeDate">
-        <span class="label">完工日期</span>
-        <span class="value">{{ formatTime(item.completeDate) }}</span>
-      </div>
-      <div class="info-row" v-if="item.remark">
-        <span class="label">备注</span>
-        <span class="value">{{ item.remark }}</span>
-      </div>
+    <div class="table-section">
+      <ExcelTable 
+        :data="tableData" 
+        :columns="toiletColumns" 
+        export-filename="厕所改造台账.xlsx"
+      />
     </div>
 
     <van-empty v-if="!loading && !list.length" description="暂无改造记录" />
@@ -70,12 +42,13 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { showToast } from 'vant'
 import request from '../utils/request'
 import { toiletReformData } from '../data/mockData'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const list = ref([])
@@ -89,11 +62,6 @@ const onTypeChange = () => {
   fetchData()
 }
 
-const getStatusType = (status) => {
-  const map = { PENDING: 'warning', CONSTRUCTING: 'primary', DONE: 'success', REJECTED: 'danger' }
-  return map[status] || 'default'
-}
-
 const getStatusName = (status) => {
   const map = { PENDING: '待改造', CONSTRUCTING: '施工中', DONE: '已完成', REJECTED: '已驳回' }
   return map[status] || '未知'
@@ -105,9 +73,18 @@ const formatTime = (time) => {
   return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
 }
 
-const handleItemClick = (item) => {
-  showToast(`查看：${item.householder} 户厕改造`)
-}
+const toiletColumns = [
+  { key: 'householder', title: '户主姓名' },
+  { key: 'phone', title: '联系电话' },
+  { key: 'address', title: '家庭住址' },
+  { key: 'reformType', title: '改造类型', formatter: (val) => val || '三格式化粪池' },
+  { key: 'status', title: '状态', formatter: (val) => getStatusName(val) },
+  { key: 'subsidy', title: '补贴金额', formatter: (val) => val ? val + '元' : '—' },
+  { key: 'applyDate', title: '申请日期', formatter: (val) => formatTime(val) },
+  { key: 'completeDate', title: '完工日期', formatter: (val) => formatTime(val) }
+]
+
+const tableData = computed(() => list.value)
 
 const handleApply = () => {
   showToast('功能开发中，敬请期待')
@@ -179,57 +156,7 @@ onMounted(() => {
   opacity: 0.9;
 }
 
-.card {
-  background: #fff;
+.table-section {
   margin: 10px 12px;
-  border-radius: 14px;
-  padding: 14px;
-  box-shadow: 0 2px 12px rgba(210, 38, 48, 0.08);
-  border: 1px solid rgba(210, 38, 48, 0.1);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #f5f5f5;
-}
-
-.card-time {
-  font-size: 12px;
-  color: #969799;
-}
-
-.card-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 0;
-}
-
-.label {
-  color: #969799;
-  font-size: 13px;
-}
-
-.value {
-  color: #333;
-  font-size: 13px;
-  font-weight: 500;
-  text-align: right;
-  max-width: 60%;
-}
-
-.value.highlight {
-  color: #D22630;
-  font-weight: bold;
 }
 </style>

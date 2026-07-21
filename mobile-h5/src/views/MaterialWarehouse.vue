@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="warehouse-page page-container">
     <van-nav-bar title="物资仓库" left-arrow @click-left="onBack" />
     
@@ -19,24 +19,12 @@
         <van-picker :columns="categoryColumns" @confirm="onCategorySelect" placeholder="物资分类" />
       </div>
 
-      <div class="card-list">
-        <div v-for="item in stockList" :key="item.id" class="stock-card" :class="{ warning: item.quantity <= item.threshold }">
-          <div class="stock-header">
-            <span class="stock-category">{{ item.category }}</span>
-            <span class="stock-location">{{ item.location }}</span>
-          </div>
-          <div class="stock-info">
-            <div class="stock-name">{{ item.name }}</div>
-            <div class="stock-spec">规格：{{ item.spec }}</div>
-          </div>
-          <div class="stock-quantity">
-            <span class="quantity-value">{{ item.quantity }}</span>
-            <span class="quantity-unit">{{ item.unit }}</span>
-          </div>
-          <div v-if="item.quantity <= item.threshold" class="stock-warning">
-            ⚠️ 库存不足，阈值：{{ item.threshold }}{{ item.unit }}
-          </div>
-        </div>
+      <div class="table-section">
+        <ExcelTable 
+          :data="stockList" 
+          :columns="stockColumns" 
+          export-filename="库存台账.xlsx"
+        />
       </div>
     </div>
 
@@ -66,19 +54,13 @@
           </van-form>
         </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="header-title">📋 入库记录</div>
-          </div>
-          <div class="list">
-            <div v-for="item in inboundRecords" :key="item.id" class="list-item">
-              <div class="item-info">
-                <div class="item-name">{{ item.name }}</div>
-                <div class="item-detail">{{ item.quantity }}{{ item.unit }} | {{ item.date }}</div>
-              </div>
-              <div class="item-operator">{{ item.operator }}</div>
-            </div>
-          </div>
+        <div class="table-section">
+          <div class="table-title">📋 入库记录</div>
+          <ExcelTable 
+            :data="inboundRecords" 
+            :columns="inboundColumns" 
+            export-filename="入库记录.xlsx"
+          />
         </div>
       </div>
     </div>
@@ -96,34 +78,22 @@
         </van-form>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="header-title">📋 我的领用记录</div>
-        </div>
-        <div class="list">
-          <div v-for="item in borrowRecords" :key="item.id" class="list-item">
-            <div class="item-info">
-              <div class="item-name">{{ item.name }}</div>
-              <div class="item-detail">{{ item.quantity }}{{ item.unit }} | {{ item.purpose }}</div>
-            </div>
-            <div class="item-status" :class="item.status">{{ item.status }}</div>
-          </div>
-        </div>
+      <div class="table-section">
+        <div class="table-title">📋 我的领用记录</div>
+        <ExcelTable 
+          :data="borrowRecords" 
+          :columns="borrowColumns" 
+          export-filename="领用记录.xlsx"
+        />
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="header-title">📋 待归还记录</div>
-        </div>
-        <div class="list">
-          <div v-for="item in pendingReturn" :key="item.id" class="list-item">
-            <div class="item-info">
-              <div class="item-name">{{ item.name }} - {{ item.borrower }}</div>
-              <div class="item-detail">{{ item.quantity }}{{ item.unit }} | {{ item.borrowDate }}</div>
-            </div>
-            <van-button size="mini" @click="confirmReturn(item)">确认归还</van-button>
-          </div>
-        </div>
+      <div class="table-section">
+        <div class="table-title">📋 待归还记录</div>
+        <ExcelTable 
+          :data="pendingReturn" 
+          :columns="returnColumns" 
+          export-filename="待归还记录.xlsx"
+        />
       </div>
     </div>
 
@@ -139,19 +109,13 @@
         </van-form>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="header-title">📋 盘点记录</div>
-        </div>
-        <div class="list">
-          <div v-for="item in inventoryRecords" :key="item.id" class="list-item">
-            <div class="item-info">
-              <div class="item-name">{{ item.month }}月盘点</div>
-              <div class="item-detail">{{ item.status }} | {{ item.date }}</div>
-            </div>
-            <div v-if="item.profitLoss" class="item-profit">{{ item.profitLoss }}</div>
-          </div>
-        </div>
+      <div class="table-section">
+        <div class="table-title">📋 盘点记录</div>
+        <ExcelTable 
+          :data="inventoryRecords" 
+          :columns="inventoryColumns" 
+          export-filename="盘点记录.xlsx"
+        />
       </div>
     </div>
 
@@ -168,19 +132,13 @@
         </van-form>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="header-title">📋 报废记录</div>
-        </div>
-        <div class="list">
-          <div v-for="item in scrapRecords" :key="item.id" class="list-item">
-            <div class="item-info">
-              <div class="item-name">{{ item.name }}</div>
-              <div class="item-detail">{{ item.quantity }}{{ item.unit }} | {{ item.reason }}</div>
-            </div>
-            <div class="item-status" :class="item.status">{{ item.status }}</div>
-          </div>
-        </div>
+      <div class="table-section">
+        <div class="table-title">📋 报废记录</div>
+        <ExcelTable 
+          :data="scrapRecords" 
+          :columns="scrapColumns" 
+          export-filename="报废记录.xlsx"
+        />
       </div>
     </div>
   </div>
@@ -192,6 +150,7 @@ import { useRouter } from 'vue-router'
 import { showToast } from 'vant'
 import request from '../utils/request'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const activeTab = ref('stock')
@@ -204,6 +163,55 @@ const categoryColumns = [
   { text: '保洁工具', value: '保洁工具' },
   { text: '办公用品', value: '办公用品' },
   { text: '应急物资', value: '应急物资' }
+]
+
+const stockColumns = [
+  { key: 'name', title: '物资名称' },
+  { key: 'spec', title: '规格型号' },
+  { key: 'category', title: '物资分类' },
+  { key: 'location', title: '存放位置' },
+  { key: 'quantity', title: '库存数量' },
+  { key: 'unit', title: '计量单位' },
+  { key: 'threshold', title: '库存阈值' }
+]
+
+const inboundColumns = [
+  { key: 'name', title: '物资名称' },
+  { key: 'quantity', title: '入库数量' },
+  { key: 'unit', title: '计量单位' },
+  { key: 'date', title: '入库日期' },
+  { key: 'operator', title: '操作人' }
+]
+
+const borrowColumns = [
+  { key: 'name', title: '物资名称' },
+  { key: 'quantity', title: '领用数量' },
+  { key: 'unit', title: '计量单位' },
+  { key: 'purpose', title: '领用用途' },
+  { key: 'status', title: '状态' }
+]
+
+const returnColumns = [
+  { key: 'name', title: '物资名称' },
+  { key: 'borrower', title: '领用人' },
+  { key: 'quantity', title: '数量' },
+  { key: 'unit', title: '单位' },
+  { key: 'borrowDate', title: '领用日期' }
+]
+
+const inventoryColumns = [
+  { key: 'month', title: '盘点月份' },
+  { key: 'status', title: '状态' },
+  { key: 'date', title: '盘点日期' },
+  { key: 'profitLoss', title: '盘盈盘亏', formatter: (val) => val || '无' }
+]
+
+const scrapColumns = [
+  { key: 'name', title: '物资名称' },
+  { key: 'quantity', title: '报废数量' },
+  { key: 'unit', title: '计量单位' },
+  { key: 'reason', title: '报废原因' },
+  { key: 'status', title: '状态' }
 ]
 
 const stockList = ref([
@@ -323,6 +331,17 @@ onMounted(() => {
 <style scoped>
 .warehouse-page {
   padding-bottom: calc(env(safe-area-inset-bottom) + 60px);
+}
+
+.table-section {
+  margin: 10px 12px;
+}
+
+.table-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: #D22630;
+  margin-bottom: 12px;
 }
 
 .card {

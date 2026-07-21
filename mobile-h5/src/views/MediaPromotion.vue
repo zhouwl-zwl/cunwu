@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="media-page page-container">
     <van-nav-bar title="媒体宣传" left-arrow @click-left="onBack" />
     
@@ -10,22 +10,12 @@
     </van-tabs>
 
     <div class="tab-content" v-if="activeTab === 'news'">
-      <div class="card-list">
-        <div v-for="item in newsList" :key="item.id" class="news-card" @click="viewNewsDetail(item)">
-          <div class="news-header">
-            <span class="news-tag">{{ item.tag }}</span>
-            <span class="news-time">{{ item.date }}</span>
-          </div>
-          <div class="news-title">{{ item.title }}</div>
-          <div class="news-desc">{{ item.description }}</div>
-          <div class="news-footer">
-            <div class="news-author">作者：{{ item.author }}</div>
-            <div class="news-stats">
-              <span>👍 {{ item.likes }}</span>
-              <span>💬 {{ item.comments }}</span>
-            </div>
-          </div>
-        </div>
+      <div class="table-section">
+        <ExcelTable 
+          :data="newsData" 
+          :columns="newsColumns" 
+          export-filename="村内新闻.xlsx"
+        />
       </div>
     </div>
 
@@ -34,11 +24,12 @@
         <van-search v-model="searchKeyword" placeholder="搜索图片" @search="onSearch" />
       </div>
 
-      <div class="gallery-grid">
-        <div v-for="item in galleryList" :key="item.id" class="gallery-item" @click="previewImage(item)">
-          <img :src="item.url" :alt="item.name" />
-          <div class="gallery-overlay">{{ item.name }}</div>
-        </div>
+      <div class="table-section">
+        <ExcelTable 
+          :data="galleryData" 
+          :columns="galleryColumns" 
+          export-filename="素材图库.xlsx"
+        />
       </div>
 
       <div v-if="isOfficial" class="upload-section">
@@ -47,25 +38,12 @@
     </div>
 
     <div class="tab-content" v-if="activeTab === 'policy'">
-      <div class="card-list">
-        <div v-for="item in policyList" :key="item.id" class="policy-card">
-          <div class="policy-header">
-            <span class="policy-tag">{{ item.type }}</span>
-            <span class="policy-time">{{ item.date }}</span>
-          </div>
-          <div class="policy-title">{{ item.title }}</div>
-          <div class="policy-info">
-            <div class="info-row">
-              <span>参与人数</span>
-              <span>{{ item.participants }}人</span>
-            </div>
-            <div class="info-row">
-              <span>宣传物料</span>
-              <span>{{ item.materials }}份</span>
-            </div>
-          </div>
-          <van-button size="mini" @click="viewPolicyDetail(item)">查看详情</van-button>
-        </div>
+      <div class="table-section">
+        <ExcelTable 
+          :data="policyData" 
+          :columns="policyColumns" 
+          export-filename="政策宣传.xlsx"
+        />
       </div>
 
       <div v-if="isOfficial" class="action-bar">
@@ -99,14 +77,12 @@
         <div class="card-header">
           <div class="header-title">📋 投稿记录</div>
         </div>
-        <div class="list">
-          <div v-for="item in submissionRecords" :key="item.id" class="list-item">
-            <div class="item-info">
-              <div class="item-name">{{ item.title }}</div>
-              <div class="item-detail">{{ item.media }} | {{ item.date }}</div>
-            </div>
-            <div class="item-status" :class="item.status">{{ item.status }}</div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="submissionData" 
+            :columns="submissionColumns" 
+            export-filename="投稿记录.xlsx"
+          />
         </div>
       </div>
     </div>
@@ -114,11 +90,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { showToast } from 'vant'
 import request from '../utils/request'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const activeTab = ref('news')
@@ -152,6 +129,40 @@ const submissionRecords = ref([
   { id: 1, title: '罗卜田乡环境整治成效显著', media: '县融媒体中心', date: '2024-01-20', status: '已刊登' },
   { id: 2, title: '志愿者服务暖人心', media: '乡镇公众号', date: '2024-01-15', status: '已刊登' }
 ])
+
+const newsColumns = [
+  { key: 'title', title: '标题' },
+  { key: 'tag', title: '标签', formatter: (val) => val || '普通' },
+  { key: 'date', title: '日期' },
+  { key: 'author', title: '作者', formatter: (val) => val || '-' },
+  { key: 'likes', title: '点赞数', formatter: (val) => `${val || 0}` },
+  { key: 'comments', title: '评论数', formatter: (val) => `${val || 0}` }
+]
+
+const galleryColumns = [
+  { key: 'name', title: '名称' },
+  { key: 'url', title: '图片地址', formatter: (val) => val || '-' }
+]
+
+const policyColumns = [
+  { key: 'title', title: '活动名称' },
+  { key: 'type', title: '类型', formatter: (val) => val || '宣传活动' },
+  { key: 'date', title: '日期' },
+  { key: 'participants', title: '参与人数', formatter: (val) => `${val || 0}人` },
+  { key: 'materials', title: '宣传物料', formatter: (val) => `${val || 0}份` }
+]
+
+const submissionColumns = [
+  { key: 'title', title: '稿件标题' },
+  { key: 'media', title: '投稿媒体', formatter: (val) => val || '-' },
+  { key: 'date', title: '投稿日期' },
+  { key: 'status', title: '状态' }
+]
+
+const newsData = computed(() => newsList.value)
+const galleryData = computed(() => galleryList.value)
+const policyData = computed(() => policyList.value)
+const submissionData = computed(() => submissionRecords.value)
 
 const onBack = () => { goBack(router) }
 
@@ -421,6 +432,10 @@ onMounted(() => {
 
 .action-bar .van-button {
   flex: 1;
+}
+
+.table-section {
+  margin: 10px 12px;
 }
 
 .list {

@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="governance-page page-container">
     <van-nav-bar title="综治调解" left-arrow @click-left="handleBack" />
 
@@ -24,87 +24,32 @@
           <van-picker :columns="typeColumns" @confirm="onTypeSelect" placeholder="纠纷类型" />
         </div>
 
-        <div class="card-list">
-          <div v-for="item in disputeList" :key="item.id" class="dispute-card" :class="{ urgent: item.status === 'pending' }" @click="goDetail(item.id)">
-            <div class="card-header">
-              <span class="card-tag" :class="item.type">{{ getTypeLabel(item.type) }}</span>
-              <span class="card-time">{{ item.createTime }}</span>
-            </div>
-            <div class="card-title">{{ item.title }}</div>
-            <div class="card-desc">{{ item.description }}</div>
-            <div class="card-info">
-              <div class="info-item">
-                <span>当事人</span>
-                <span>{{ item.parties }}</span>
-              </div>
-              <div class="info-item">
-                <span>调解员</span>
-                <span>{{ item.mediator }}</span>
-              </div>
-            </div>
-            <div class="card-footer">
-              <span class="status-tag" :class="item.status">{{ getStatusLabel(item.status) }}</span>
-              <span class="footer-text">查看详情</span>
-            </div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="disputeList" 
+            :columns="disputeColumns" 
+            export-filename="矛盾纠纷.xlsx"
+          />
         </div>
       </van-tab>
 
       <van-tab title="平安建设" name="safety">
-        <div class="card-list">
-          <div v-for="item in safetyList" :key="item.id" class="safety-card">
-            <div class="card-header">
-              <div class="card-icon">{{ item.icon }}</div>
-              <div class="card-title">{{ item.title }}</div>
-            </div>
-            <div class="card-info">
-              <div class="info-row">
-                <span>活动时间</span>
-                <span>{{ item.date }}</span>
-              </div>
-              <div class="info-row">
-                <span>参与人数</span>
-                <span>{{ item.participants }}人</span>
-              </div>
-              <div class="info-row">
-                <span>活动地点</span>
-                <span>{{ item.location }}</span>
-              </div>
-            </div>
-            <div class="card-desc">{{ item.description }}</div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="safetyList" 
+            :columns="safetyColumns" 
+            export-filename="平安建设.xlsx"
+          />
         </div>
       </van-tab>
 
       <van-tab title="网格管理" name="grid">
-        <div class="card-list">
-          <div v-for="item in gridList" :key="item.id" class="grid-card">
-            <div class="card-header">
-              <div class="card-avatar">{{ item.name.charAt(0) }}</div>
-              <div class="card-info">
-                <div class="card-title">{{ item.name }}</div>
-                <div class="card-subtitle">{{ item.gridName }}网格员</div>
-              </div>
-              <span class="card-tag" :class="item.status">{{ item.status }}</span>
-            </div>
-            <div class="card-detail">
-              <div class="detail-row">
-                <span>负责片区</span>
-                <span>{{ item.area }}</span>
-              </div>
-              <div class="detail-row">
-                <span>联系电话</span>
-                <span>{{ item.phone }}</span>
-              </div>
-              <div class="detail-row">
-                <span>管理户数</span>
-                <span>{{ item.households }}户</span>
-              </div>
-            </div>
-            <div class="card-actions">
-              <van-button size="mini" @click="callPhone(item.phone)">联系</van-button>
-            </div>
-          </div>
+        <div class="table-section">
+          <ExcelTable 
+            :data="gridList" 
+            :columns="gridColumns" 
+            export-filename="网格管理.xlsx"
+          />
         </div>
       </van-tab>
     </van-tabs>
@@ -121,6 +66,7 @@ import { useRouter } from 'vue-router'
 import { showToast } from 'vant'
 import request from '../utils/request'
 import { goBack } from '../utils/index'
+import ExcelTable from '../components/ExcelTable.vue'
 
 const router = useRouter()
 const activeTab = ref('dispute')
@@ -173,13 +119,31 @@ const handleBack = () => {
   goBack(router)
 }
 
-const goDetail = (id) => {
-  router.push(`/governance-detail/${id}`)
-}
+const disputeColumns = [
+  { key: 'title', title: '纠纷标题' },
+  { key: 'type', title: '纠纷类型', formatter: (val) => getTypeLabel(val) },
+  { key: 'parties', title: '当事人' },
+  { key: 'mediator', title: '调解员' },
+  { key: 'createTime', title: '创建时间' },
+  { key: 'status', title: '状态', formatter: (val) => getStatusLabel(val) }
+]
 
-const callPhone = (phone) => {
-  showToast(`拨打电话: ${phone}`)
-}
+const safetyColumns = [
+  { key: 'title', title: '活动名称' },
+  { key: 'date', title: '活动时间' },
+  { key: 'participants', title: '参与人数', formatter: (val) => `${val || 0}人` },
+  { key: 'location', title: '活动地点' },
+  { key: 'description', title: '活动描述' }
+]
+
+const gridColumns = [
+  { key: 'name', title: '姓名' },
+  { key: 'gridName', title: '网格名称' },
+  { key: 'area', title: '负责片区' },
+  { key: 'phone', title: '联系电话' },
+  { key: 'households', title: '管理户数', formatter: (val) => `${val || 0}户` },
+  { key: 'status', title: '状态' }
+]
 
 const onTabChange = () => {
   fetchData()
@@ -241,6 +205,10 @@ onMounted(() => {
   background: #FDF5F5;
 }
 
+.table-section {
+  margin: 10px 12px;
+}
+
 .stats-card {
   display: flex;
   background: #fff;
@@ -276,221 +244,6 @@ onMounted(() => {
 
 .filter-bar .van-picker {
   flex: 1;
-}
-
-.card-list {
-  padding: 0 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.dispute-card, .safety-card, .grid-card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 2px 12px rgba(210, 38, 48, 0.08);
-  border: 1px solid rgba(210, 38, 48, 0.1);
-}
-
-.dispute-card.urgent {
-  border-left: 4px solid #F44336;
-}
-
-.card-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.card-icon {
-  font-size: 32px;
-  margin-right: 12px;
-}
-
-.card-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #607D8B, #455A64);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: bold;
-  margin-right: 12px;
-}
-
-.card-info {
-  flex: 1;
-}
-
-.card-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 4px;
-}
-
-.card-subtitle {
-  font-size: 12px;
-  color: #999;
-}
-
-.card-tag {
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 10px;
-}
-
-.card-tag.neighbor {
-  background: rgba(255, 152, 0, 0.2);
-  color: #FF9800;
-}
-
-.card-tag.land {
-  background: rgba(76, 175, 80, 0.2);
-  color: #4CAF50;
-}
-
-.card-tag.family {
-  background: rgba(33, 150, 243, 0.2);
-  color: #2196F3;
-}
-
-.card-tag.economic {
-  background: rgba(156, 39, 176, 0.2);
-  color: #9C27B0;
-}
-
-.card-tag.在职 {
-  background: rgba(76, 175, 80, 0.2);
-  color: #4CAF50;
-}
-
-.card-time {
-  font-size: 12px;
-  color: #999;
-  margin-left: auto;
-}
-
-.card-desc {
-  font-size: 13px;
-  color: #666;
-  line-height: 1.5;
-  margin-bottom: 12px;
-}
-
-.card-info {
-  background: #fafafa;
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 12px;
-}
-
-.info-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 0;
-  font-size: 13px;
-}
-
-.info-item span:first-child {
-  color: #999;
-}
-
-.info-item span:last-child {
-  color: #333;
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
-  font-size: 13px;
-  border-bottom: 1px solid #eee;
-}
-
-.info-row:last-child {
-  border-bottom: none;
-}
-
-.info-row span:first-child {
-  color: #999;
-}
-
-.info-row span:last-child {
-  color: #333;
-}
-
-.card-detail {
-  background: #fafafa;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 12px;
-}
-
-.detail-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
-  font-size: 13px;
-  border-bottom: 1px solid #eee;
-}
-
-.detail-row:last-child {
-  border-bottom: none;
-}
-
-.detail-row span:first-child {
-  color: #999;
-}
-
-.detail-row span:last-child {
-  color: #333;
-}
-
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.status-tag {
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 10px;
-}
-
-.status-tag.pending {
-  background: rgba(255, 215, 0, 0.2);
-  color: #DAA520;
-}
-
-.status-tag.processing {
-  background: rgba(33, 150, 243, 0.2);
-  color: #2196F3;
-}
-
-.status-tag.resolved {
-  background: rgba(76, 175, 80, 0.2);
-  color: #4CAF50;
-}
-
-.status-tag.failed {
-  background: rgba(244, 67, 54, 0.2);
-  color: #F44336;
-}
-
-.footer-text {
-  font-size: 13px;
-  color: #D22630;
-}
-
-.card-actions {
-  display: flex;
-  justify-content: flex-end;
 }
 
 .action-bar {
