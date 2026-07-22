@@ -1,0 +1,8 @@
+{
+  "name": "cunwu",
+  "version": "1.0.0",
+  "description": "村级智慧村务平台",
+  "scripts": {
+    "build": "cd mobile-h5 && npm install && npm run build"
+  }
+}
