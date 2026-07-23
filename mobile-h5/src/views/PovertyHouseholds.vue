@@ -21,7 +21,36 @@
           <div class="stat-label">帮扶责任人</div>
         </div>
       </div>
-      <van-table :columns="columns" :data="filteredData" row-key="id" sticky />
+      <div class="table-wrapper">
+        <div class="table-header">
+          <div class="th col-id">序号</div>
+          <div class="th col-name">户主姓名</div>
+          <div class="th col-address">地址</div>
+          <div class="th col-phone">电话</div>
+          <div class="th col-members">人数</div>
+          <div class="th col-year">脱贫年份</div>
+          <div class="th col-helper">帮扶责任人</div>
+        </div>
+        <div class="table-body">
+          <div 
+            v-for="item in filteredData" 
+            :key="item.id" 
+            class="table-row"
+            :class="{ 'row-even': item.id % 2 === 0 }"
+          >
+            <div class="td col-id">{{ item.id }}</div>
+            <div class="td col-name">{{ item.name }}</div>
+            <div class="td col-address">{{ item.address }}</div>
+            <div class="td col-phone">{{ item.phone }}</div>
+            <div class="td col-members">{{ item.members }}</div>
+            <div class="td col-year">{{ item.year }}</div>
+            <div class="td col-helper">{{ item.helper }}</div>
+          </div>
+        </div>
+      </div>
+      <div v-if="filteredData.length === 0" class="empty-tip">
+        <van-empty description="暂无数据" />
+      </div>
     </div>
   </div>
 </template>
@@ -86,16 +115,6 @@ const povertyHouseholds = ref([
   { id: 50, name: '范雨', address: 'XX省XX市XX县实干村第5组13号', phone: '15268106249', members: 1, year: 2018, helper: '毛丹晨' }
 ])
 
-const columns = [
-  { title: '序号', dataIndex: 'id', width: 60 },
-  { title: '户主姓名', dataIndex: 'name', width: 100 },
-  { title: '地址', dataIndex: 'address', ellipsis: true },
-  { title: '电话', dataIndex: 'phone', width: 120 },
-  { title: '人数', dataIndex: 'members', width: 60 },
-  { title: '脱贫年份', dataIndex: 'year', width: 80 },
-  { title: '帮扶责任人', dataIndex: 'helper', width: 100 }
-]
-
 const filteredData = computed(() => {
   if (!searchValue.value) return povertyHouseholds.value
   const search = searchValue.value.toLowerCase()
@@ -131,6 +150,7 @@ onMounted(() => {
 .page-container {
   min-height: 100vh;
   background: #f5f5f5;
+  padding-bottom: 60px;
 }
 
 .content-wrapper {
@@ -161,5 +181,78 @@ onMounted(() => {
   font-size: 12px;
   opacity: 0.9;
   margin-top: 4px;
+}
+
+.table-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.table-header {
+  display: flex;
+  background: #4CAF50;
+  padding: 12px 8px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.th {
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-body {
+  max-height: calc(100vh - 320px);
+  overflow-y: auto;
+}
+
+.table-row {
+  display: flex;
+  padding: 10px 8px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-row:hover {
+  background-color: #f9f9f9;
+}
+
+.table-row.row-even {
+  background-color: #fafafa;
+}
+
+.td {
+  font-size: 11px;
+  color: #333;
+  text-align: center;
+  word-break: break-all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-id { width: 50px; }
+.col-name { width: 80px; }
+.col-address { flex: 1; min-width: 120px; }
+.col-phone { width: 100px; }
+.col-members { width: 45px; }
+.col-year { width: 60px; }
+.col-helper { width: 80px; }
+
+.empty-tip {
+  padding: 40px 0;
+  text-align: center;
 }
 </style>
