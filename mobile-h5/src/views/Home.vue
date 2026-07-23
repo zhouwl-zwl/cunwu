@@ -114,32 +114,6 @@
       </div>
     </div>
 
-    <div class="module-card animate-slide-up" style="animation-delay: 0.1s">
-      <div class="module-header">
-        <div class="header-left">
-          <van-icon name="bell-o" size="20" color="#D22630" />
-          <h3>最新通知</h3>
-        </div>
-        <a href="/notifications" class="more-link">全部 →</a>
-      </div>
-      <div class="notifications-list">
-        <div 
-          v-for="notice in notifications" 
-          :key="notice.id" 
-          class="notification-item ripple"
-          @click="goPage(`/notification-detail/${notice.id}`)"
-        >
-          <div class="notification-tag" :class="notice.isTop === 1 ? 'top-tag' : 'type-tag'">
-            {{ notice.isTop === 1 ? '置顶' : notice.type }}
-          </div>
-          <div class="notification-content">
-            <div class="notification-title">{{ notice.title }}</div>
-            <div class="notification-time">{{ formatTime(notice.createTime) }}</div>
-          </div>
-          <van-icon name="arrow-right" size="20" color="#ccc" />
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -154,7 +128,6 @@ const route = useRoute()
 
 const searchKeyword = ref('')
 const villageInfo = ref(null)
-const notifications = ref([])
 
 const villages = ref([
   { id: 1, name: '新店村', icon: 'home-o', color: 'linear-gradient(135deg, #D22630 0%, #B01A26 100%)', desc: '21个村民组，1568人' },
@@ -208,17 +181,10 @@ const showEmergency = () => {
   }).catch(() => {})
 }
 
-const formatTime = (time) => {
-  if (!time) return ''
-  const date = new Date(time)
-  return `${date.getMonth() + 1}月${date.getDate()}日`
-}
-
 const fetchHomeData = async () => {
   try {
     const res = await request.get('/public/home-data')
     villageInfo.value = res.villageInfo || res.data?.villageInfo
-    notifications.value = res.notifications || res.data?.notifications || []
   } catch (error) {
     console.error('获取首页数据失败', error)
     villageInfo.value = {
@@ -229,11 +195,6 @@ const fetchHomeData = async () => {
       location: '县境东南部，距县城22公里',
       totalAssets: 2115800
     }
-    notifications.value = [
-      { id: 1, title: '交通安全整治行动通知', type: '安全通知', isTop: 1, createTime: '2026-07-18' },
-      { id: 2, title: '柑橘品改推进工作公告', type: '产业通知', isTop: 0, createTime: '2026-07-18' },
-      { id: 3, title: '防汛备汛工作部署', type: '政务通知', isTop: 0, createTime: '2026-07-18' }
-    ]
   }
 }
 
@@ -491,54 +452,6 @@ onMounted(() => {
 
 .village-desc {
   font-size: 12px;
-  color: #999;
-}
-
-.notifications-list {
-  padding: 0;
-}
-
-.notification-item {
-  display: flex;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.notification-item:last-child {
-  border-bottom: none;
-}
-
-.notification-tag {
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: bold;
-  margin-right: 12px;
-}
-
-.notification-tag.top-tag {
-  background: linear-gradient(135deg, #D22630 0%, #B01A26 100%);
-  color: #FFD700;
-}
-
-.notification-tag.type-tag {
-  background: #f0f0f0;
-  color: #666;
-}
-
-.notification-content {
-  flex: 1;
-}
-
-.notification-title {
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 4px;
-}
-
-.notification-time {
-  font-size: 11px;
   color: #999;
 }
 

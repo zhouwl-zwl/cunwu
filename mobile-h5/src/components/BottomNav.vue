@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div v-if="showBottomNav" class="bottom-nav safe-area-bottom">
     <div 
       v-for="item in navItems" 
@@ -29,9 +29,7 @@ const currentPath = ref('/')
 const showBottomNav = ref(false)
 
 const navItems = [
-  { path: '/', icon: 'home-o', activeIcon: 'home', text: '首页', badge: 0 },
-  { path: '/notifications', icon: 'bell-o', activeIcon: 'bell', text: '通知', badge: 3 },
-  { path: '/mine', icon: 'user-o', activeIcon: 'user', text: '我的', badge: 0 }
+  { path: '/', icon: 'home-o', activeIcon: 'home', text: '首页', badge: 0 }
 ]
 
 const isActive = (path) => {
