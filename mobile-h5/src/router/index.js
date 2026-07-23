@@ -641,6 +641,24 @@ const routes = [
         }
       },
       {
+        path: 'drowning-education',
+        name: 'DrowningEducation',
+        component: () => import('../views/DrowningEducation.vue'),
+        meta: {
+          title: '防溺水教育',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'drowning-promotion',
+        name: 'DrowningPromotion',
+        component: () => import('../views/DrowningPromotion.vue'),
+        meta: {
+          title: '防溺水宣传',
+          requireAuth: false
+        }
+      },
+      {
         path: 'key-personnel',
         name: 'KeyPersonnel',
         component: () => import('../views/KeyPersonnel.vue'),
