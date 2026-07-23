@@ -7,16 +7,6 @@
         <div class="banner-title">罗卜田乡</div>
         <div class="banner-subtitle">共建美好家园</div>
       </div>
-      <div class="banner-buttons">
-        <div class="banner-btn primary ripple" @click="goDemand">
-          <van-icon name="heart-o" size="28" />
-          <span>我为群众办实事</span>
-        </div>
-        <div class="banner-btn gold ripple" @click="goOfficialWork">
-          <van-icon name="user" size="28" />
-          <span>诉求管理</span>
-        </div>
-      </div>
     </div>
 
     <div class="search-section">
@@ -45,42 +35,6 @@
     </div>
 
     <div class="module-card animate-slide-up">
-      <div class="module-header">
-        <div class="header-left">
-          <van-icon name="building-o" size="20" color="#D22630" />
-          <h3>组织架构</h3>
-        </div>
-      </div>
-      <div class="org-tabs">
-        <div 
-          v-for="tab in orgTabs" 
-          :key="tab.name" 
-          class="org-tab"
-          :class="{ active: activeOrg === tab.name }"
-          @click="onOrgChange(tab.name)"
-        >
-          <van-icon :name="tab.icon" size="24" />
-          <span class="tab-text">{{ tab.name }}</span>
-        </div>
-      </div>
-      <div class="org-members-list" v-if="orgMembers.length">
-        <div v-for="member in orgMembers" :key="member.id" class="member-item ripple" @click="showMemberDetail(member)">
-          <div class="member-avatar">
-            <span>{{ member.name.charAt(0) }}</span>
-          </div>
-          <div class="member-info">
-            <div class="member-name">{{ member.name }}</div>
-            <div class="member-position">{{ member.position }}</div>
-          </div>
-          <van-icon name="arrow-right" size="20" color="#ccc" />
-        </div>
-      </div>
-      <div class="empty-org" v-else>
-        <p>暂无人员信息</p>
-      </div>
-    </div>
-
-    <div class="module-card animate-slide-up" style="animation-delay: 0.05s">
       <div class="module-header">
         <div class="header-left">
           <van-icon name="bar-chart-o" size="20" color="#D22630" />
@@ -134,313 +88,33 @@
       </div>
     </div>
 
+    <div class="module-card animate-slide-up" style="animation-delay: 0.05s">
+      <div class="module-header">
+        <div class="header-left">
+          <van-icon name="home" size="20" color="#D22630" />
+          <h3>下辖村落</h3>
+        </div>
+      </div>
+      <div class="village-grid">
+        <div 
+          v-for="village in villages" 
+          :key="village.id" 
+          class="village-card ripple"
+          @click="goVillageDetail(village.id)"
+        >
+          <div class="village-icon" :style="{ background: village.color }">
+            <van-icon :name="village.icon" size="32" color="#fff" />
+          </div>
+          <div class="village-info">
+            <div class="village-name">{{ village.name }}</div>
+            <div class="village-desc">{{ village.desc }}</div>
+          </div>
+          <van-icon name="arrow-right" size="20" color="#ccc" />
+        </div>
+      </div>
+    </div>
+
     <div class="module-card animate-slide-up" style="animation-delay: 0.1s">
-      <div class="module-header">
-        <div class="header-left">
-          <van-icon name="file-text" size="20" color="#D22630" />
-          <h3>三务公开</h3>
-        </div>
-        <a href="/public-notices" class="more-link">全部 →</a>
-      </div>
-      <div class="grid-3">
-        <div class="info-card red-gradient ripple" @click="goPage('/public-notices?type=党务公开')">
-          <van-icon name="star-o" size="28" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">党务公开</div>
-            <div class="card-label">党员名单、党日活动</div>
-          </div>
-        </div>
-        <div class="info-card blue-gradient ripple" @click="goPage('/public-notices?type=村务公开')">
-          <van-icon name="file-o" size="28" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">村务公开</div>
-            <div class="card-label">土地流转、集体项目</div>
-          </div>
-        </div>
-        <div class="info-card purple-gradient ripple" @click="goPage('/public-notices?type=财务公开')">
-          <van-icon name="wallet" size="28" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">财务公开</div>
-            <div class="card-label">集体资产{{ formatAssets }}元</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="module-card animate-slide-up" style="animation-delay: 0.15s">
-      <div class="module-header">
-        <div class="header-left">
-          <van-icon name="flag" size="20" color="#D22630" />
-          <h3>党建工作</h3>
-        </div>
-      </div>
-      <div class="grid-4">
-        <div class="info-card red-gradient ripple" @click="goPage('/party-member')">
-          <van-icon name="star-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">党员管理</div>
-            <div class="card-label">党员名单</div>
-          </div>
-        </div>
-        <div class="info-card dark-red-gradient ripple" @click="goPage('/party-activity')">
-          <van-icon name="calendar" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">组织生活</div>
-            <div class="card-label">党日活动</div>
-          </div>
-        </div>
-        <div class="info-card crimson-gradient ripple" @click="goPage('/party-building')">
-          <van-icon name="heart-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">党建考核</div>
-            <div class="card-label">积分管理</div>
-          </div>
-        </div>
-        <div class="info-card red-orange-gradient ripple" @click="goPage('/public-notices?type=党务公开')">
-          <van-icon name="file-text" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">党务公开</div>
-            <div class="card-label">党务信息</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="module-card animate-slide-up" style="animation-delay: 0.2s">
-      <div class="module-header">
-        <div class="header-left">
-          <van-icon name="wheat" size="20" color="#4CAF50" />
-          <h3>乡村振兴</h3>
-        </div>
-      </div>
-      <div class="grid-4">
-        <div class="info-card green-gradient ripple" @click="goPage('/industry')">
-          <van-icon name="shop-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">产业发展</div>
-            <div class="card-label">柑橘产业</div>
-          </div>
-        </div>
-        <div class="info-card light-green-gradient ripple" @click="goPage('/environment')">
-          <van-icon name="eye-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">环境整治</div>
-            <div class="card-label">人居环境</div>
-          </div>
-        </div>
-        <div class="info-card emerald-gradient ripple" @click="goPage('/traffic-management')">
-          <van-icon name="home-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">交通治理</div>
-            <div class="card-label">道路维护</div>
-          </div>
-        </div>
-        <div class="info-card lime-gradient ripple" @click="goPage('/rural-revitalization')">
-          <van-icon name="trending-up" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">振兴项目</div>
-            <div class="card-label">扶贫项目</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="module-card animate-slide-up" style="animation-delay: 0.25s">
-      <div class="module-header">
-        <div class="header-left">
-          <van-icon name="wallet" size="20" color="#9C27B0" />
-          <h3>三资管理</h3>
-        </div>
-      </div>
-      <div class="grid-4">
-        <div class="info-card purple-gradient ripple" @click="goPage('/assets')">
-          <van-icon name="banknote" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">资产登记</div>
-            <div class="card-label">集体资产</div>
-          </div>
-        </div>
-        <div class="info-card deep-purple-gradient ripple" @click="goPage('/assets')">
-          <van-icon name="golden-wallet" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">资源管理</div>
-            <div class="card-label">土地山林</div>
-          </div>
-        </div>
-        <div class="info-card indigo-gradient ripple" @click="goPage('/public-notices?type=财务公开')">
-          <van-icon name="file-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">资金公开</div>
-            <div class="card-label">财务收支</div>
-          </div>
-        </div>
-        <div class="info-card violet-gradient ripple" @click="goPage('/project-engineering')">
-          <van-icon name="hammer" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">工程项目</div>
-            <div class="card-label">建设项目</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="module-card animate-slide-up" style="animation-delay: 0.3s">
-      <div class="module-header">
-        <div class="header-left">
-          <van-icon name="home" size="20" color="#2196F3" />
-          <h3>村务治理</h3>
-        </div>
-      </div>
-      <div class="grid-4">
-        <div class="info-card blue-gradient ripple" @click="goPage('/governance')">
-          <van-icon name="chat-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">村会议事</div>
-            <div class="card-label">村民议事</div>
-          </div>
-        </div>
-        <div class="info-card light-blue-gradient ripple" @click="goPage('/task-supervision')">
-          <van-icon name="list-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">任务督办</div>
-            <div class="card-label">工作任务</div>
-          </div>
-        </div>
-        <div class="info-card sky-gradient ripple" @click="goPage('/land-management')">
-          <van-icon name="map" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">土地管理</div>
-            <div class="card-label">土地流转</div>
-          </div>
-        </div>
-        <div class="info-card cyan-gradient ripple" @click="goPage('/public-notices?type=村务公开')">
-          <van-icon name="notice-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">村务公开</div>
-            <div class="card-label">村务信息</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="module-card animate-slide-up" style="animation-delay: 0.35s">
-      <div class="module-header">
-        <div class="header-left">
-          <van-icon name="users" size="20" color="#FFA500" />
-          <h3>民政事务</h3>
-        </div>
-      </div>
-      <div class="grid-4">
-        <div class="info-card orange-gradient ripple" @click="goPage('/civil-affairs')">
-          <van-icon name="heart-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">民政服务</div>
-            <div class="card-label">民政办理</div>
-          </div>
-        </div>
-        <div class="info-card amber-gradient ripple" @click="goPage('/special-group')">
-          <van-icon name="user-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">特殊群体</div>
-            <div class="card-label">低保五保</div>
-          </div>
-        </div>
-        <div class="info-card gold-gradient ripple" @click="goPage('/population')">
-          <van-icon name="team" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">人口信息</div>
-            <div class="card-label">户籍管理</div>
-          </div>
-        </div>
-        <div class="info-card yellow-gradient ripple" @click="goPage('/subsidy')">
-          <van-icon name="gift" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">惠民补贴</div>
-            <div class="card-label">补贴查询</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="module-card animate-slide-up" style="animation-delay: 0.4s">
-      <div class="module-header">
-        <div class="header-left">
-          <van-icon name="shield" size="20" color="#E91E63" />
-          <h3>安全管理</h3>
-        </div>
-      </div>
-      <div class="grid-4">
-        <div class="info-card pink-gradient ripple" @click="goPage('/fire-safety')">
-          <van-icon name="fire" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">消防安全</div>
-            <div class="card-label">防火检查</div>
-          </div>
-        </div>
-        <div class="info-card rose-gradient ripple" @click="goPage('/forest-fire')">
-          <van-icon name="tree-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">森林防火</div>
-            <div class="card-label">防火宣传</div>
-          </div>
-        </div>
-        <div class="info-card deep-pink-gradient ripple" @click="goPage('/food-safety')">
-          <van-icon name="shopping-cart" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">食品安全</div>
-            <div class="card-label">食品检查</div>
-          </div>
-        </div>
-        <div class="info-card magenta-gradient ripple" @click="goPage('/road-traffic')">
-          <van-icon name="car" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">道路交通</div>
-            <div class="card-label">交通安全</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="module-card animate-slide-up" style="animation-delay: 0.45s">
-      <div class="module-header">
-        <div class="header-left">
-          <van-icon name="service" size="20" color="#00BCD4" />
-          <h3>便民服务</h3>
-        </div>
-      </div>
-      <div class="grid-4">
-        <div class="info-card teal-gradient ripple" @click="goPage('/dispute')">
-          <van-icon name="friends" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">矛盾纠纷</div>
-            <div class="card-label">调处记录</div>
-          </div>
-        </div>
-        <div class="info-card green-teal-gradient ripple" @click="goPage('/policy')">
-          <van-icon name="search" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">政策查询</div>
-            <div class="card-label">政策咨询</div>
-          </div>
-        </div>
-        <div class="info-card safety-blue-gradient ripple" @click="goPage('/safety-hazard')">
-          <van-icon name="warning-o" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">灾害防范</div>
-            <div class="card-label">隐患排查</div>
-          </div>
-        </div>
-        <div class="info-card media-gradient ripple" @click="goPage('/media-promotion')">
-          <van-icon name="video" size="26" color="#fff" />
-          <div class="card-content">
-            <div class="card-value">媒体宣传</div>
-            <div class="card-label">新闻动态</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="module-card animate-slide-up" style="animation-delay: 0.2s">
       <div class="module-header">
         <div class="header-left">
           <van-icon name="bell-o" size="20" color="#D22630" />
@@ -472,7 +146,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { showToast, showDialog } from 'vant'
+import { showDialog } from 'vant'
 import request from '../utils/request'
 
 const router = useRouter()
@@ -480,15 +154,17 @@ const route = useRoute()
 
 const searchKeyword = ref('')
 const villageInfo = ref(null)
-const orgMembers = ref([])
-const activeOrg = ref('支委')
 const notifications = ref([])
 
-const orgTabs = [
-  { name: '支委', icon: 'building' },
-  { name: '村委', icon: 'home' },
-  { name: '监委', icon: 'eye-o' }
-]
+const villages = ref([
+  { id: 1, name: '新店村', icon: 'home-o', color: 'linear-gradient(135deg, #D22630 0%, #B01A26 100%)', desc: '21个村民组，1568人' },
+  { id: 2, name: '罗卜田村', icon: 'map', color: 'linear-gradient(135deg, #4CAF50 0%, #388E3C 100%)', desc: '18个村民组，1420人' },
+  { id: 3, name: '兴无村', icon: 'trending-up', color: 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)', desc: '15个村民组，1280人' },
+  { id: 4, name: '马坡村', icon: 'flag', color: 'linear-gradient(135deg, #FFA500 0%, #FF8C00 100%)', desc: '16个村民组，1356人' },
+  { id: 5, name: '半冲村', icon: 'mountain', color: 'linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%)', desc: '12个村民组，1086人' },
+  { id: 6, name: '冬瓜坡村', icon: 'tree-o', color: 'linear-gradient(135deg, #00BCD4 0%, #0097A7 100%)', desc: '14个村民组，1156人' },
+  { id: 7, name: '枣子山村', icon: 'star-o', color: 'linear-gradient(135deg, #E91E63 0%, #C2185B 100%)', desc: '11个村民组，983人' }
+])
 
 const formatAssets = computed(() => {
   const total = villageInfo.value?.totalAssets || 0
@@ -502,12 +178,8 @@ const goPage = (path) => {
   router.push(path)
 }
 
-const goDemand = () => {
-  router.push('/demand')
-}
-
-const goOfficialWork = () => {
-  router.push('/demand/my')
+const goVillageDetail = (id) => {
+  router.push(`/village-detail/${id}`)
 }
 
 const goSearch = () => {
@@ -522,33 +194,6 @@ const onSearch = (value) => {
   if (value.trim()) {
     router.push(`/search-result?keyword=${encodeURIComponent(value)}`)
   }
-}
-
-const onOrgChange = (name) => {
-  activeOrg.value = name
-  fetchOrgMembers(name)
-}
-
-const fetchOrgMembers = async (orgType) => {
-  try {
-    const res = await request.get('/public/org-members', { params: { orgType } })
-    orgMembers.value = res.data || []
-  } catch (error) {
-    console.error('获取组织成员失败', error)
-    orgMembers.value = []
-  }
-}
-
-const showMemberDetail = (member) => {
-  showDialog({
-    title: member.name,
-    message: `${member.position}\n分工：${member.division}\n电话：${member.phone}`,
-    confirmButtonText: '拨打电话',
-    confirmButtonColor: '#D22630',
-    cancelButtonText: '关闭'
-  }).then(() => {
-    window.location.href = `tel:${member.phone}`
-  }).catch(() => {})
 }
 
 const showEmergency = () => {
@@ -574,7 +219,6 @@ const fetchHomeData = async () => {
     const res = await request.get('/public/home-data')
     villageInfo.value = res.villageInfo || res.data?.villageInfo
     notifications.value = res.notifications || res.data?.notifications || []
-    await fetchOrgMembers(activeOrg.value)
   } catch (error) {
     console.error('获取首页数据失败', error)
     villageInfo.value = {
@@ -587,8 +231,8 @@ const fetchHomeData = async () => {
     }
     notifications.value = [
       { id: 1, title: '交通安全整治行动通知', type: '安全通知', isTop: 1, createTime: '2026-07-18' },
-      { id: 2, title: '柑橘品改推进工作公告', type: '产业通知', isTop: 0, createTime: '2026-07-17' },
-      { id: 3, title: '防汛备汛工作部署', type: '政务通知', isTop: 0, createTime: '2026-07-16' }
+      { id: 2, title: '柑橘品改推进工作公告', type: '产业通知', isTop: 0, createTime: '2026-07-18' },
+      { id: 3, title: '防汛备汛工作部署', type: '政务通知', isTop: 0, createTime: '2026-07-18' }
     ]
   }
 }
@@ -693,39 +337,6 @@ onMounted(() => {
   color: rgba(255, 255, 255, 0.9);
 }
 
-.banner-buttons {
-  display: flex;
-  gap: 8px;
-  padding: 12px;
-}
-
-.banner-btn {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 16px 8px;
-  border-radius: 12px;
-  color: #fff;
-  font-size: 13px;
-  font-weight: bold;
-  transition: transform 0.2s;
-}
-
-.banner-btn:active {
-  transform: scale(0.95);
-}
-
-.banner-btn.primary {
-  background: linear-gradient(135deg, #D22630 0%, #B01A26 100%);
-  box-shadow: 0 4px 12px rgba(210, 38, 48, 0.3);
-}
-
-.banner-btn.gold {
-  background: linear-gradient(135deg, #FFD700 0%, #E5C100 100%);
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-}
-
 .module-card {
   background: #fff;
   margin: 0 12px 12px;
@@ -759,99 +370,10 @@ onMounted(() => {
   color: #999;
 }
 
-.org-tabs {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.org-tab {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 12px 8px;
-  border-radius: 12px;
-  background: #f5f5f5;
-  transition: all 0.3s;
-}
-
-.org-tab.active {
-  background: linear-gradient(135deg, #D22630 0%, #B01A26 100%);
-}
-
-.org-tab.active .tab-icon,
-.org-tab.active .tab-text {
-  color: #FFD700;
-}
-
-.tab-text {
-  font-size: 12px;
-  color: #666;
-  font-weight: bold;
-}
-
-.org-members-list {
-  padding: 0;
-}
-
-.member-item {
-  display: flex;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.member-item:last-child {
-  border-bottom: none;
-}
-
-.member-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #D22630 0%, #B01A26 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #FFD700;
-  margin-right: 12px;
-}
-
-.member-info {
-  flex: 1;
-}
-
-.member-name {
-  font-size: 15px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 2px;
-}
-
-.member-position {
-  font-size: 12px;
-  color: #999;
-}
-
-.empty-org {
-  padding: 24px;
-  text-align: center;
-  color: #969799;
-}
-
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-}
-
-.grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
 }
 
 .info-card {
@@ -907,94 +429,6 @@ onMounted(() => {
   background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
 }
 
-.info-card.dark-red-gradient {
-  background: linear-gradient(135deg, #B71C1C 0%, #8E0000 100%);
-}
-
-.info-card.crimson-gradient {
-  background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
-}
-
-.info-card.red-orange-gradient {
-  background: linear-gradient(135deg, #E65100 0%, #BF360C 100%);
-}
-
-.info-card.light-green-gradient {
-  background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);
-}
-
-.info-card.emerald-gradient {
-  background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
-}
-
-.info-card.lime-gradient {
-  background: linear-gradient(135deg, #8BC34A 0%, #689F38 100%);
-}
-
-.info-card.deep-purple-gradient {
-  background: linear-gradient(135deg, #7B1FA2 0%, #5E35B1 100%);
-}
-
-.info-card.indigo-gradient {
-  background: linear-gradient(135deg, #3F51B5 0%, #303F9F 100%);
-}
-
-.info-card.violet-gradient {
-  background: linear-gradient(135deg, #651FFF 0%, #536DFE 100%);
-}
-
-.info-card.light-blue-gradient {
-  background: linear-gradient(135deg, #42A5F5 0%, #1E88E5 100%);
-}
-
-.info-card.sky-gradient {
-  background: linear-gradient(135deg, #0288D1 0%, #01579B 100%);
-}
-
-.info-card.amber-gradient {
-  background: linear-gradient(135deg, #FFB300 0%, #FF8F00 100%);
-}
-
-.info-card.gold-gradient {
-  background: linear-gradient(135deg, #FFD54F 0%, #FFA000 100%);
-}
-
-.info-card.yellow-gradient {
-  background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
-}
-
-.info-card.pink-gradient {
-  background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
-}
-
-.info-card.rose-gradient {
-  background: linear-gradient(135deg, #F44336 0%, #D32F2F 100%);
-}
-
-.info-card.deep-pink-gradient {
-  background: linear-gradient(135deg, #C2185B 0%, #880E4F 100%);
-}
-
-.info-card.magenta-gradient {
-  background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);
-}
-
-.info-card.teal-gradient {
-  background: linear-gradient(135deg, #00897B 0%, #00695C 100%);
-}
-
-.info-card.green-teal-gradient {
-  background: linear-gradient(135deg, #009688 0%, #00796B 100%);
-}
-
-.info-card.safety-blue-gradient {
-  background: linear-gradient(135deg, #03A9F4 0%, #0288D1 100%);
-}
-
-.info-card.media-gradient {
-  background: linear-gradient(135deg, #7C4DFF 0%, #651FFF 100%);
-}
-
 .card-content {
   display: flex;
   flex-direction: column;
@@ -1011,6 +445,53 @@ onMounted(() => {
 .card-label {
   font-size: 10px;
   opacity: 0.85;
+}
+
+.village-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.village-card {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 14px;
+  border: 1px solid #eee;
+  transition: all 0.2s;
+}
+
+.village-card:active {
+  background: #f0f0f0;
+  transform: scale(0.98);
+}
+
+.village-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 14px;
+}
+
+.village-info {
+  flex: 1;
+}
+
+.village-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.village-desc {
+  font-size: 12px;
+  color: #999;
 }
 
 .notifications-list {

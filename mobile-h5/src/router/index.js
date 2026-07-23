@@ -55,6 +55,15 @@ const routes = [
         }
       },
       {
+        path: 'village-detail/:id',
+        name: 'VillageDetail',
+        component: () => import('../views/VillageDetail.vue'),
+        meta: {
+          title: '村详情',
+          requireAuth: false
+        }
+      },
+      {
         path: 'public-notices',
         name: 'PublicNotices',
         component: () => import('../views/PublicNotices.vue'),
@@ -475,6 +484,186 @@ const routes = [
         component: () => import('../views/MaterialWarehouse.vue'),
         meta: {
           title: '物资仓库',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'monitoring-households',
+        name: 'MonitoringHouseholds',
+        component: () => import('../views/MonitoringHouseholds.vue'),
+        meta: {
+          title: '监测户信息',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'poverty-households',
+        name: 'PovertyHouseholds',
+        component: () => import('../views/PovertyHouseholds.vue'),
+        meta: {
+          title: '脱贫户信息',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'rain-plan',
+        name: 'RainPlan',
+        component: () => import('../views/RainPlan.vue'),
+        meta: {
+          title: '雨露计划',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'labor-info',
+        name: 'LaborInfo',
+        component: () => import('../views/LaborInfo.vue'),
+        meta: {
+          title: '务工信息',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'village-assets',
+        name: 'VillageAssets',
+        component: () => import('../views/VillageAssets.vue'),
+        meta: {
+          title: '村级资产',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'village-resources',
+        name: 'VillageResources',
+        component: () => import('../views/VillageResources.vue'),
+        meta: {
+          title: '村级资源',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'village-funds',
+        name: 'VillageFunds',
+        component: () => import('../views/VillageFunds.vue'),
+        meta: {
+          title: '村级资金',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'village-contracts',
+        name: 'VillageContracts',
+        component: () => import('../views/VillageContracts.vue'),
+        meta: {
+          title: '村级合同',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'collective-economy',
+        name: 'CollectiveEconomy',
+        component: () => import('../views/CollectiveEconomy.vue'),
+        meta: {
+          title: '集体经济',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'subsistence-allowance',
+        name: 'SubsistenceAllowance',
+        component: () => import('../views/SubsistenceAllowance.vue'),
+        meta: {
+          title: '低保',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'disabled',
+        name: 'Disabled',
+        component: () => import('../views/Disabled.vue'),
+        meta: {
+          title: '残疾人',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'special-support',
+        name: 'SpecialSupport',
+        component: () => import('../views/SpecialSupport.vue'),
+        meta: {
+          title: '特困供养',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'social-aid',
+        name: 'SocialAid',
+        component: () => import('../views/SocialAid.vue'),
+        meta: {
+          title: '社会救助',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'social-security',
+        name: 'SocialSecurity',
+        component: () => import('../views/SocialSecurity.vue'),
+        meta: {
+          title: '社保',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'left-behind-elderly',
+        name: 'LeftBehindElderly',
+        component: () => import('../views/LeftBehindElderly.vue'),
+        meta: {
+          title: '留守老人',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'left-behind-children',
+        name: 'LeftBehindChildren',
+        component: () => import('../views/LeftBehindChildren.vue'),
+        meta: {
+          title: '留守儿童',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'drowning-prevention',
+        name: 'DrowningPrevention',
+        component: () => import('../views/DrowningPrevention.vue'),
+        meta: {
+          title: '防溺水',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'key-personnel',
+        name: 'KeyPersonnel',
+        component: () => import('../views/KeyPersonnel.vue'),
+        meta: {
+          title: '重点人员',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'geological-disaster',
+        name: 'GeologicalDisaster',
+        component: () => import('../views/GeologicalDisaster.vue'),
+        meta: {
+          title: '地灾点',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'slope-housing-risk',
+        name: 'SlopeHousingRisk',
+        component: () => import('../views/SlopeHousingRisk.vue'),
+        meta: {
+          title: '切坡建房风险户',
           requireAuth: false
         }
       }

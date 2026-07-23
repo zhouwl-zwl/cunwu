@@ -47,7 +47,7 @@ export const menuConfig = [
     children: [
       { id: 41, name: '产业发展', route: '/industry' },
       { id: 42, name: '环境整治', route: '/environment' },
-      { id: 43, name: '交通治理', route: '/toilet-reform' },
+      { id: 43, name: '交通治理', route: '/traffic-management' },
       { id: 44, name: '振兴项目', route: '/rural-revitalization' }
     ]
   },
