@@ -117,7 +117,18 @@ const leadersData = ref([
     name: '于鼎馨',
     color: 'linear-gradient(135deg, #FF5722 0%, #E64A19 100%)',
     works: [
-      { name: '纪检工作', hasDetail: true }
+      { 
+        name: '纪检工作', 
+        hasDetail: true,
+        children: [
+          { name: '协助党委推进全面从严治党', documents: ['党委会议记录'] },
+          { name: '政治、日常、专项等监督', documents: ['相关监督检查台账'] },
+          { name: '线索处置', documents: ['线索台账'] },
+          { name: '案件查办', documents: ['案卷卷宗'] },
+          { name: '廉政教育', documents: ['廉政风险排查表', '谈心谈话记录', '警示教育台账'] },
+          { name: '队伍建设和监督', documents: ['纪检干部花名册', '培训会议'] }
+        ]
+      }
     ]
   },
   {

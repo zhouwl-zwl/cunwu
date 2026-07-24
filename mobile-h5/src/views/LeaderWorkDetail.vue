@@ -8,7 +8,48 @@
     </div>
 
     <div class="detail-content" v-if="workDetail">
-      <div class="section-card">
+      <div class="section-card" v-if="workDetail.children">
+        <div class="section-title">
+          <van-icon name="file-text-o" size="16" color="#D22630" />
+          <span>分管事务</span>
+        </div>
+        
+        <div class="children-list">
+          <div 
+            v-for="(child, idx) in workDetail.children" 
+            :key="idx" 
+            class="child-card"
+            @click="toggleChild(idx)"
+          >
+            <div class="child-header">
+              <div class="child-left">
+                <div class="child-number">{{ idx + 1 }}</div>
+                <div class="child-name">{{ child.name }}</div>
+              </div>
+              <div class="child-arrow" :class="{ expanded: expandedIndex === idx }">
+                <van-icon name="arrow" size="16" color="#D22630" />
+              </div>
+            </div>
+            
+            <div class="child-detail" v-show="expandedIndex === idx">
+              <div class="detail-section">
+                <div class="detail-label">相关资料台账</div>
+                <div class="doc-tags">
+                  <span 
+                    v-for="(doc, dIdx) in child.documents" 
+                    :key="dIdx" 
+                    class="doc-tag"
+                  >
+                    {{ doc }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card" v-else>
         <div class="section-title">
           <van-icon name="file-text-o" size="16" color="#D22630" />
           <span>工作内容</span>
@@ -23,31 +64,31 @@
             <div class="item-content">{{ item }}</div>
           </div>
         </div>
-      </div>
 
-      <div class="section-card" v-if="workDetail.documents && workDetail.documents.length > 0">
-        <div class="section-title">
-          <van-icon name="folder-o" size="16" color="#4CAF50" />
-          <span>相关资料台账</span>
-        </div>
-        <div class="document-list">
-          <div 
-            v-for="(doc, idx) in workDetail.documents" 
-            :key="idx" 
-            class="document-item"
-          >
-            <div class="doc-icon">
-              <van-icon name="file" size="20" color="#666" />
-            </div>
-            <div class="doc-content">
-              <div class="doc-title">{{ doc.title }}</div>
-              <div class="doc-desc">{{ doc.description }}</div>
+        <div v-if="workDetail.documents && workDetail.documents.length > 0">
+          <div class="section-title">
+            <van-icon name="folder-o" size="16" color="#4CAF50" />
+            <span>相关资料台账</span>
+          </div>
+          <div class="document-list">
+            <div 
+              v-for="(doc, idx) in workDetail.documents" 
+              :key="idx" 
+              class="document-item"
+            >
+              <div class="doc-icon">
+                <van-icon name="file" size="20" color="#666" />
+              </div>
+              <div class="doc-content">
+                <div class="doc-title">{{ doc.title }}</div>
+                <div class="doc-desc">{{ doc.description }}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="empty-card" v-else>
+      <div class="empty-card" v-if="!workDetail.children && !workDetail.workItems">
         <van-empty description="暂无相关资料台账" />
       </div>
     </div>
@@ -63,6 +104,7 @@ const route = useRoute()
 
 const leaderId = ref(parseInt(route.params.leaderId) || 1)
 const workIndex = ref(parseInt(route.params.workIndex) || 0)
+const expandedIndex = ref(-1)
 
 const workDetails = ref([
   {
@@ -84,24 +126,13 @@ const workDetails = ref([
     workIndex: 0,
     leaderName: '于鼎馨',
     workName: '纪检工作',
-    workItems: [
-      '协助党委推进全面从严治党',
-      '政治、日常、专项等监督',
-      '线索处置',
-      '案件查办',
-      '廉政教育',
-      '队伍建设和监督'
-    ],
-    documents: [
-      { title: '党委会议记录', description: '协助党委推进全面从严治党相关资料' },
-      { title: '监督检查台账', description: '政治、日常、专项等监督相关资料' },
-      { title: '线索台账', description: '线索处置相关资料' },
-      { title: '案卷卷宗', description: '案件查办相关资料' },
-      { title: '廉政风险排查表', description: '廉政教育相关资料' },
-      { title: '谈心谈话记录', description: '廉政教育相关资料' },
-      { title: '警示教育台账', description: '廉政教育相关资料' },
-      { title: '纪检干部花名册', description: '队伍建设和监督相关资料' },
-      { title: '培训会议记录', description: '队伍建设和监督相关资料' }
+    children: [
+      { name: '协助党委推进全面从严治党', documents: ['党委会议记录'] },
+      { name: '政治、日常、专项等监督', documents: ['相关监督检查台账'] },
+      { name: '线索处置', documents: ['线索台账'] },
+      { name: '案件查办', documents: ['案卷卷宗'] },
+      { name: '廉政教育', documents: ['廉政风险排查表', '谈心谈话记录', '警示教育台账'] },
+      { name: '队伍建设和监督', documents: ['纪检干部花名册', '培训会议'] }
     ]
   }
 ])
@@ -111,6 +142,10 @@ const workDetail = computed(() => {
     d => d.leaderId === leaderId.value && d.workIndex === workIndex.value
   )
 })
+
+const toggleChild = (idx) => {
+  expandedIndex.value = expandedIndex.value === idx ? -1 : idx
+}
 
 const goBack = () => {
   router.back()
@@ -171,6 +206,107 @@ onMounted(() => {
   margin-bottom: 16px;
   padding-bottom: 12px;
   border-bottom: 1px solid #f0f0f0;
+}
+
+.children-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.child-card {
+  background: #f8f9fa;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.child-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  cursor: pointer;
+}
+
+.child-header:active {
+  background: #f0f0f0;
+}
+
+.child-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.child-number {
+  width: 22px;
+  height: 22px;
+  background: #FF5722;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.child-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.child-arrow {
+  transition: transform 0.2s;
+}
+
+.child-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+.child-detail {
+  padding: 0 14px 14px;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detail-section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.detail-label {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.doc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.doc-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(210, 38, 48, 0.08);
+  color: #D22630;
+  font-size: 12px;
+  border-radius: 12px;
 }
 
 .work-items {
