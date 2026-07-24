@@ -211,6 +211,24 @@
         </div>
       </div>
     </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="header-left">
+          <van-icon name="phone" size="20" color="#00BCD4" />
+          <h3>通讯录</h3>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="function-card" @click="goPage('/contact-list')">
+          <div class="card-icon contact-bg">
+            <van-icon name="users" size="28" color="#fff" />
+          </div>
+          <div class="card-text">支两委人员</div>
+          <div class="card-sub">及乡村振兴工作队</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -566,5 +584,21 @@ onMounted(() => {
 
 .card-icon.danger-bg {
   background: linear-gradient(135deg, #FF9800 0%, #F44336 100%);
+}
+
+.card-icon.contact-bg {
+  background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.card-sub {
+  font-size: 11px;
+  color: #999;
+  margin-top: 2px;
 }
 </style>

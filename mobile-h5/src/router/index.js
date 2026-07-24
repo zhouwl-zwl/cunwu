@@ -684,6 +684,15 @@ const routes = [
           title: '切坡建房风险户',
           requireAuth: false
         }
+      },
+      {
+        path: 'contact-list',
+        name: 'ContactList',
+        component: () => import('../views/ContactList.vue'),
+        meta: {
+          title: '通讯录',
+          requireAuth: false
+        }
       }
     ]
   },
