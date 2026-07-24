@@ -51,6 +51,37 @@
     <div class="module-card">
       <div class="module-header">
         <div class="header-left">
+          <van-icon name="phone" size="20" color="#00BCD4" />
+          <h3>支两委人员</h3>
+        </div>
+        <div class="header-right" @click="goContactList">
+          <span>查看全部</span>
+          <van-icon name="arrow-right" size="16" />
+        </div>
+      </div>
+      <div class="member-list">
+        <div 
+          v-for="(member, idx) in currentVillageMembers" 
+          :key="idx" 
+          class="member-item"
+          @click="showMemberDetail(member)"
+        >
+          <div class="member-avatar">{{ member.name.charAt(0) }}</div>
+          <div class="member-info">
+            <div class="member-name">{{ member.name }}</div>
+            <div class="member-position">{{ member.position }}</div>
+          </div>
+          <van-icon name="phone-o" size="18" color="#4CAF50" />
+        </div>
+        <div v-if="currentVillageMembers.length === 0" class="empty-member">
+          暂无人员信息
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-header">
+        <div class="header-left">
           <van-icon name="wheat" size="20" color="#4CAF50" />
           <h3>乡村振兴</h3>
         </div>
@@ -212,23 +243,6 @@
       </div>
     </div>
 
-    <div class="module-card">
-      <div class="module-header">
-        <div class="header-left">
-          <van-icon name="phone" size="20" color="#00BCD4" />
-          <h3>通讯录</h3>
-        </div>
-      </div>
-      <div class="grid-2">
-        <div class="function-card" @click="goPage('/contact-list')">
-          <div class="card-icon contact-bg">
-            <van-icon name="users" size="28" color="#fff" />
-          </div>
-          <div class="card-text">支两委人员</div>
-          <div class="card-sub">及乡村振兴工作队</div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -314,12 +328,112 @@ const villagesData = ref([
   }
 ])
 
+const villageMembers = ref([
+  {
+    villageId: 1,
+    villageName: '新店村',
+    members: [
+      { position: '党总支书记、村委会主任', name: '张露海', phone: '18847888691' },
+      { position: '党总支纪检委员', name: '张小华', phone: '19918453375' },
+      { position: '党总支组织委员、村文书', name: '杨堃', phone: '18796229401' },
+      { position: '党总支宣传委员、村妇联主席', name: '龙小梅', phone: '17794321019' },
+      { position: '村委会主任', name: '彭开红', phone: '15115254832' }
+    ]
+  },
+  {
+    villageId: 2,
+    villageName: '罗卜田村',
+    members: [
+      { position: '党支部书记、村委会主任', name: '周贤文', phone: '18174563701' },
+      { position: '党支部组织、宣传委员', name: '李刚', phone: '13874567890' },
+      { position: '党支部纪检委员', name: '王强', phone: '13974561234' },
+      { position: '村委会副主任', name: '赵伟', phone: '13774565678' },
+      { position: '村文书', name: '孙丽', phone: '13674569012' }
+    ]
+  },
+  {
+    villageId: 3,
+    villageName: '兴无村',
+    members: [
+      { position: '党支部书记、村委会主任', name: '向勇', phone: '18174563699' },
+      { position: '党支部组织、宣传委员村妇联主', name: '向艾红', phone: '17769246889' },
+      { position: '党支部纪检委员', name: '张跃', phone: '19918537956' },
+      { position: '村文书', name: '杨雪玲', phone: '13874566743' }
+    ]
+  },
+  {
+    villageId: 4,
+    villageName: '马坡村',
+    members: [
+      { position: '党支部书记、村委会主任', name: '杨再明', phone: '18174563700' },
+      { position: '党支部组织、宣传委员', name: '杨刚', phone: '13874567891' },
+      { position: '党支部纪检委员', name: '杨华', phone: '13974561235' },
+      { position: '村委会副主任', name: '杨勇', phone: '13774565679' }
+    ]
+  },
+  {
+    villageId: 5,
+    villageName: '半冲村',
+    members: [
+      { position: '党支部书记、村委会主任', name: '陈宏', phone: '13807453766' },
+      { position: '乡村振兴第一书记、队长', name: '陈宏', phone: '13807453766' },
+      { position: '乡村振兴队员', name: '李孝长', phone: '18374519627' },
+      { position: '乡村振兴队员', name: '陈真', phone: '18974516158' }
+    ]
+  },
+  {
+    villageId: 6,
+    villageName: '冬瓜坡村',
+    members: [
+      { position: '党支部书记、村委会主任', name: '李复艳', phone: '18374555056' },
+      { position: '党支部组织、宣传委员、村文', name: '李静', phone: '17388897515' },
+      { position: '党支部纪检委员', name: '刘宗荣', phone: '18705962422' },
+      { position: '村委会副主任', name: '李朝健', phone: '19918451108' },
+      { position: '村妇联主席', name: '张小芳', phone: '17769225569' }
+    ]
+  },
+  {
+    villageId: 7,
+    villageName: '枣子山村',
+    members: [
+      { position: '党支部书记、村委会主任', name: '郑明明', phone: '13467404567' },
+      { position: '党支部组织、宣传委员、村妇', name: '刘正玉', phone: '17363760232' },
+      { position: '党支部纪检委员', name: '杨群', phone: '17308459456' },
+      { position: '村委会副主任', name: '郑芳', phone: '18974951799' },
+      { position: '村文书', name: '郑邦方', phone: '18707456651' }
+    ]
+  }
+])
+
 const village = computed(() => {
   return villagesData.value.find(v => v.id === villageId.value) || villagesData.value[0]
 })
 
+const currentVillageMembers = computed(() => {
+  const data = villageMembers.value.find(v => v.villageId === villageId.value)
+  return data ? data.members : []
+})
+
 const goPage = (path) => {
   router.push(path)
+}
+
+const goContactList = () => {
+  router.push('/contact-list')
+}
+
+const showMemberDetail = (member) => {
+  if (!member.phone) return
+  const { showDialog } = require('vant')
+  showDialog({
+    title: member.name,
+    message: `职务：${member.position}\n电话：${member.phone}`,
+    confirmButtonText: '拨打电话',
+    confirmButtonColor: '#4CAF50',
+    cancelButtonText: '关闭'
+  }).then(() => {
+    window.location.href = `tel:${member.phone}`
+  }).catch(() => {})
 }
 
 onMounted(() => {
@@ -600,5 +714,76 @@ onMounted(() => {
   font-size: 11px;
   color: #999;
   margin-top: 2px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: #00BCD4;
+  cursor: pointer;
+}
+
+.member-list {
+  padding: 4px 0;
+}
+
+.member-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid #f5f5f5;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.member-item:last-child {
+  border-bottom: none;
+}
+
+.member-item:active {
+  background: #f9f9f9;
+}
+
+.member-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 12px;
+}
+
+.member-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.member-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.member-position {
+  font-size: 12px;
+  color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.empty-member {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+  font-size: 13px;
 }
 </style>
