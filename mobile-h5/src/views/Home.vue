@@ -2,7 +2,7 @@
   <div class="home-page page-container">
     <div class="header-banner">
       <div class="banner-image">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Aerial%20view%20of%20Chinese%20village%20with%20traditional%20houses%20green%20mountains%20rice%20fields%20rivers%20panoramic%20landscape%20shot%20from%20above%20beautiful%20countryside%20scenery&image_size=landscape_16_9" alt="罗卜田乡风景" />
+        <img src="/banner.jpg" alt="罗卜田乡风景" />
         <div class="banner-overlay"></div>
         <div class="banner-title">罗卜田乡</div>
         <div class="banner-subtitle">共建美好家园</div>
