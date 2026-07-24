@@ -2,7 +2,7 @@
   <div class="home-page page-container">
     <div class="header-banner">
       <div class="banner-image">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=long%20Chinese%20Dong%20ethnic%20wind%20rain%20bridge%20with%20multiple%20towers%20over%20green%20river%20blue%20sky%20red%20lanterns%20stone%20pillars%20perfect%20reflection%20panoramic%20wide%20angle&image_size=landscape_16_9" alt="罗卜田乡风景" />
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Aerial%20view%20of%20Chinese%20village%20with%20traditional%20houses%20green%20mountains%20rice%20fields%20rivers%20panoramic%20landscape%20shot%20from%20above%20beautiful%20countryside%20scenery&image_size=landscape_16_9" alt="罗卜田乡风景" />
         <div class="banner-overlay"></div>
         <div class="banner-title">罗卜田乡</div>
         <div class="banner-subtitle">共建美好家园</div>
@@ -262,13 +262,14 @@ onMounted(() => {
 .banner-image {
   position: relative;
   width: 100%;
-  height: 180px;
+  height: 260px;
 }
 
 .banner-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
 .banner-overlay {
@@ -276,8 +277,8 @@ onMounted(() => {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 80px;
-  background: linear-gradient(to top, rgba(210, 38, 48, 0.9), transparent);
+  height: 100px;
+  background: linear-gradient(to top, rgba(210, 38, 48, 0.95), rgba(210, 38, 48, 0.3), transparent);
 }
 
 .banner-title {
