@@ -693,6 +693,33 @@ const routes = [
           title: '通讯录',
           requireAuth: false
         }
+      },
+      {
+        path: 'leader-list',
+        name: 'LeaderList',
+        component: () => import('../views/LeaderList.vue'),
+        meta: {
+          title: '乡镇主要事务负责人',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'leader-detail/:id',
+        name: 'LeaderDetail',
+        component: () => import('../views/LeaderDetail.vue'),
+        meta: {
+          title: '分管工作',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'leader-work-detail/:leaderId/:workIndex',
+        name: 'LeaderWorkDetail',
+        component: () => import('../views/LeaderWorkDetail.vue'),
+        meta: {
+          title: '工作详情',
+          requireAuth: false
+        }
       }
     ]
   },

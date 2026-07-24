@@ -227,6 +227,13 @@
           <div class="card-text">支两委人员</div>
           <div class="card-sub">及乡村振兴工作队</div>
         </div>
+        <div class="function-card" @click="goPage('/leader-list')">
+          <div class="card-icon leader-bg">
+            <van-icon name="contacts" size="28" color="#fff" />
+          </div>
+          <div class="card-text">乡镇主要事务负责人</div>
+          <div class="card-sub">班子成员分管工作</div>
+        </div>
       </div>
     </div>
   </div>
@@ -588,6 +595,10 @@ onMounted(() => {
 
 .card-icon.contact-bg {
   background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+}
+
+.card-icon.leader-bg {
+  background: linear-gradient(135deg, #FF5722 0%, #E64A19 100%);
 }
 
 .grid-2 {
