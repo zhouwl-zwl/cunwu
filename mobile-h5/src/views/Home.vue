@@ -114,6 +114,32 @@
       </div>
     </div>
 
+    <div class="module-card animate-slide-up" style="animation-delay: 0.1s">
+      <div class="module-header">
+        <div class="header-left">
+          <van-icon name="contacts" size="20" color="#FF5722" />
+          <h3>乡镇主要事务负责人</h3>
+        </div>
+      </div>
+      <div class="village-grid">
+        <div 
+          v-for="leader in leaders" 
+          :key="leader.id" 
+          class="village-card ripple"
+          @click="goLeaderDetail(leader.id)"
+        >
+          <div class="village-icon" :style="{ background: leader.color }">
+            <van-icon :name="leader.icon" size="32" color="#fff" />
+          </div>
+          <div class="village-info">
+            <div class="village-name">{{ leader.name }}</div>
+            <div class="village-desc">{{ leader.workCount }}项分管事务</div>
+          </div>
+          <van-icon name="arrow-right" size="20" color="#ccc" />
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -139,6 +165,16 @@ const villages = ref([
   { id: 7, name: '枣子山村', icon: 'star-o', color: 'linear-gradient(135deg, #E91E63 0%, #C2185B 100%)', desc: '11个村民组，983人' }
 ])
 
+const leaders = ref([
+  { id: 1, name: '欧阳付群', icon: 'user-o', color: 'linear-gradient(135deg, #D22630 0%, #B01A26 100%)', workCount: 9 },
+  { id: 2, name: '曹海洋', icon: 'user-o', color: 'linear-gradient(135deg, #4CAF50 0%, #388E3C 100%)', workCount: 6 },
+  { id: 3, name: '龙君屹', icon: 'user-o', color: 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)', workCount: 12 },
+  { id: 4, name: '张芷馨', icon: 'user-o', color: 'linear-gradient(135deg, #FFA500 0%, #FF8C00 100%)', workCount: 12 },
+  { id: 5, name: '于鼎馨', icon: 'user-o', color: 'linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%)', workCount: 1 },
+  { id: 6, name: '杨承明', icon: 'user-o', color: 'linear-gradient(135deg, #00BCD4 0%, #0097A7 100%)', workCount: 5 },
+  { id: 7, name: '杨成', icon: 'user-o', color: 'linear-gradient(135deg, #E91E63 0%, #C2185B 100%)', workCount: 14 }
+])
+
 const formatAssets = computed(() => {
   const total = villageInfo.value?.totalAssets || 0
   if (total >= 10000) {
@@ -153,6 +189,10 @@ const goPage = (path) => {
 
 const goVillageDetail = (id) => {
   router.push(`/village-detail/${id}`)
+}
+
+const goLeaderDetail = (id) => {
+  router.push(`/leader-detail/${id}`)
 }
 
 const goSearch = () => {
