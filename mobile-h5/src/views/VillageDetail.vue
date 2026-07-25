@@ -398,10 +398,10 @@ const villageMembers = ref([
     villageName: '枣子山村',
     members: [
       { position: '党支部书记、村委会主任', name: '郑明明', phone: '13467404567' },
-      { position: '党支部组织、宣传委员、村妇', name: '刘正玉', phone: '17363760232' },
+      { position: '党支部组织、宣传委员、村妇联', name: '刘正玉', phone: '17365760232' },
       { position: '党支部纪检委员', name: '杨群', phone: '17308459456' },
-      { position: '村委会副主任', name: '郑芳', phone: '18974951799' },
-      { position: '村文书', name: '郑邦方', phone: '18707456651' }
+      { position: '村委会副主任', name: '郑芳', phone: '18974591799' },
+      { position: '村文书', name: '郑邱方', phone: '18707456651' }
     ]
   }
 ])
