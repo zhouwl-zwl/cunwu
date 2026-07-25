@@ -365,10 +365,11 @@ const villageMembers = ref([
     villageId: 4,
     villageName: '马坡村',
     members: [
-      { position: '党支部书记、村委会主任', name: '杨再明', phone: '18174563700' },
-      { position: '党支部组织、宣传委员', name: '杨刚', phone: '13874567891' },
-      { position: '党支部纪检委员', name: '杨华', phone: '13974561235' },
-      { position: '村委会副主任', name: '杨勇', phone: '13774565679' }
+      { position: '党支部书记、村委会主任', name: '李友香', phone: '18075598897' },
+      { position: '党支部组织、宣传委员', name: '李小洲', phone: '18075595377' },
+      { position: '党支部纪检委员', name: '李复胜', phone: '19974521375' },
+      { position: '村文书', name: '李华', phone: '18273199594' },
+      { position: '村妇联主席', name: '郑卫芳', phone: '19375089447' }
     ]
   },
   {
