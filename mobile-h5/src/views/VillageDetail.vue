@@ -387,9 +387,9 @@ const villageMembers = ref([
     villageName: '冬瓜坡村',
     members: [
       { position: '党支部书记、村委会主任', name: '李复艳', phone: '18374555056' },
-      { position: '党支部组织、宣传委员、村文', name: '李静', phone: '17388897515' },
-      { position: '党支部纪检委员', name: '刘宗荣', phone: '18705962422' },
-      { position: '村委会副主任', name: '李朝健', phone: '19918451108' },
+      { position: '党支部组织、宣传委员、村文书', name: '李静', phone: '17788897515' },
+      { position: '党支部纪检委员', name: '刘宗荣', phone: '18075996242' },
+      { position: '村委会副主任', name: '李培健', phone: '19918451108' },
       { position: '村妇联主席', name: '张小芳', phone: '17769225569' }
     ]
   },
