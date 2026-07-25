@@ -146,11 +146,11 @@ const villages = ref([
   {
     name: '罗卜田村',
     members: [
-      { position: '党支部书记、村委会主任', name: '周贤文', phone: '18174563701', remark: '' },
-      { position: '党支部组织、宣传委员', name: '', phone: '', remark: '' },
-      { position: '党支部纪检委员', name: '', phone: '', remark: '' },
-      { position: '村委会副主任', name: '', phone: '', remark: '' },
-      { position: '村文书', name: '', phone: '', remark: '' }
+      { position: '党总支书记、村委会主任', name: '钦山', phone: '13874417046', remark: '' },
+      { position: '党总支副书记', name: '刘锋', phone: '13647457437', remark: '' },
+      { position: '党总支纪检委员', name: '李利华', phone: '13787544708', remark: '' },
+      { position: '党总支组织委员、村妇联主席', name: '邓京南', phone: '18074525378', remark: '' },
+      { position: '党总支宣传委员、村文书', name: '李艳琪', phone: '15226463734', remark: '' }
     ]
   }
 ])
