@@ -100,37 +100,39 @@ const villages = ref([
   {
     name: '新店村',
     members: [
-      { position: '党总支书记、村委会主任', name: '张露海', phone: '18847888691', remark: '' },
-      { position: '党总支纪检委员', name: '张小华', phone: '19918453375', remark: '' },
+      { position: '党总支书记、村委会主任', name: '张露海', phone: '18874588691', remark: '' },
+      { position: '党总支副书记', name: '杨铁', phone: '17722635960', remark: '' },
+      { position: '党总支纪检委员', name: '张小华', phone: '19918453755', remark: '' },
       { position: '党总支组织委员、村文书', name: '杨堃', phone: '18796229401', remark: '' },
-      { position: '党总支宣传委员、村妇联主席', name: '龙小梅', phone: '17794321019', remark: '' },
-      { position: '村委会主任', name: '彭开红', phone: '15115254832', remark: '' },
-      { position: '党支部书记、村委会主任', name: '彭开红', phone: '18273853514', remark: '' },
-      { position: '党支部组织、宣传委员、村文', name: '彭兵', phone: '17774592207', remark: '' },
-      { position: '党支部纪检委员', name: '唐昌齐', phone: '18745236661', remark: '' },
-      { position: '村妇联主席', name: '潘金花', phone: '18974951799', remark: '' }
+      { position: '党总支宣传委员、村妇联主席', name: '龙小梅', phone: '17774523109', remark: '' },
+      { position: '党支部书记、村委会主任', name: '彭开红', phone: '15115254832', remark: '' },
+      { position: '党支部组织、宣传委员、村文书', name: '彭兵', phone: '18273853514', remark: '' },
+      { position: '党支部纪检委员', name: '唐昌齐', phone: '17774592207', remark: '' },
+      { position: '村妇联主席', name: '潘金花', phone: '18474525661', remark: '' }
     ]
   },
   {
     name: '半冲村',
     members: [
-      { position: '党支部书记、村委会主任', name: '陈宏', phone: '13807453766', remark: '' },
-      { position: '乡村振兴第一书记、队长', name: '陈宏', phone: '13807453766', remark: '' },
-      { position: '乡村振兴队员', name: '李孝长', phone: '18374519627', remark: '' },
-      { position: '乡村振兴队员', name: '陈真', phone: '18974516158', remark: '' },
-      { position: '乡村振兴队员', name: '', phone: '', remark: '' }
+      { position: '党支部书记、村委会主任', name: '彭开红', phone: '15115254832', remark: '' },
+      { position: '党支部组织、宣传委员、村文书', name: '彭兵', phone: '18273853514', remark: '' },
+      { position: '党支部纪检委员', name: '唐昌齐', phone: '17774592207', remark: '' },
+      { position: '村妇联主席', name: '潘金花', phone: '18474525661', remark: '' },
+      { position: '乡村振兴第一书记、队长', name: '陈东', phone: '13807457766', remark: '' },
+      { position: '乡村振兴队员', name: '李承长', phone: '18574519627', remark: '' },
+      { position: '乡村振兴队员', name: '陈真', phone: '18974516158', remark: '' }
     ]
   },
   {
     name: '兴无村',
     members: [
-      { position: '党支部书记、村委会主任', name: '向勇', phone: '18174563699', remark: '' },
-      { position: '党支部组织、宣传委员村妇联主', name: '向艾红', phone: '17769246889', remark: '' },
+      { position: '党支部书记、村委会主任', name: '向勇', phone: '18174586399', remark: '' },
+      { position: '党支部组织、宣传委员村妇联主席', name: '向艾红', phone: '17769245689', remark: '' },
       { position: '党支部纪检委员', name: '张跃', phone: '19918537956', remark: '' },
-      { position: '村文书', name: '杨雪玲', phone: '13874566743', remark: '' },
+      { position: '村文书', name: '杨雪玲', phone: '13874560743', remark: '' },
       { position: '乡村振兴第一书记、队长', name: '杨英涛', phone: '13769247711', remark: '' },
       { position: '乡村振兴队员', name: '张绍平', phone: '13874464265', remark: '' },
-      { position: '乡村振兴队员', name: '刘文学', phone: '13973080528', remark: '' }
+      { position: '乡村振兴队员', name: '刘绍军', phone: '13873080528', remark: '' }
     ]
   },
   {
