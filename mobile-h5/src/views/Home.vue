@@ -2,7 +2,7 @@
   <div class="home-page page-container">
     <div class="header-banner">
       <div class="banner-image">
-        <img src="/banner.jpg" alt="罗卜田乡风景" />
+        <img src="/banner.jpg" alt="罗卜田乡风景" loading="eager" />
         <div class="banner-overlay"></div>
         <div class="banner-title">罗卜田乡</div>
         <div class="banner-subtitle">共建美好家园</div>

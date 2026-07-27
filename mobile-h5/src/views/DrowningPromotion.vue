@@ -30,7 +30,7 @@
         @click="viewDetail(item)"
       >
         <div class="promo-image">
-          <img :src="item.image" :alt="item.title" />
+          <img :src="item.image" :alt="item.title" loading="lazy" />
           <div class="promo-tag">{{ item.type }}</div>
         </div>
         <div class="promo-info">

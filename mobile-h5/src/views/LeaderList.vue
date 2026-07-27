@@ -7,12 +7,30 @@
         <van-icon name="contacts" size="40" color="#fff" />
       </div>
       <div class="header-title">罗卜田乡班子成员分管工作明细表</div>
-      <div class="header-desc">共{{ leaders.length }}位班子成员</div>
+      <div class="header-desc">共{{ filteredLeaders.length }}位班子成员</div>
     </div>
 
-    <div class="leader-list">
+    <div class="filter-section">
+      <van-search 
+        v-model="searchKeyword" 
+        placeholder="搜索姓名或分管领域..." 
+        shape="round"
+        @clear="searchKeyword = ''"
+      />
+      <div class="filter-tags">
+        <span 
+          v-for="cat in categories" 
+          :key="cat.key" 
+          class="filter-tag"
+          :class="{ active: activeCategory === cat.key }"
+          @click="activeCategory = cat.key"
+        >{{ cat.label }}</span>
+      </div>
+    </div>
+
+    <div class="leader-list" v-if="filteredLeaders.length > 0">
       <div 
-        v-for="leader in leaders" 
+        v-for="leader in filteredLeaders" 
         :key="leader.id" 
         class="leader-card"
         @click="goDetail(leader.id)"
@@ -35,14 +53,45 @@
         <van-icon name="arrow" size="16" color="#ccc" />
       </div>
     </div>
+
+    <div class="empty-state" v-else>
+      <van-icon name="search" size="48" color="#ddd" />
+      <p>未找到匹配的负责人</p>
+      <van-button type="primary" size="small" @click="resetFilter">重置筛选</van-button>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const searchKeyword = ref('')
+const activeCategory = ref('all')
+
+const categories = [
+  { key: 'all', label: '全部' },
+  { key: 'politics', label: '党政综合' },
+  { key: 'economy', label: '经济发展' },
+  { key: 'society', label: '社会事务' },
+  { key: 'party', label: '党建群团' },
+  { key: 'discipline', label: '纪检监察' },
+  { key: 'emergency', label: '应急安全' },
+  { key: 'agriculture', label: '农业农村' },
+  { key: 'office', label: '行政办公' }
+]
+
+const workCategoryMap = {
+  politics: ['政协联络', '统战', '民族宗教', '办公室', '政务服务', '政务公开', '档案工作', '保密工作'],
+  economy: ['乡村振兴', '营商环境', '经管（三资）', '财务', '审计'],
+  society: ['信访维稳', '禁毒', '法制', '非法集资', '民政', '残联', '医疗保障', '卫生健康', '食品安全', '教育', '人力资源和社会保障'],
+  party: ['基层党建', '组织人事', '党务公开', '宣传思想文化', '新时代文明实践', '意识形态', '文化', '科协', '关工委', '妇联', '共青团', '工会'],
+  discipline: ['纪检工作'],
+  emergency: ['应急管理', '安全生产', '水利', '防汛抗旱'],
+  agriculture: ['农业农村', '禁捕退捕', '畜牧', '农机', '宅基地审批', '林业', '农村人居环境治理', '生态环保'],
+  office: ['人大工作', '政法', '武装', '国防动员教育', '退役军人', '依法行政', '统计', '绩效考核', '自然资源', '道路交通安全', '行政执法', '住建', '民生实事']
+}
 
 const leaders = ref([
   {
@@ -154,6 +203,33 @@ const leaders = ref([
     ]
   }
 ])
+
+const filteredLeaders = computed(() => {
+  let result = leaders.value
+  
+  if (activeCategory.value !== 'all') {
+    const workNames = workCategoryMap[activeCategory.value] || []
+    result = result.filter(leader => 
+      leader.works.some(work => workNames.some(name => work.name.includes(name)) || 
+        workNames.some(name => name.includes(work.name)))
+    )
+  }
+  
+  if (searchKeyword.value) {
+    const keyword = searchKeyword.value.toLowerCase()
+    result = result.filter(leader => 
+      leader.name.toLowerCase().includes(keyword) ||
+      leader.works.some(work => work.name.toLowerCase().includes(keyword))
+    )
+  }
+  
+  return result
+})
+
+const resetFilter = () => {
+  searchKeyword.value = ''
+  activeCategory.value = 'all'
+}
 
 const goBack = () => {
   router.back()
@@ -267,5 +343,49 @@ onMounted(() => {
 .work-tag.more-tag {
   background: #D22630;
   color: #fff;
+}
+
+.filter-section {
+  background: #fff;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.filter-tag {
+  padding: 6px 12px;
+  background: #f5f5f5;
+  border-radius: 16px;
+  font-size: 12px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-tag.active {
+  background: var(--gradient-primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(210, 38, 48, 0.3);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.empty-state p {
+  color: #999;
+  margin: 12px 0 20px;
+  font-size: 14px;
 }
 </style>

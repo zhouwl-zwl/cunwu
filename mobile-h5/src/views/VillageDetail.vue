@@ -2,7 +2,7 @@
   <div class="village-detail page-container">
     <div class="header-banner">
       <div class="banner-image">
-        <img :src="village.image" :alt="village.name" />
+        <img :src="village.image" :alt="village.name" loading="eager" />
         <div class="banner-overlay"></div>
         <div class="banner-title">{{ village.name }}</div>
         <div class="banner-subtitle">{{ village.desc }}</div>

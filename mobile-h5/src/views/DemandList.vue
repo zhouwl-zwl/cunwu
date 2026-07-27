@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="page-container">
     <van-nav-bar title="诉求进度查询" left-arrow @click-left="onBack">
       <template #right>
@@ -27,7 +27,7 @@
               </div>
             </div>
             <div v-if="item.images && item.images.length > 0" class="news-image-wrapper">
-              <img :src="getFirstImage(item.images)" class="news-image" />
+              <img :src="getFirstImage(item.images)" class="news-image" loading="lazy" />
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
               </div>
             </div>
             <div v-if="item.images && item.images.length > 0" class="news-image-wrapper">
-              <img :src="getFirstImage(item.images)" class="news-image" />
+              <img :src="getFirstImage(item.images)" class="news-image" loading="lazy" />
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@
               </div>
             </div>
             <div v-if="item.images && item.images.length > 0" class="news-image-wrapper">
-              <img :src="getFirstImage(item.images)" class="news-image" />
+              <img :src="getFirstImage(item.images)" class="news-image" loading="lazy" />
             </div>
           </div>
         </div>

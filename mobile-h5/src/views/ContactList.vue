@@ -7,7 +7,25 @@
     </van-nav-bar>
     
     <div class="search-bar">
-      <van-search v-model="searchKeyword" placeholder="搜索姓名、职务、电话..." shape="round" />
+      <van-search 
+        v-model="searchKeyword" 
+        :placeholder="searchPlaceholder" 
+        shape="round"
+        @clear="searchKeyword = ''"
+      >
+        <template #left-icon>
+          <van-icon name="search" size="16" />
+        </template>
+      </van-search>
+      <div class="search-filter">
+        <span class="filter-label">搜索范围：</span>
+        <van-radio-group v-model="searchField" direction="horizontal">
+          <van-radio name="all">全部</van-radio>
+          <van-radio name="name">姓名</van-radio>
+          <van-radio name="position">职务</van-radio>
+          <van-radio name="phone">电话</van-radio>
+        </van-radio-group>
+      </div>
     </div>
 
     <div class="tabs-container">
@@ -89,13 +107,24 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { showDialog, showToast } from 'vant'
+import { showDialog, showToast, RadioGroup, Radio } from 'vant'
 import * as XLSX from 'xlsx'
 import { showSharePanel } from '@/utils/share'
 
 const router = useRouter()
 const searchKeyword = ref('')
+const searchField = ref('all')
 const activeTab = ref('all')
+
+const searchPlaceholder = computed(() => {
+  const map = {
+    all: '搜索姓名、职务、电话...',
+    name: '输入姓名搜索...',
+    position: '输入职务搜索...',
+    phone: '输入电话号码搜索...'
+  }
+  return map[searchField.value] || map.all
+})
 
 const villages = ref([
   {
@@ -187,14 +216,23 @@ const filteredVillages = computed(() => {
   
   if (searchKeyword.value) {
     const keyword = searchKeyword.value.toLowerCase()
-    result = result.map(village => ({
-      ...village,
-      members: village.members.filter(member => 
-        member.name.toLowerCase().includes(keyword) ||
-        member.position.toLowerCase().includes(keyword) ||
-        member.phone.includes(keyword)
-      )
-    })).filter(village => village.members.length > 0)
+    result = result.map(village => {
+      let filtered = village.members
+      if (searchField.value === 'name') {
+        filtered = village.members.filter(m => m.name.toLowerCase().includes(keyword))
+      } else if (searchField.value === 'position') {
+        filtered = village.members.filter(m => m.position.toLowerCase().includes(keyword))
+      } else if (searchField.value === 'phone') {
+        filtered = village.members.filter(m => m.phone.includes(keyword))
+      } else {
+        filtered = village.members.filter(m =>
+          m.name.toLowerCase().includes(keyword) ||
+          m.position.toLowerCase().includes(keyword) ||
+          m.phone.includes(keyword)
+        )
+      }
+      return { ...village, members: filtered }
+    }).filter(village => village.members.length > 0)
   }
   
   return result
@@ -320,6 +358,32 @@ onMounted(() => {
 .search-bar {
   background: #fff;
   padding: 8px 12px;
+}
+
+.search-filter {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  padding: 8px 0;
+  font-size: 13px;
+}
+
+.filter-label {
+  color: #666;
+  margin-right: 12px;
+  font-weight: 500;
+}
+
+.search-filter .van-radio-group {
+  flex: 1;
+}
+
+.search-filter .van-radio {
+  font-size: 13px;
+}
+
+.search-filter .van-radio__label {
+  font-size: 13px;
 }
 
 .tabs-container {
