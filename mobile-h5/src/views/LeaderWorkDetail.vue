@@ -39,12 +39,28 @@
                     v-for="(doc, dIdx) in child.documents" 
                     :key="dIdx" 
                     class="doc-tag"
+                    :class="{ clickable: isRosterDoc(doc) }"
+                    @click.stop="handleDocClick(doc)"
                   >
                     {{ doc }}
+                    <van-icon v-if="isRosterDoc(doc)" name="arrow" size="10" />
                   </span>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div class="roster-entry" v-if="hasRoster">
+          <div class="roster-entry-card" @click="goRoster">
+            <div class="roster-entry-icon">
+              <van-icon name="friends-o" size="24" color="#fff" />
+            </div>
+            <div class="roster-entry-content">
+              <div class="roster-entry-title">纪检干部花名册</div>
+              <div class="roster-entry-desc">查看全部30位纪检干部信息</div>
+            </div>
+            <van-icon name="arrow" size="18" color="#D22630" />
           </div>
         </div>
       </div>
@@ -98,6 +114,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { showToast } from 'vant'
 
 const router = useRouter()
 const route = useRoute()
@@ -105,6 +122,8 @@ const route = useRoute()
 const leaderId = ref(parseInt(route.params.leaderId) || 1)
 const workIndex = ref(parseInt(route.params.workIndex) || 0)
 const expandedIndex = ref(-1)
+
+const ROSTER_DOC = '纪检干部花名册'
 
 const workDetails = ref([
   {
@@ -142,6 +161,27 @@ const workDetail = computed(() => {
     d => d.leaderId === leaderId.value && d.workIndex === workIndex.value
   )
 })
+
+const hasRoster = computed(() => {
+  if (!workDetail.value?.children) return false
+  return workDetail.value.children.some(child => 
+    child.documents && child.documents.includes(ROSTER_DOC)
+  )
+})
+
+const isRosterDoc = (doc) => doc === ROSTER_DOC
+
+const handleDocClick = (doc) => {
+  if (isRosterDoc(doc)) {
+    goRoster()
+  } else {
+    showToast(`${doc} - 暂无详情`)
+  }
+}
+
+const goRoster = () => {
+  router.push('/discipline-roster')
+}
 
 const toggleChild = (idx) => {
   expandedIndex.value = expandedIndex.value === idx ? -1 : idx
@@ -307,6 +347,63 @@ onMounted(() => {
   color: #D22630;
   font-size: 12px;
   border-radius: 12px;
+}
+
+.doc-tag.clickable {
+  cursor: pointer;
+  background: var(--gradient-primary);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 6px rgba(210, 38, 48, 0.3);
+}
+
+.roster-entry {
+  margin-top: 12px;
+}
+
+.roster-entry-card {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #FFF5F5 0%, #FFE8E8 100%);
+  border: 1px solid rgba(210, 38, 48, 0.2);
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.roster-entry-card:active {
+  transform: scale(0.98);
+  background: linear-gradient(135deg, #FFE8E8 0%, #FFD8D8 100%);
+}
+
+.roster-entry-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--gradient-primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+
+.roster-entry-content {
+  flex: 1;
+}
+
+.roster-entry-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.roster-entry-desc {
+  font-size: 12px;
+  color: #999;
 }
 
 .work-items {

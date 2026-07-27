@@ -720,6 +720,15 @@ const routes = [
           title: '工作详情',
           requireAuth: false
         }
+      },
+      {
+        path: 'discipline-roster',
+        name: 'DisciplineRoster',
+        component: () => import('../views/DisciplineRoster.vue'),
+        meta: {
+          title: '纪检干部花名册',
+          requireAuth: false
+        }
       }
     ]
   },
