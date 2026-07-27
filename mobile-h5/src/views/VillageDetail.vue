@@ -71,14 +71,23 @@
           v-for="(member, idx) in currentVillageMembers" 
           :key="idx" 
           class="member-item"
-          @click="showMemberDetail(member)"
         >
           <div class="member-avatar">{{ member.name.charAt(0) }}</div>
-          <div class="member-info">
+          <div class="member-info" @click="showMemberDetail(member)">
             <div class="member-name">{{ member.name }}</div>
             <div class="member-position">{{ member.position }}</div>
           </div>
-          <van-icon name="phone-o" size="18" color="#4CAF50" />
+          <a 
+            v-if="member.phone"
+            :href="`tel:${member.phone}`" 
+            class="call-btn"
+            @click.prevent="callPhone(member)"
+          >
+            <van-icon name="phone" size="16" color="#fff" />
+          </a>
+          <div v-else class="no-phone">
+            <van-icon name="phone-o" size="16" color="#ccc" />
+          </div>
         </div>
         <div v-if="currentVillageMembers.length === 0" class="empty-member">
           暂无人员信息
@@ -468,7 +477,14 @@ const exportMembers = () => {
 }
 
 const showMemberDetail = (member) => {
-  if (!member.phone) return
+  if (!member.phone) {
+    showDialog({
+      title: member.name,
+      message: `职务：${member.position}`,
+      confirmButtonText: '确定'
+    })
+    return
+  }
   showDialog({
     title: member.name,
     message: `职务：${member.position}\n电话：${member.phone}`,
@@ -476,7 +492,27 @@ const showMemberDetail = (member) => {
     confirmButtonColor: '#4CAF50',
     cancelButtonText: '关闭'
   }).then(() => {
-    window.location.href = `tel:${member.phone}`
+    doCall(member.phone)
+  }).catch(() => {})
+}
+
+const callPhone = (member) => {
+  if (!member.phone) {
+    showToast('暂无电话号码')
+    return
+  }
+  doCall(member.phone)
+}
+
+const doCall = (phone) => {
+  showDialog({
+    title: '拨打电话',
+    message: `确定要拨打 ${phone} 吗？`,
+    confirmButtonText: '拨打',
+    confirmButtonColor: '#4CAF50',
+    cancelButtonText: '取消'
+  }).then(() => {
+    window.location.href = `tel:${phone}`
   }).catch(() => {})
 }
 
@@ -791,7 +827,7 @@ onMounted(() => {
   align-items: center;
   padding: 10px 12px;
   border-bottom: 1px solid #f5f5f5;
-  cursor: pointer;
+  cursor: default;
   transition: background 0.2s;
 }
 
@@ -799,8 +835,32 @@ onMounted(() => {
   border-bottom: none;
 }
 
-.member-item:active {
-  background: #f9f9f9;
+.call-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.call-btn:active {
+  transform: scale(0.92);
+}
+
+.no-phone {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .member-avatar {

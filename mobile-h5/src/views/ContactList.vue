@@ -49,20 +49,26 @@
           v-for="(member, mIndex) in village.members" 
           :key="mIndex"
           class="member-card"
-          @click="showMemberDetail(member)"
         >
           <div class="member-avatar">
             {{ member.name.charAt(0) }}
           </div>
-          <div class="member-info">
+          <div class="member-info" @click="showMemberDetail(member)">
             <div class="member-name">{{ member.name }}</div>
             <div class="member-position">{{ member.position }}</div>
           </div>
-          <div class="member-phone">
+          <div class="member-phone" @click="callPhone(member)">
             <van-icon name="phone" size="16" color="#4CAF50" />
             <span>{{ formatPhone(member.phone) }}</span>
           </div>
-          <van-icon name="arrow" size="16" color="#ccc" />
+          <a 
+            v-if="member.phone"
+            :href="`tel:${member.phone}`" 
+            class="call-btn"
+            @click.prevent="callPhone(member)"
+          >
+            <van-icon name="phone" size="18" color="#fff" />
+          </a>
         </div>
       </div>
 
@@ -235,7 +241,14 @@ const exportExcel = () => {
 }
 
 const showMemberDetail = (member) => {
-  if (!member.phone) return
+  if (!member.phone) {
+    showDialog({
+      title: member.name,
+      message: `职务：${member.position}`,
+      confirmButtonText: '确定'
+    })
+    return
+  }
   showDialog({
     title: member.name,
     message: `职务：${member.position}\n电话：${member.phone}`,
@@ -243,7 +256,27 @@ const showMemberDetail = (member) => {
     confirmButtonColor: '#4CAF50',
     cancelButtonText: '关闭'
   }).then(() => {
-    window.location.href = `tel:${member.phone}`
+    doCall(member.phone)
+  }).catch(() => {})
+}
+
+const callPhone = (member) => {
+  if (!member.phone) {
+    showToast('暂无电话号码')
+    return
+  }
+  doCall(member.phone)
+}
+
+const doCall = (phone) => {
+  showDialog({
+    title: '拨打电话',
+    message: `确定要拨打 ${phone} 吗？`,
+    confirmButtonText: '拨打',
+    confirmButtonColor: '#4CAF50',
+    cancelButtonText: '取消'
+  }).then(() => {
+    window.location.href = `tel:${phone}`
   }).catch(() => {})
 }
 
@@ -348,7 +381,7 @@ onMounted(() => {
   align-items: center;
   padding: 12px 16px;
   border-bottom: 1px solid #f5f5f5;
-  cursor: pointer;
+  cursor: default;
   transition: background 0.2s;
 }
 
@@ -401,5 +434,26 @@ onMounted(() => {
   font-size: 13px;
   color: #4CAF50;
   margin-right: 8px;
+  cursor: pointer;
+}
+
+.call-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+
+.call-btn:active {
+  transform: scale(0.92);
+  box-shadow: 0 1px 4px rgba(76, 175, 80, 0.3);
 }
 </style>
