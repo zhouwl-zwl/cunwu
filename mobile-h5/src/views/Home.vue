@@ -408,27 +408,27 @@ onMounted(() => {
 }
 
 .info-card.red-gradient {
-  background: linear-gradient(135deg, #D22630 0%, #B01A26 100%);
+  background: var(--gradient-primary);
 }
 
 .info-card.green-gradient {
-  background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+  background: var(--gradient-success);
 }
 
 .info-card.blue-gradient {
-  background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+  background: var(--gradient-info);
 }
 
 .info-card.orange-gradient {
-  background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+  background: var(--gradient-warning);
 }
 
 .info-card.purple-gradient {
-  background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);
+  background: var(--gradient-purple);
 }
 
 .info-card.cyan-gradient {
-  background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+  background: var(--gradient-cyan);
 }
 
 .card-content {

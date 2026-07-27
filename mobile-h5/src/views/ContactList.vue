@@ -1,6 +1,10 @@
 <template>
   <div class="page-container">
-    <van-nav-bar title="通讯录" left-arrow @click-left="goBack" />
+    <van-nav-bar title="通讯录" left-arrow @click-left="goBack">
+      <template #right>
+        <van-icon name="share-o" size="20" color="#fff" @click="handleShare" />
+      </template>
+    </van-nav-bar>
     
     <div class="search-bar">
       <van-search v-model="searchKeyword" placeholder="搜索姓名、职务、电话..." shape="round" />
@@ -61,14 +65,19 @@
             <van-icon name="phone" size="16" color="#4CAF50" />
             <span>{{ formatPhone(member.phone) }}</span>
           </div>
-          <a 
-            v-if="member.phone"
-            :href="`tel:${member.phone}`" 
-            class="call-btn"
-            @click.prevent="callPhone(member)"
-          >
-            <van-icon name="phone" size="18" color="#fff" />
-          </a>
+          <div class="member-actions">
+            <a 
+              v-if="member.phone"
+              :href="`tel:${member.phone}`" 
+              class="call-btn"
+              @click.prevent="callPhone(member)"
+            >
+              <van-icon name="phone" size="16" color="#fff" />
+            </a>
+            <div class="share-btn" @click="shareMember(member)">
+              <van-icon name="share-o" size="16" color="#4CAF50" />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -82,6 +91,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { showDialog, showToast } from 'vant'
 import * as XLSX from 'xlsx'
+import { showSharePanel } from '@/utils/share'
 
 const router = useRouter()
 const searchKeyword = ref('')
@@ -280,6 +290,21 @@ const doCall = (phone) => {
   }).catch(() => {})
 }
 
+const handleShare = () => {
+  showSharePanel({
+    title: '罗卜田乡通讯录',
+    text: '查看罗卜田乡支两委联系方式'
+  })
+}
+
+const shareMember = (member) => {
+  showSharePanel({
+    title: `${member.name} - ${member.position}`,
+    text: `${member.position}：${member.name}\n电话：${member.phone || '暂无'}`,
+    url: window.location.href
+  })
+}
+
 onMounted(() => {
   document.title = '通讯录 - 村级智慧村务平台'
 })
@@ -317,7 +342,7 @@ onMounted(() => {
 }
 
 .export-btn {
-  background: linear-gradient(135deg, #D22630 0%, #ff4d4f 100%);
+  background: var(--gradient-primary);
   padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
@@ -358,7 +383,7 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   padding: 14px 16px;
-  background: linear-gradient(135deg, rgba(210, 38, 48, 0.06) 0%, rgba(210, 38, 48, 0.02) 100%);
+  background: var(--gradient-primary-light);
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -441,7 +466,7 @@ onMounted(() => {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+  background: var(--gradient-success);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -455,5 +480,28 @@ onMounted(() => {
 .call-btn:active {
   transform: scale(0.92);
   box-shadow: 0 1px 4px rgba(76, 175, 80, 0.3);
+}
+
+.member-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.share-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--gradient-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.share-btn:active {
+  transform: scale(0.92);
 }
 </style>

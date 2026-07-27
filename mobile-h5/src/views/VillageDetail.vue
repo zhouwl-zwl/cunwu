@@ -6,6 +6,9 @@
         <div class="banner-overlay"></div>
         <div class="banner-title">{{ village.name }}</div>
         <div class="banner-subtitle">{{ village.desc }}</div>
+        <div class="banner-share" @click="handleShare">
+          <van-icon name="share-o" size="22" color="#fff" />
+        </div>
       </div>
     </div>
 
@@ -77,16 +80,18 @@
             <div class="member-name">{{ member.name }}</div>
             <div class="member-position">{{ member.position }}</div>
           </div>
-          <a 
-            v-if="member.phone"
-            :href="`tel:${member.phone}`" 
-            class="call-btn"
-            @click.prevent="callPhone(member)"
-          >
-            <van-icon name="phone" size="16" color="#fff" />
-          </a>
-          <div v-else class="no-phone">
-            <van-icon name="phone-o" size="16" color="#ccc" />
+          <div class="member-actions">
+            <a 
+              v-if="member.phone"
+              :href="`tel:${member.phone}`" 
+              class="call-btn"
+              @click.prevent="callPhone(member)"
+            >
+              <van-icon name="phone" size="16" color="#fff" />
+            </a>
+            <div class="share-btn" @click="shareMember(member)">
+              <van-icon name="share-o" size="14" color="#4CAF50" />
+            </div>
           </div>
         </div>
         <div v-if="currentVillageMembers.length === 0" class="empty-member">
@@ -267,6 +272,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { showDialog, showToast } from 'vant'
 import * as XLSX from 'xlsx'
+import { showSharePanel } from '@/utils/share'
 
 const router = useRouter()
 const route = useRoute()
@@ -516,6 +522,21 @@ const doCall = (phone) => {
   }).catch(() => {})
 }
 
+const handleShare = () => {
+  showSharePanel({
+    title: `${village.value.name} - 罗卜田乡`,
+    text: `${village.value.name}村务信息，点击查看详情`
+  })
+}
+
+const shareMember = (member) => {
+  showSharePanel({
+    title: `${member.name} - ${member.position}`,
+    text: `${village.value.name} ${member.position}：${member.name}\n电话：${member.phone || '暂无'}`,
+    url: window.location.href
+  })
+}
+
 onMounted(() => {
   document.title = `${village.value.name} - 村级智慧村务平台`
 })
@@ -543,6 +564,27 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.banner-share {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 10;
+}
+
+.banner-share:active {
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .banner-overlay {
@@ -839,7 +881,7 @@ onMounted(() => {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+  background: var(--gradient-success);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -861,6 +903,29 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.member-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.share-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gradient-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.share-btn:active {
+  transform: scale(0.92);
 }
 
 .member-avatar {

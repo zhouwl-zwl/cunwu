@@ -10,6 +10,20 @@
   --warning-color: #FF9800;
   --danger-color: #F44336;
   --info-color: #2196F3;
+  
+  --gradient-primary: linear-gradient(135deg, #D22630 0%, #B01A26 100%);
+  --gradient-success: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+  --gradient-info: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+  --gradient-warning: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+  --gradient-purple: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);
+  --gradient-cyan: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+  --gradient-pink: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
+  --gradient-blue: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+  
+  --gradient-primary-light: linear-gradient(135deg, rgba(210, 38, 48, 0.08) 0%, rgba(210, 38, 48, 0.04) 100%);
+  --gradient-success-light: linear-gradient(135deg, rgba(76, 175, 80, 0.08) 0%, rgba(76, 175, 80, 0.04) 100%);
+  --gradient-info-light: linear-gradient(135deg, rgba(33, 150, 243, 0.08) 0%, rgba(33, 150, 243, 0.04) 100%);
+  
   --text-primary: #323233;
   --text-secondary: #666666;
   --text-tertiary: #999999;
