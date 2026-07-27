@@ -54,9 +54,16 @@
           <van-icon name="phone" size="20" color="#00BCD4" />
           <h3>支两委人员</h3>
         </div>
-        <div class="header-right" @click="goContactList">
-          <span>查看全部</span>
-          <van-icon name="arrow-right" size="16" />
+        <div class="header-right">
+          <span class="export-link" @click="exportMembers">
+            <van-icon name="down" size="14" />
+            导出
+          </span>
+          <span class="separator">|</span>
+          <span @click="goContactList">
+            查看全部
+            <van-icon name="arrow-right" size="16" />
+          </span>
         </div>
       </div>
       <div class="member-list">
@@ -249,6 +256,8 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { showDialog, showToast } from 'vant'
+import * as XLSX from 'xlsx'
 
 const router = useRouter()
 const route = useRoute()
@@ -433,9 +442,33 @@ const goContactList = () => {
   router.push('/contact-list')
 }
 
+const exportMembers = () => {
+  const members = currentVillageMembers.value
+  if (members.length === 0) {
+    showToast('暂无可导出数据')
+    return
+  }
+  const data = members.map(m => ({
+    '村名': village.value.name,
+    '姓名': m.name,
+    '职务': m.position,
+    '联系电话': m.phone
+  }))
+  const ws = XLSX.utils.json_to_sheet(data)
+  ws['!cols'] = [
+    { wch: 14 },
+    { wch: 12 },
+    { wch: 32 },
+    { wch: 16 }
+  ]
+  const wb = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb, ws, '支两委人员')
+  XLSX.writeFile(wb, `${village.value.name}支两委人员.xlsx`)
+  showToast(`已导出 ${data.length} 条数据`)
+}
+
 const showMemberDetail = (member) => {
   if (!member.phone) return
-  const { showDialog } = require('vant')
   showDialog({
     title: member.name,
     message: `职务：${member.position}\n电话：${member.phone}`,
@@ -734,6 +767,19 @@ onMounted(() => {
   font-size: 13px;
   color: #00BCD4;
   cursor: pointer;
+}
+
+.export-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: #4CAF50;
+  padding: 2px 4px;
+}
+
+.separator {
+  color: #ddd;
+  margin: 0 4px;
 }
 
 .member-list {

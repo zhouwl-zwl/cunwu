@@ -28,6 +28,10 @@
         <span class="stat-value">{{ villages.length }}</span>
         <span class="stat-label">村落</span>
       </div>
+      <div class="stat-item export-btn" @click="exportExcel">
+        <van-icon name="down" size="22" color="#fff" />
+        <span class="stat-label" style="color:#fff">导出Excel</span>
+      </div>
     </div>
 
     <div class="content-list">
@@ -70,7 +74,8 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { showDialog } from 'vant'
+import { showDialog, showToast } from 'vant'
+import * as XLSX from 'xlsx'
 
 const router = useRouter()
 const searchKeyword = ref('')
@@ -192,6 +197,43 @@ const goBack = () => {
   router.back()
 }
 
+const exportExcel = () => {
+  const data = []
+  filteredVillages.value.forEach(village => {
+    village.members.forEach(member => {
+      data.push({
+        '村名': village.name,
+        '姓名': member.name,
+        '职务': member.position,
+        '联系电话': member.phone,
+        '备注': member.remark || ''
+      })
+    })
+  })
+
+  if (data.length === 0) {
+    showToast('暂无可导出数据')
+    return
+  }
+
+  const ws = XLSX.utils.json_to_sheet(data)
+  ws['!cols'] = [
+    { wch: 14 },
+    { wch: 12 },
+    { wch: 32 },
+    { wch: 16 },
+    { wch: 16 }
+  ]
+  const wb = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb, ws, '通讯录')
+
+  const fileName = activeTab.value === 'all'
+    ? '罗卜田乡村干部通讯录.xlsx'
+    : `${activeTab.value}通讯录.xlsx`
+  XLSX.writeFile(wb, fileName)
+  showToast(`已导出 ${data.length} 条数据`)
+}
+
 const showMemberDetail = (member) => {
   if (!member.phone) return
   showDialog({
@@ -239,6 +281,20 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.export-btn {
+  background: linear-gradient(135deg, #D22630 0%, #ff4d4f 100%);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  gap: 4px;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 8px rgba(210, 38, 48, 0.3);
+}
+
+.export-btn:active {
+  transform: scale(0.95);
 }
 
 .stat-value {
