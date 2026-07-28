@@ -4,7 +4,10 @@
     
     <div class="detail-header" v-if="workDetail">
       <div class="header-title">{{ workDetail.workName }}</div>
-      <div class="header-subtitle">{{ workDetail.leaderName }}</div>
+      <div class="header-subtitle">
+        {{ workDetail.leaderName }}
+        <span v-if="workDetail.responsible" class="responsible-tag">负责人：{{ workDetail.responsible }}</span>
+      </div>
     </div>
 
     <div class="detail-content" v-if="workDetail">
@@ -65,9 +68,9 @@
         </div>
       </div>
 
-      <div class="section-card" v-else>
+      <div class="section-card" v-if="workDetail.workItems">
         <div class="section-title">
-          <van-icon name="file-text-o" size="16" color="#D22630" />
+          <van-icon name="description" size="16" color="#D22630" />
           <span>工作内容</span>
         </div>
         <div class="work-items">
@@ -80,25 +83,25 @@
             <div class="item-content">{{ item }}</div>
           </div>
         </div>
+      </div>
 
-        <div v-if="workDetail.documents && workDetail.documents.length > 0">
-          <div class="section-title">
-            <van-icon name="folder-o" size="16" color="#4CAF50" />
-            <span>相关资料台账</span>
-          </div>
-          <div class="document-list">
-            <div 
-              v-for="(doc, idx) in workDetail.documents" 
-              :key="idx" 
-              class="document-item"
-            >
-              <div class="doc-icon">
-                <van-icon name="file" size="20" color="#666" />
-              </div>
-              <div class="doc-content">
-                <div class="doc-title">{{ doc.title }}</div>
-                <div class="doc-desc">{{ doc.description }}</div>
-              </div>
+      <div class="section-card" v-if="workDetail.documents && workDetail.documents.length > 0">
+        <div class="section-title">
+          <van-icon name="folder-o" size="16" color="#4CAF50" />
+          <span>相关资料台账</span>
+        </div>
+        <div class="document-list">
+          <div 
+            v-for="(doc, idx) in workDetail.documents" 
+            :key="idx" 
+            class="document-item"
+          >
+            <div class="doc-icon">
+              <van-icon name="file" size="20" color="#666" />
+            </div>
+            <div class="doc-content">
+              <div class="doc-title">{{ doc.title }}</div>
+              <div class="doc-desc">{{ doc.description }}</div>
             </div>
           </div>
         </div>
@@ -138,6 +141,40 @@ const workDetails = ref([
       { title: '政协联络资料台账1', description: '对应第1组工作事项的资料台账' },
       { title: '政协联络资料台账2', description: '对应第2组工作事项的资料台账' },
       { title: '政协联络资料台账3', description: '对应第3组工作事项的资料台账' }
+    ]
+  },
+  {
+    leaderId: 1,
+    workIndex: 4,
+    leaderName: '欧阳付群',
+    workName: '乡村振兴',
+    responsible: '陈勇',
+    children: [
+      { 
+        name: '监测管理', 
+        documents: [
+          '脱贫户识别台账',
+          '监测对象认定表',
+          '家庭收入核查表'
+        ] 
+      },
+      { 
+        name: '信息维护', 
+        documents: [
+          '脱贫户基本信息表',
+          '监测对象动态管理台账',
+          '信息更新记录'
+        ] 
+      }
+    ],
+    workItems: [
+      '灾、突发事件、经营亏损等导致家庭收入严重下降生活困难的农户，并纳入监测对象',
+      '更新维护脱贫户与监测对象基本信息'
+    ],
+    documents: [
+      { title: '脱贫户资料台账', description: '脱贫户识别与认定相关资料' },
+      { title: '监测对象台账', description: '监测对象纳入与管理相关资料' },
+      { title: '信息更新记录', description: '脱贫户与监测对象信息维护记录' }
     ]
   },
   {
@@ -222,6 +259,20 @@ onMounted(() => {
 .header-subtitle {
   font-size: 14px;
   opacity: 0.9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.responsible-tag {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .detail-content {

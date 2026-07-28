@@ -23,7 +23,10 @@
           <van-icon name="folder-o" size="24" color="#D22630" />
         </div>
         <div class="work-content">
-          <div class="work-name">{{ work.name }}</div>
+          <div class="work-name">
+            {{ work.name }}
+            <span v-if="work.responsible" class="work-responsible">负责人：{{ work.responsible }}</span>
+          </div>
           <div class="work-desc">{{ work.hasDetail ? '点击查看详细内容' : '暂无详细内容' }}</div>
         </div>
         <div class="work-arrow" :class="{ 'has-detail': work.hasDetail }">
@@ -54,7 +57,7 @@ const leadersData = ref([
       { name: '统战', hasDetail: false },
       { name: '民族宗教', hasDetail: false },
       { name: '社会工作', hasDetail: false },
-      { name: '乡村振兴', hasDetail: false },
+      { name: '乡村振兴', hasDetail: true, responsible: '陈勇' },
       { name: '营商环境', hasDetail: false },
       { name: '经管（三资）', hasDetail: false },
       { name: '农村人居环境治理', hasDetail: false },
@@ -271,6 +274,19 @@ onMounted(() => {
   font-weight: 600;
   color: #333;
   margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.work-responsible {
+  font-size: 11px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--gradient-primary);
+  padding: 2px 8px;
+  border-radius: 10px;
 }
 
 .work-desc {
