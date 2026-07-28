@@ -179,6 +179,15 @@ const workDetails = ref([
         ]
       },
       { 
+        name: '平台预警',
+        responsible: '陈勇',
+        documents: [
+          '预警信息台账',
+          '预警处置记录表',
+          '预警整改追踪表'
+        ]
+      },
+      { 
         name: '易地搬迁', 
         responsible: '杨军',
         documents: ['易地扶贫搬迁人员花名册'] 
@@ -211,6 +220,7 @@ const workDetails = ref([
     ],
     workItems: [
       '监测帮扶：灾、突发事件、经营亏损等导致家庭收入严重下降生活困难的农户，并纳入监测对象；更新维护脱贫户与监测对象基本信息',
+      '平台预警：实时监测预警信息，及时发现并处置异常情况，跟踪整改落实',
       '易地搬迁：易地扶贫搬迁人员花名册',
       '厕所革命：改厕台账、问题厕所整改台账',
       '雨露计划：雨露计划台账',
@@ -220,6 +230,7 @@ const workDetails = ref([
     ],
     documents: [
       { title: '监测帮扶资料', description: '脱贫户识别、监测对象认定、信息维护等资料' },
+      { title: '平台预警资料', description: '预警信息台账、预警处置记录、预警整改追踪' },
       { title: '易地搬迁资料', description: '易地扶贫搬迁人员花名册等资料' },
       { title: '厕所革命资料', description: '改厕台账、问题厕所整改台账' },
       { title: '雨露计划资料', description: '雨露计划台账' },
