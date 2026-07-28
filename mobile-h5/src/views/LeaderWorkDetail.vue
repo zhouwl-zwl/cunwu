@@ -27,7 +27,10 @@
             <div class="child-header">
               <div class="child-left">
                 <div class="child-number">{{ idx + 1 }}</div>
-                <div class="child-name">{{ child.name }}</div>
+                <div class="child-name">
+                  {{ child.name }}
+                  <span v-if="child.responsible" class="child-responsible">{{ child.responsible }}</span>
+                </div>
               </div>
               <div class="child-arrow" :class="{ expanded: expandedIndex === idx }">
                 <van-icon name="arrow" size="16" color="#D22630" />
@@ -151,31 +154,50 @@ const workDetails = ref([
     responsible: '杨军',
     children: [
       { 
+        name: '监测帮扶',
+        responsible: '陈勇',
+        documents: [
+          '脱贫户识别台账',
+          '监测对象认定表',
+          '家庭收入核查表',
+          '脱贫户基本信息表',
+          '监测对象动态管理台账',
+          '信息更新记录'
+        ]
+      },
+      { 
         name: '易地搬迁', 
+        responsible: '杨军',
         documents: ['易地扶贫搬迁人员花名册'] 
       },
       { 
         name: '厕所革命', 
+        responsible: '杨军',
         documents: ['改厕台账', '问题厕所整改台账'] 
       },
       { 
         name: '雨露计划', 
+        responsible: '杨军',
         documents: ['雨露计划台账'] 
       },
       { 
         name: '小额信贷', 
+        responsible: '杨军',
         documents: ['小额信贷贴息台账'] 
       },
       { 
         name: '乡村振兴项目', 
+        responsible: '杨军',
         documents: ['乡村振兴项目资产台账', '"四个一批"分类施策台账'] 
       },
       { 
         name: '产业帮扶', 
+        responsible: '杨军',
         documents: ['2025年产业奖补台账'] 
       }
     ],
     workItems: [
+      '监测帮扶：灾、突发事件、经营亏损等导致家庭收入严重下降生活困难的农户，并纳入监测对象；更新维护脱贫户与监测对象基本信息',
       '易地搬迁：易地扶贫搬迁人员花名册',
       '厕所革命：改厕台账、问题厕所整改台账',
       '雨露计划：雨露计划台账',
@@ -184,6 +206,7 @@ const workDetails = ref([
       '产业帮扶：2025年产业奖补台账'
     ],
     documents: [
+      { title: '监测帮扶资料', description: '脱贫户识别、监测对象认定、信息维护等资料' },
       { title: '易地搬迁资料', description: '易地扶贫搬迁人员花名册等资料' },
       { title: '厕所革命资料', description: '改厕台账、问题厕所整改台账' },
       { title: '雨露计划资料', description: '雨露计划台账' },
@@ -362,6 +385,18 @@ onMounted(() => {
   font-size: 14px;
   font-weight: 600;
   color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.child-responsible {
+  font-size: 11px;
+  font-weight: 500;
+  color: #fff;
+  background: linear-gradient(135deg, #FF5722 0%, #E64A19 100%);
+  padding: 2px 8px;
+  border-radius: 10px;
 }
 
 .child-arrow {
