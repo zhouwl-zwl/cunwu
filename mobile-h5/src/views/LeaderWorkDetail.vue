@@ -6,7 +6,6 @@
       <div class="header-title">{{ workDetail.workName }}</div>
       <div class="header-subtitle">
         {{ workDetail.leaderName }}
-        <span v-if="workDetail.responsible" class="responsible-tag">负责人：{{ workDetail.responsible }}</span>
       </div>
     </div>
 
@@ -151,7 +150,6 @@ const workDetails = ref([
     workIndex: 4,
     leaderName: '欧阳付群',
     workName: '乡村振兴',
-    responsible: '杨军',
     children: [
       { 
         name: '监测帮扶',
