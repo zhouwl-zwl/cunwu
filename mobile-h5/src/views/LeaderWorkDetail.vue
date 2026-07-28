@@ -1,9 +1,21 @@
 <template>
   <div class="page-container">
-    <van-nav-bar :title="workDetail?.workName || '工作详情'" left-arrow @click-left="goBack" />
+    <van-nav-bar 
+      :title="workDetail?.workName || '工作详情'" 
+      :class="{ 'nav-bar-rural': workDetail?.workName === '乡村振兴' }"
+      left-arrow 
+      @click-left="goBack" 
+    />
     
-    <div class="detail-header" v-if="workDetail">
-      <div class="header-title">{{ workDetail.workName }}</div>
+    <div 
+      class="detail-header" 
+      :class="{ 'detail-header-rural': workDetail?.workName === '乡村振兴' }" 
+      v-if="workDetail"
+    >
+      <div class="header-title">
+        <span v-if="workDetail.workName === '乡村振兴'" class="header-rural-icon">🌾</span>
+        {{ workDetail.workName }}
+      </div>
       <div class="header-subtitle">
         {{ workDetail.leaderName }}
       </div>
@@ -11,8 +23,8 @@
 
     <div class="detail-content" v-if="workDetail">
       <div class="section-card" v-if="workDetail.children">
-        <div class="section-title">
-          <van-icon name="file-text-o" size="16" color="#D22630" />
+        <div class="section-title" :class="{ 'section-title-rural': workDetail.workName === '乡村振兴' }">
+          <van-icon name="file-text-o" size="16" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#D22630'" />
           <span>分管事务</span>
         </div>
         
@@ -21,18 +33,19 @@
             v-for="(child, idx) in workDetail.children" 
             :key="idx" 
             class="child-card"
+            :class="{ 'child-card-rural': workDetail.workName === '乡村振兴' }"
             @click="toggleChild(idx)"
           >
             <div class="child-header">
               <div class="child-left">
-                <div class="child-number">{{ idx + 1 }}</div>
+                <div class="child-number" :class="{ 'child-number-rural': workDetail.workName === '乡村振兴' }">{{ idx + 1 }}</div>
                 <div class="child-name">
                   {{ child.name }}
-                  <span v-if="child.responsible" class="child-responsible">{{ child.responsible }}</span>
+                  <span v-if="child.responsible" class="child-responsible" :class="{ 'child-responsible-rural': workDetail.workName === '乡村振兴' }">{{ child.responsible }}</span>
                 </div>
               </div>
               <div class="child-arrow" :class="{ expanded: expandedIndex === idx }">
-                <van-icon name="arrow" size="16" color="#D22630" />
+                <van-icon name="arrow" size="16" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#D22630'" />
               </div>
             </div>
             
@@ -44,7 +57,7 @@
                     v-for="(doc, dIdx) in child.documents" 
                     :key="dIdx" 
                     class="doc-tag"
-                    :class="{ clickable: isRosterDoc(doc) }"
+                    :class="{ clickable: isRosterDoc(doc), 'doc-tag-rural': workDetail.workName === '乡村振兴' }"
                     @click.stop="handleDocClick(doc)"
                   >
                     {{ doc }}
@@ -71,8 +84,8 @@
       </div>
 
       <div class="section-card" v-if="workDetail.workItems">
-        <div class="section-title">
-          <van-icon name="description" size="16" color="#D22630" />
+        <div class="section-title" :class="{ 'section-title-rural': workDetail.workName === '乡村振兴' }">
+          <van-icon name="description" size="16" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#D22630'" />
           <span>工作内容</span>
         </div>
         <div class="work-items">
@@ -80,16 +93,17 @@
             v-for="(item, idx) in workDetail.workItems" 
             :key="idx" 
             class="work-item"
+            :class="{ 'work-item-rural': workDetail.workName === '乡村振兴' }"
           >
-            <div class="item-number">{{ idx + 1 }}</div>
+            <div class="item-number" :class="{ 'item-number-rural': workDetail.workName === '乡村振兴' }">{{ idx + 1 }}</div>
             <div class="item-content">{{ item }}</div>
           </div>
         </div>
       </div>
 
       <div class="section-card" v-if="workDetail.documents && workDetail.documents.length > 0">
-        <div class="section-title">
-          <van-icon name="folder-o" size="16" color="#4CAF50" />
+        <div class="section-title" :class="{ 'section-title-rural': workDetail.workName === '乡村振兴' }">
+          <van-icon name="folder-o" size="16" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#4CAF50'" />
           <span>相关资料台账</span>
         </div>
         <div class="document-list">
@@ -97,9 +111,10 @@
             v-for="(doc, idx) in workDetail.documents" 
             :key="idx" 
             class="document-item"
+            :class="{ 'document-item-rural': workDetail.workName === '乡村振兴' }"
           >
             <div class="doc-icon">
-              <van-icon name="file" size="20" color="#666" />
+              <van-icon name="file" size="20" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#666'" />
             </div>
             <div class="doc-content">
               <div class="doc-title">{{ doc.title }}</div>
@@ -578,5 +593,67 @@ onMounted(() => {
   border-radius: 12px;
   padding: 30px;
   text-align: center;
+}
+
+/* 乡村振兴绿色主题 */
+:deep(.nav-bar-rural) {
+  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%) !important;
+}
+
+.detail-header-rural {
+  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 50%, #1B5E20 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.detail-header-rural::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.header-rural-icon {
+  margin-right: 8px;
+  font-size: 22px;
+}
+
+.section-title-rural {
+  border-bottom-color: #E8F5E9 !important;
+}
+
+.child-card-rural {
+  border-left: 3px solid #4CAF50;
+}
+
+.child-number-rural {
+  background: #4CAF50 !important;
+}
+
+.child-responsible-rural {
+  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%) !important;
+}
+
+.doc-tag-rural {
+  background: rgba(76, 175, 80, 0.1) !important;
+  color: #2E7D32 !important;
+}
+
+.work-item-rural {
+  background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+  border-left: 3px solid #4CAF50;
+}
+
+.item-number-rural {
+  background: #4CAF50 !important;
+}
+
+.document-item-rural {
+  background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+  border: 1px solid #C8E6C9;
 }
 </style>

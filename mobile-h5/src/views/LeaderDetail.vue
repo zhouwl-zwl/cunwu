@@ -17,20 +17,24 @@
         v-for="(work, idx) in leader.works" 
         :key="idx" 
         class="work-card"
+        :class="{ 'work-card-rural': work.name === '乡村振兴' }"
         @click="work.hasDetail ? goWorkDetail(leader.id, idx) : showToast('暂无详细内容')"
       >
-        <div class="work-icon">
-          <van-icon name="folder-o" size="24" color="#D22630" />
+        <div class="work-icon" :class="{ 'work-icon-rural': work.name === '乡村振兴' }">
+          <van-icon v-if="work.name !== '乡村振兴'" name="folder-o" size="24" color="#D22630" />
+          <span v-else class="rural-icon">🌾</span>
         </div>
         <div class="work-content">
-          <div class="work-name">
+          <div class="work-name" :class="{ 'work-name-rural': work.name === '乡村振兴' }">
             {{ work.name }}
             <span v-if="work.responsible" class="work-responsible">负责人：{{ work.responsible }}</span>
           </div>
-          <div class="work-desc">{{ work.hasDetail ? '点击查看详细内容' : '暂无详细内容' }}</div>
+          <div class="work-desc" :class="{ 'work-desc-rural': work.name === '乡村振兴' }">
+            {{ work.hasDetail ? '点击查看详细内容' : '暂无详细内容' }}
+          </div>
         </div>
-        <div class="work-arrow" :class="{ 'has-detail': work.hasDetail }">
-          <van-icon name="arrow" size="16" :color="work.hasDetail ? '#D22630' : '#ccc'" />
+        <div class="work-arrow" :class="{ 'has-detail': work.hasDetail, 'work-arrow-rural': work.name === '乡村振兴' }">
+          <van-icon name="arrow" size="16" :color="work.hasDetail ? (work.name === '乡村振兴' ? '#2E7D32' : '#D22630') : '#ccc'" />
         </div>
       </div>
     </div>
@@ -300,5 +304,74 @@ onMounted(() => {
 
 .work-arrow.has-detail {
   transform: translateX(2px);
+}
+
+/* 乡村振兴特色UI */
+.work-card-rural {
+  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 50%, #1B5E20 100%);
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.35);
+  padding: 16px 14px;
+}
+
+.work-card-rural::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(30%, -30%);
+}
+
+.work-card-rural::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(to top, rgba(255,255,255,0.1) 0%, transparent 100%);
+}
+
+.work-card-rural:active {
+  transform: scale(0.98);
+  background: linear-gradient(135deg, #43A047 0%, #2E7D32 50%, #1B5E20 100%);
+}
+
+.work-icon-rural {
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(4px);
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 12px !important;
+}
+
+.rural-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.work-name-rural {
+  color: #fff !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.work-name-rural .work-responsible {
+  background: rgba(255, 255, 255, 0.35);
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+
+.work-desc-rural {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.work-arrow-rural {
+  z-index: 1;
 }
 </style>
