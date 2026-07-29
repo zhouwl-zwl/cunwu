@@ -20,9 +20,8 @@
         :class="{ 'work-card-rural': work.name === '乡村振兴' }"
         @click="work.hasDetail ? goWorkDetail(leader.id, idx) : showToast('暂无详细内容')"
       >
-        <div class="work-icon" :class="{ 'work-icon-rural': work.name === '乡村振兴' }">
-          <van-icon v-if="work.name !== '乡村振兴'" name="folder-o" size="24" color="#D22630" />
-          <span v-else class="rural-icon">🌾</span>
+        <div class="work-icon" :class="{ 'work-icon-rural': work.name === '乡村振兴' }" :style="work.name !== '乡村振兴' ? { background: work.color } : {}">
+          <span class="work-emoji">{{ work.icon }}</span>
         </div>
         <div class="work-content">
           <div class="work-name" :class="{ 'work-name-rural': work.name === '乡村振兴' }">
@@ -33,8 +32,8 @@
             {{ work.hasDetail ? '点击查看详细内容' : '暂无详细内容' }}
           </div>
         </div>
-        <div class="work-arrow" :class="{ 'has-detail': work.hasDetail, 'work-arrow-rural': work.name === '乡村振兴' }">
-          <van-icon name="arrow" size="16" :color="work.hasDetail ? (work.name === '乡村振兴' ? '#2E7D32' : '#D22630') : '#ccc'" />
+        <div class="work-arrow" :class="{ 'has-detail': work.hasDetail }">
+          <van-icon name="arrow" size="16" :color="work.hasDetail ? '#666' : '#ccc'" />
         </div>
       </div>
     </div>
@@ -57,15 +56,15 @@ const leadersData = ref([
     name: '欧阳付群',
     color: 'linear-gradient(135deg, #D22630 0%, #B01A26 100%)',
     works: [
-      { name: '政协联络', hasDetail: true },
-      { name: '统战', hasDetail: false },
-      { name: '民族宗教', hasDetail: false },
-      { name: '社会工作', hasDetail: false },
-      { name: '乡村振兴', hasDetail: true },
-      { name: '营商环境', hasDetail: false },
-      { name: '经管（三资）', hasDetail: false },
-      { name: '农村人居环境治理', hasDetail: false },
-      { name: '生态环保', hasDetail: false }
+      { name: '政协联络', icon: '🤝', color: 'linear-gradient(135deg, #E57373, #C62828)', hasDetail: true },
+      { name: '统战', icon: '🌐', color: 'linear-gradient(135deg, #BA68C8, #7B1FA2)', hasDetail: false },
+      { name: '民族宗教', icon: '🕌', color: 'linear-gradient(135deg, #4DD0E1, #00838F)', hasDetail: false },
+      { name: '社会工作', icon: '💝', color: 'linear-gradient(135deg, #F06292, #AD1457)', hasDetail: false },
+      { name: '乡村振兴', icon: '🌾', color: 'linear-gradient(135deg, #66BB6A, #2E7D32)', hasDetail: true },
+      { name: '营商环境', icon: '🏢', color: 'linear-gradient(135deg, #42A5F5, #1565C0)', hasDetail: false },
+      { name: '经管（三资）', icon: '💼', color: 'linear-gradient(135deg, #FFA726, #E65100)', hasDetail: false },
+      { name: '农村人居环境治理', icon: '🌿', color: 'linear-gradient(135deg, #81C784, #388E3C)', hasDetail: false },
+      { name: '生态环保', icon: '♻️', color: 'linear-gradient(135deg, #26C6DA, #00695C)', hasDetail: false }
     ]
   },
   {
@@ -73,12 +72,12 @@ const leadersData = ref([
     name: '曹海洋',
     color: 'linear-gradient(135deg, #2196F3 0%, #1565C0 100%)',
     works: [
-      { name: '人大工作', hasDetail: false },
-      { name: '政法', hasDetail: false },
-      { name: '信访维稳', hasDetail: false },
-      { name: '禁毒', hasDetail: false },
-      { name: '法制', hasDetail: false },
-      { name: '非法集资', hasDetail: false }
+      { name: '人大工作', icon: '🏛️', color: 'linear-gradient(135deg, #64B5F6, #1565C0)', hasDetail: false },
+      { name: '政法', icon: '⚖️', color: 'linear-gradient(135deg, #5C6BC0, #283593)', hasDetail: false },
+      { name: '信访维稳', icon: '📞', color: 'linear-gradient(135deg, #7986CB, #303F9F)', hasDetail: false },
+      { name: '禁毒', icon: '🚫', color: 'linear-gradient(135deg, #EF5350, #C62828)', hasDetail: false },
+      { name: '法制', icon: '📜', color: 'linear-gradient(135deg, #42A5F5, #1A237E)', hasDetail: false },
+      { name: '非法集资', icon: '💰', color: 'linear-gradient(135deg, #FFA726, #E65100)', hasDetail: false }
     ]
   },
   {
@@ -86,18 +85,18 @@ const leadersData = ref([
     name: '龙君屹',
     color: 'linear-gradient(135deg, #4CAF50 0%, #388E3C 100%)',
     works: [
-      { name: '武装', hasDetail: false },
-      { name: '国防动员教育', hasDetail: false },
-      { name: '退役军人', hasDetail: false },
-      { name: '农业农村', hasDetail: false },
-      { name: '依法行政', hasDetail: false },
-      { name: '统计', hasDetail: false },
-      { name: '民政', hasDetail: false },
-      { name: '残联', hasDetail: false },
-      { name: '医疗保障', hasDetail: false },
-      { name: '卫生健康', hasDetail: false },
-      { name: '食品安全', hasDetail: false },
-      { name: '教育', hasDetail: false }
+      { name: '武装', icon: '🎖️', color: 'linear-gradient(135deg, #8D6E63, #3E2723)', hasDetail: false },
+      { name: '国防动员教育', icon: '🛡️', color: 'linear-gradient(135deg, #795548, #3E2723)', hasDetail: false },
+      { name: '退役军人', icon: '🪖', color: 'linear-gradient(135deg, #5D4037, #1B0000)', hasDetail: false },
+      { name: '农业农村', icon: '🌾', color: 'linear-gradient(135deg, #66BB6A, #1B5E20)', hasDetail: false },
+      { name: '依法行政', icon: '⚖️', color: 'linear-gradient(135deg, #42A5F5, #0D47A1)', hasDetail: false },
+      { name: '统计', icon: '📊', color: 'linear-gradient(135deg, #26A69A, #004D40)', hasDetail: false },
+      { name: '民政', icon: '🏘️', color: 'linear-gradient(135deg, #EF9A9A, #C62828)', hasDetail: false },
+      { name: '残联', icon: '♿', color: 'linear-gradient(135deg, #90CAF9, #1565C0)', hasDetail: false },
+      { name: '医疗保障', icon: '🏥', color: 'linear-gradient(135deg, #A5D6A7, #2E7D32)', hasDetail: false },
+      { name: '卫生健康', icon: '💊', color: 'linear-gradient(135deg, #80CBC4, #00695C)', hasDetail: false },
+      { name: '食品安全', icon: '🍎', color: 'linear-gradient(135deg, #EF5350, #C62828)', hasDetail: false },
+      { name: '教育', icon: '🎓', color: 'linear-gradient(135deg, #9575CD, #4527A0)', hasDetail: false }
     ]
   },
   {
@@ -105,18 +104,18 @@ const leadersData = ref([
     name: '张芷馨',
     color: 'linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%)',
     works: [
-      { name: '基层党建', hasDetail: false },
-      { name: '组织人事', hasDetail: false },
-      { name: '党务公开', hasDetail: false },
-      { name: '宣传思想文化', hasDetail: false },
-      { name: '新时代文明实践', hasDetail: false },
-      { name: '意识形态', hasDetail: false },
-      { name: '文化', hasDetail: false },
-      { name: '科协', hasDetail: false },
-      { name: '关工委', hasDetail: false },
-      { name: '妇联', hasDetail: false },
-      { name: '共青团', hasDetail: false },
-      { name: '工会', hasDetail: false }
+      { name: '基层党建', icon: '🚩', color: 'linear-gradient(135deg, #E53935, #B71C1C)', hasDetail: false },
+      { name: '组织人事', icon: '👥', color: 'linear-gradient(135deg, #7E57C2, #4527A0)', hasDetail: false },
+      { name: '党务公开', icon: '📢', color: 'linear-gradient(135deg, #BA68C8, #6A1B9A)', hasDetail: false },
+      { name: '宣传思想文化', icon: '📣', color: 'linear-gradient(135deg, #CE93D8, #6A1B9A)', hasDetail: false },
+      { name: '新时代文明实践', icon: '🌟', color: 'linear-gradient(135deg, #D4E157, #827717)', hasDetail: false },
+      { name: '意识形态', icon: '🧠', color: 'linear-gradient(135deg, #9575CD, #4527A0)', hasDetail: false },
+      { name: '文化', icon: '🎭', color: 'linear-gradient(135deg, #F06292, #880E4F)', hasDetail: false },
+      { name: '科协', icon: '🔬', color: 'linear-gradient(135deg, #4DD0E1, #006064)', hasDetail: false },
+      { name: '关工委', icon: '👴', color: 'linear-gradient(135deg, #BCAAA4, #4E342E)', hasDetail: false },
+      { name: '妇联', icon: '👩', color: 'linear-gradient(135deg, #F48FB1, #AD1457)', hasDetail: false },
+      { name: '共青团', icon: '🧑', color: 'linear-gradient(135deg, #81D4FA, #01579B)', hasDetail: false },
+      { name: '工会', icon: '👷', color: 'linear-gradient(135deg, #FFB74D, #E65100)', hasDetail: false }
     ]
   },
   {
@@ -126,14 +125,16 @@ const leadersData = ref([
     works: [
       { 
         name: '纪检工作', 
+        icon: '⚖️',
+        color: 'linear-gradient(135deg, #FF8A65, #BF360C)',
         hasDetail: true,
         children: [
-          { name: '协助党委推进全面从严治党', documents: ['党委会议记录'] },
-          { name: '政治、日常、专项等监督', documents: ['相关监督检查台账'] },
-          { name: '线索处置', documents: ['线索台账'] },
-          { name: '案件查办', documents: ['案卷卷宗'] },
-          { name: '廉政教育', documents: ['廉政风险排查表', '谈心谈话记录', '警示教育台账'] },
-          { name: '队伍建设和监督', documents: ['纪检干部花名册', '培训会议'] }
+          { name: '协助党委推进全面从严治党', icon: '📜', documents: ['党委会议记录'] },
+          { name: '政治、日常、专项等监督', icon: '👁️', documents: ['相关监督检查台账'] },
+          { name: '线索处置', icon: '🔍', documents: ['线索台账'] },
+          { name: '案件查办', icon: '⚖️', documents: ['案卷卷宗'] },
+          { name: '廉政教育', icon: '🎓', documents: ['廉政风险排查表', '谈心谈话记录', '警示教育台账'] },
+          { name: '队伍建设和监督', icon: '👥', documents: ['纪检干部花名册', '培训会议'] }
         ]
       }
     ]
@@ -143,11 +144,11 @@ const leadersData = ref([
     name: '杨承明',
     color: 'linear-gradient(135deg, #00BCD4 0%, #0097A7 100%)',
     works: [
-      { name: '应急管理', hasDetail: false },
-      { name: '安全生产', hasDetail: false },
-      { name: '水利', hasDetail: false },
-      { name: '防汛抗旱', hasDetail: false },
-      { name: '住建', hasDetail: false }
+      { name: '应急管理', icon: '🚨', color: 'linear-gradient(135deg, #EF5350, #B71C1C)', hasDetail: false },
+      { name: '安全生产', icon: '⛑️', color: 'linear-gradient(135deg, #FFA726, #E65100)', hasDetail: false },
+      { name: '水利', icon: '💧', color: 'linear-gradient(135deg, #29B6F6, #01579B)', hasDetail: false },
+      { name: '防汛抗旱', icon: '🌊', color: 'linear-gradient(135deg, #4FC3F7, #01579B)', hasDetail: false },
+      { name: '住建', icon: '🏗️', color: 'linear-gradient(135deg, #8D6E63, #3E2723)', hasDetail: false }
     ]
   },
   {
@@ -155,20 +156,20 @@ const leadersData = ref([
     name: '杨成',
     color: 'linear-gradient(135deg, #FF9800 0%, #E65100 100%)',
     works: [
-      { name: '办公室', hasDetail: false },
-      { name: '政务服务', hasDetail: false },
-      { name: '政务公开', hasDetail: false },
-      { name: '档案工作', hasDetail: false },
-      { name: '保密工作', hasDetail: false },
-      { name: '民生实事', hasDetail: false },
-      { name: '绩效考核', hasDetail: false },
-      { name: '人力资源和社会保障', hasDetail: false },
-      { name: '自然资源', hasDetail: false },
-      { name: '财务', hasDetail: false },
-      { name: '审计', hasDetail: false },
-      { name: '林业', hasDetail: false },
-      { name: '道路交通安全', hasDetail: false },
-      { name: '行政执法', hasDetail: false }
+      { name: '办公室', icon: '📋', color: 'linear-gradient(135deg, #FFB74D, #E65100)', hasDetail: false },
+      { name: '政务服务', icon: '🏛️', color: 'linear-gradient(135deg, #FFCC80, #EF6C00)', hasDetail: false },
+      { name: '政务公开', icon: '📢', color: 'linear-gradient(135deg, #FFE082, #F57F17)', hasDetail: false },
+      { name: '档案工作', icon: '📁', color: 'linear-gradient(135deg, #FFAB91, #D84315)', hasDetail: false },
+      { name: '保密工作', icon: '🔒', color: 'linear-gradient(135deg, #A1887F, #4E342E)', hasDetail: false },
+      { name: '民生实事', icon: '❤️', color: 'linear-gradient(135deg, #EF9A9A, #C62828)', hasDetail: false },
+      { name: '绩效考核', icon: '📈', color: 'linear-gradient(135deg, #FFD54F, #FF6F00)', hasDetail: false },
+      { name: '人力资源和社会保障', icon: '👤', color: 'linear-gradient(135deg, #CE93D8, #6A1B9A)', hasDetail: false },
+      { name: '自然资源', icon: '🌍', color: 'linear-gradient(135deg, #81C784, #1B5E20)', hasDetail: false },
+      { name: '财务', icon: '💴', color: 'linear-gradient(135deg, #FFCA28, #F57F17)', hasDetail: false },
+      { name: '审计', icon: '🔍', color: 'linear-gradient(135deg, #BCAAA4, #4E342E)', hasDetail: false },
+      { name: '林业', icon: '🌲', color: 'linear-gradient(135deg, #66BB6A, #1B5E20)', hasDetail: false },
+      { name: '道路交通安全', icon: '🚦', color: 'linear-gradient(135deg, #FF7043, #BF360C)', hasDetail: false },
+      { name: '行政执法', icon: '⚖️', color: 'linear-gradient(135deg, #42A5F5, #0D47A1)', hasDetail: false }
     ]
   }
 ])
@@ -258,14 +259,21 @@ onMounted(() => {
 }
 
 .work-icon {
-  width: 44px;
-  height: 44px;
-  background: rgba(210, 38, 48, 0.08);
-  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.work-emoji {
+  font-size: 26px;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
 .work-content {
@@ -346,9 +354,6 @@ onMounted(() => {
 .work-icon-rural {
   background: rgba(255, 255, 255, 0.25) !important;
   backdrop-filter: blur(4px);
-  width: 48px !important;
-  height: 48px !important;
-  border-radius: 12px !important;
 }
 
 .rural-icon {
