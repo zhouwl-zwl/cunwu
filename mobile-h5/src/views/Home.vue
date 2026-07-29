@@ -103,7 +103,7 @@
           @click="goVillageDetail(village.id)"
         >
           <div class="village-icon" :style="{ background: village.color }">
-            <van-icon :name="village.icon" size="32" color="#fff" />
+            <span class="village-emoji">{{ village.icon }}</span>
           </div>
           <div class="village-info">
             <div class="village-name">{{ village.name }}</div>
@@ -156,13 +156,13 @@ const searchKeyword = ref('')
 const villageInfo = ref(null)
 
 const villages = ref([
-  { id: 1, name: '新店村', icon: 'home-o', color: 'linear-gradient(135deg, #D22630 0%, #B01A26 100%)', desc: '21个村民组，1568人' },
-  { id: 2, name: '罗卜田村', icon: 'map', color: 'linear-gradient(135deg, #4CAF50 0%, #388E3C 100%)', desc: '18个村民组，1420人' },
-  { id: 3, name: '兴无村', icon: 'trending-up', color: 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)', desc: '15个村民组，1280人' },
-  { id: 4, name: '马坡村', icon: 'flag', color: 'linear-gradient(135deg, #FFA500 0%, #FF8C00 100%)', desc: '16个村民组，1356人' },
-  { id: 5, name: '半冲村', icon: 'mountain', color: 'linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%)', desc: '12个村民组，1086人' },
-  { id: 6, name: '冬瓜坡村', icon: 'tree-o', color: 'linear-gradient(135deg, #00BCD4 0%, #0097A7 100%)', desc: '14个村民组，1156人' },
-  { id: 7, name: '枣子山村', icon: 'star-o', color: 'linear-gradient(135deg, #E91E63 0%, #C2185B 100%)', desc: '11个村民组，983人' }
+  { id: 1, name: '新店村', icon: '🏠', color: 'linear-gradient(135deg, #D22630 0%, #B01A26 100%)', desc: '21个村民组，1568人' },
+  { id: 2, name: '罗卜田村', icon: '🥕', color: 'linear-gradient(135deg, #4CAF50 0%, #388E3C 100%)', desc: '18个村民组，1420人' },
+  { id: 3, name: '兴无村', icon: '💰', color: 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)', desc: '15个村民组，1280人' },
+  { id: 4, name: '马坡村', icon: '🐎', color: 'linear-gradient(135deg, #FFA500 0%, #FF8C00 100%)', desc: '16个村民组，1356人' },
+  { id: 5, name: '半冲村', icon: '⛰️', color: 'linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%)', desc: '12个村民组，1086人' },
+  { id: 6, name: '冬瓜坡村', icon: '🥒', color: 'linear-gradient(135deg, #00BCD4 0%, #0097A7 100%)', desc: '14个村民组，1156人' },
+  { id: 7, name: '枣子山村', icon: '🌰', color: 'linear-gradient(135deg, #8D6E63 0%, #5D4037 100%)', desc: '11个村民组，983人' }
 ])
 
 const leaders = ref([
@@ -459,10 +459,24 @@ onMounted(() => {
   display: flex;
   align-items: center;
   padding: 16px;
-  background: #f8f9fa;
+  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
   border-radius: 14px;
   border: 1px solid #eee;
   transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.village-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, rgba(210, 38, 48, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(30%, -30%);
 }
 
 .village-card:active {
@@ -478,6 +492,14 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   margin-right: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.village-emoji {
+  font-size: 28px;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
 .village-info {
