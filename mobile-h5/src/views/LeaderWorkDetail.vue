@@ -38,7 +38,13 @@
           >
             <div class="child-header">
               <div class="child-left">
-                <div class="child-number" :class="{ 'child-number-rural': workDetail.workName === '乡村振兴' }">{{ idx + 1 }}</div>
+                <div 
+                  class="child-number" 
+                  :class="{ 'child-number-rural': workDetail.workName === '乡村振兴', 'child-number-icon': child.icon }"
+                >
+                  <span v-if="child.icon" class="child-icon">{{ child.icon }}</span>
+                  <span v-else>{{ idx + 1 }}</span>
+                </div>
                 <div class="child-name">
                   {{ child.name }}
                   <span v-if="child.responsible" class="child-responsible" :class="{ 'child-responsible-rural': workDetail.workName === '乡村振兴' }">{{ child.responsible }}</span>
@@ -95,8 +101,11 @@
             class="work-item"
             :class="{ 'work-item-rural': workDetail.workName === '乡村振兴' }"
           >
-            <div class="item-number" :class="{ 'item-number-rural': workDetail.workName === '乡村振兴' }">{{ idx + 1 }}</div>
-            <div class="item-content">{{ item }}</div>
+            <div class="item-number" :class="{ 'item-number-rural': workDetail.workName === '乡村振兴', 'item-number-icon': typeof item === 'object' && item.icon }">
+              <span v-if="typeof item === 'object' && item.icon" class="item-icon">{{ item.icon }}</span>
+              <span v-else>{{ idx + 1 }}</span>
+            </div>
+            <div class="item-content">{{ typeof item === 'object' ? item.text : item }}</div>
           </div>
         </div>
       </div>
@@ -113,8 +122,9 @@
             class="document-item"
             :class="{ 'document-item-rural': workDetail.workName === '乡村振兴' }"
           >
-            <div class="doc-icon">
-              <van-icon name="file" size="20" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#666'" />
+            <div class="doc-icon" :class="{ 'doc-icon-emoji': doc.icon }">
+              <span v-if="doc.icon" class="doc-emoji">{{ doc.icon }}</span>
+              <van-icon v-else name="file" size="20" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#666'" />
             </div>
             <div class="doc-content">
               <div class="doc-title">{{ doc.title }}</div>
@@ -152,12 +162,12 @@ const workDetails = ref([
     leaderName: '欧阳付群',
     workName: '政协联络',
     workItems: [
-      '3项标注为XXXX的工作事项'
+      { icon: '📋', text: '3项标注为XXXX的工作事项' }
     ],
     documents: [
-      { title: '政协联络资料台账1', description: '对应第1组工作事项的资料台账' },
-      { title: '政协联络资料台账2', description: '对应第2组工作事项的资料台账' },
-      { title: '政协联络资料台账3', description: '对应第3组工作事项的资料台账' }
+      { icon: '📄', title: '政协联络资料台账1', description: '对应第1组工作事项的资料台账' },
+      { icon: '📄', title: '政协联络资料台账2', description: '对应第2组工作事项的资料台账' },
+      { icon: '📄', title: '政协联络资料台账3', description: '对应第3组工作事项的资料台账' }
     ]
   },
   {
@@ -168,6 +178,7 @@ const workDetails = ref([
     children: [
       { 
         name: '监测帮扶',
+        icon: '📊',
         responsible: '陈勇',
         documents: [
           '脱贫户识别台账',
@@ -180,6 +191,7 @@ const workDetails = ref([
       },
       { 
         name: '平台预警',
+        icon: '🔔',
         responsible: '陈勇',
         documents: [
           '预警信息台账',
@@ -189,54 +201,60 @@ const workDetails = ref([
       },
       { 
         name: '易地搬迁', 
+        icon: '🏠',
         responsible: '杨军',
         documents: ['易地扶贫搬迁人员花名册'] 
       },
       { 
         name: '厕所革命', 
+        icon: '🚽',
         responsible: '杨军',
         documents: ['改厕台账', '问题厕所整改台账'] 
       },
       { 
         name: '雨露计划', 
+        icon: '💧',
         responsible: '杨军',
         documents: ['雨露计划台账'] 
       },
       { 
         name: '小额信贷', 
+        icon: '💰',
         responsible: '杨军',
         documents: ['小额信贷贴息台账'] 
       },
       { 
         name: '乡村振兴项目', 
+        icon: '🏗️',
         responsible: '杨军',
         documents: ['乡村振兴项目资产台账', '"四个一批"分类施策台账'] 
       },
       { 
         name: '产业帮扶', 
+        icon: '🌱',
         responsible: '杨军',
         documents: ['2025年产业奖补台账'] 
       }
     ],
     workItems: [
-      '监测帮扶：灾、突发事件、经营亏损等导致家庭收入严重下降生活困难的农户，并纳入监测对象；更新维护脱贫户与监测对象基本信息',
-      '平台预警：实时监测预警信息，及时发现并处置异常情况，跟踪整改落实',
-      '易地搬迁：易地扶贫搬迁人员花名册',
-      '厕所革命：改厕台账、问题厕所整改台账',
-      '雨露计划：雨露计划台账',
-      '小额信贷：小额信贷贴息台账',
-      '乡村振兴项目：乡村振兴项目资产台账、"四个一批"分类施策台账',
-      '产业帮扶：2025年产业奖补台账'
+      { icon: '📊', text: '监测帮扶：灾、突发事件、经营亏损等导致家庭收入严重下降生活困难的农户，并纳入监测对象；更新维护脱贫户与监测对象基本信息' },
+      { icon: '🔔', text: '平台预警：实时监测预警信息，及时发现并处置异常情况，跟踪整改落实' },
+      { icon: '🏠', text: '易地搬迁：易地扶贫搬迁人员花名册' },
+      { icon: '🚽', text: '厕所革命：改厕台账、问题厕所整改台账' },
+      { icon: '💧', text: '雨露计划：雨露计划台账' },
+      { icon: '💰', text: '小额信贷：小额信贷贴息台账' },
+      { icon: '🏗️', text: '乡村振兴项目：乡村振兴项目资产台账、"四个一批"分类施策台账' },
+      { icon: '🌱', text: '产业帮扶：2025年产业奖补台账' }
     ],
     documents: [
-      { title: '监测帮扶资料', description: '脱贫户识别、监测对象认定、信息维护等资料' },
-      { title: '平台预警资料', description: '预警信息台账、预警处置记录、预警整改追踪' },
-      { title: '易地搬迁资料', description: '易地扶贫搬迁人员花名册等资料' },
-      { title: '厕所革命资料', description: '改厕台账、问题厕所整改台账' },
-      { title: '雨露计划资料', description: '雨露计划台账' },
-      { title: '小额信贷资料', description: '小额信贷贴息台账' },
-      { title: '乡村振兴项目资料', description: '项目资产台账、"四个一批"分类施策台账' },
-      { title: '产业帮扶资料', description: '2025年产业奖补台账' }
+      { icon: '📊', title: '监测帮扶资料', description: '脱贫户识别、监测对象认定、信息维护等资料' },
+      { icon: '🔔', title: '平台预警资料', description: '预警信息台账、预警处置记录、预警整改追踪' },
+      { icon: '🏠', title: '易地搬迁资料', description: '易地扶贫搬迁人员花名册等资料' },
+      { icon: '🚽', title: '厕所革命资料', description: '改厕台账、问题厕所整改台账' },
+      { icon: '💧', title: '雨露计划资料', description: '雨露计划台账' },
+      { icon: '💰', title: '小额信贷资料', description: '小额信贷贴息台账' },
+      { icon: '🏗️', title: '乡村振兴项目资料', description: '项目资产台账、"四个一批"分类施策台账' },
+      { icon: '🌱', title: '产业帮扶资料', description: '2025年产业奖补台账' }
     ]
   },
   {
@@ -245,12 +263,12 @@ const workDetails = ref([
     leaderName: '于鼎馨',
     workName: '纪检工作',
     children: [
-      { name: '协助党委推进全面从严治党', documents: ['党委会议记录'] },
-      { name: '政治、日常、专项等监督', documents: ['相关监督检查台账'] },
-      { name: '线索处置', documents: ['线索台账'] },
-      { name: '案件查办', documents: ['案卷卷宗'] },
-      { name: '廉政教育', documents: ['廉政风险排查表', '谈心谈话记录', '警示教育台账'] },
-      { name: '队伍建设和监督', documents: ['纪检干部花名册', '培训会议'] }
+      { name: '协助党委推进全面从严治党', icon: '📜', documents: ['党委会议记录'] },
+      { name: '政治、日常、专项等监督', icon: '👁️', documents: ['相关监督检查台账'] },
+      { name: '线索处置', icon: '🔍', documents: ['线索台账'] },
+      { name: '案件查办', icon: '⚖️', documents: ['案卷卷宗'] },
+      { name: '廉政教育', icon: '🎓', documents: ['廉政风险排查表', '谈心谈话记录', '警示教育台账'] },
+      { name: '队伍建设和监督', icon: '👥', documents: ['纪检干部花名册', '培训会议'] }
     ]
   }
 ])
@@ -405,6 +423,18 @@ onMounted(() => {
   flex-shrink: 0;
 }
 
+.child-number-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+  border-radius: 10px;
+}
+
+.child-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
 .child-name {
   font-size: 14px;
   font-weight: 600;
@@ -556,6 +586,18 @@ onMounted(() => {
   flex-shrink: 0;
 }
 
+.item-number-icon {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+  border-radius: 10px;
+}
+
+.item-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
 .item-content {
   font-size: 14px;
   color: #333;
@@ -580,6 +622,22 @@ onMounted(() => {
 .doc-icon {
   margin-right: 12px;
   margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.doc-icon-emoji {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.doc-emoji {
+  font-size: 18px;
+  line-height: 1;
 }
 
 .doc-content {
@@ -645,6 +703,10 @@ onMounted(() => {
   background: #4CAF50 !important;
 }
 
+.child-card-rural .child-number-icon {
+  background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%) !important;
+}
+
 .child-responsible-rural {
   background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%) !important;
 }
@@ -663,8 +725,16 @@ onMounted(() => {
   background: #4CAF50 !important;
 }
 
+.work-item-rural .item-number-icon {
+  background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%) !important;
+}
+
 .document-item-rural {
   background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
   border: 1px solid #C8E6C9;
+}
+
+.document-item-rural .doc-icon-emoji {
+  background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%) !important;
 }
 </style>
