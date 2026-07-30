@@ -290,6 +290,73 @@ const workDetails = ref([
     ]
   },
   {
+    leaderId: 1,
+    workIndex: 7,
+    leaderName: '欧阳付群',
+    workName: '农村人居环境治理',
+    children: [
+      { 
+        name: '环境整治宣传',
+        icon: '📢',
+        responsible: '涂金萍',
+        documents: [
+          '门前三包表',
+          '一单四制表'
+        ]
+      },
+      { 
+        name: '垃圾清运督查',
+        icon: '🗑️',
+        responsible: '涂金萍',
+        documents: [
+          '农村垃圾生活收设施摸底排查表'
+        ]
+      },
+      { 
+        name: '固废排查',
+        icon: '🔍',
+        responsible: '涂金萍',
+        documents: [
+          '固体废物规范点位清单'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '📢', text: '环境整治宣传：宣传农村人居环境整治政策，确保房前屋后整洁，发放门前三包表，做好一单四制表' },
+      { icon: '🗑️', text: '垃圾清运督查：督查各村做好垃圾清扫和转运，填写农村垃圾生活收设施摸底排查表' },
+      { icon: '🔍', text: '固废排查：做好固体废物排查工作，填写固体废物规范点位清单' }
+    ],
+    documents: [
+      { icon: '📢', title: '环境整治宣传资料', description: '农村人居环境整治政策宣传资料、门前三包表、一单四制表' },
+      { icon: '🗑️', title: '垃圾清运督查资料', description: '农村垃圾清扫转运督查资料、垃圾生活收设施摸底排查表' },
+      { icon: '🔍', title: '固废排查资料', description: '固体废物排查资料、固体废物规范点位清单' }
+    ]
+  },
+  {
+    leaderId: 1,
+    workIndex: 8,
+    leaderName: '欧阳付群',
+    workName: '生态环保',
+    children: [
+      { 
+        name: '生态问题排查',
+        icon: '🌱',
+        responsible: '涂金萍',
+        documents: [
+          '农村生活污水处理设施排查表',
+          '农村黑臭水体排查表',
+          '秸秆焚烧排查台账'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🌱', text: '生态问题排查：排查农村生活污水处理设施、农村黑臭水体、秸秆焚烧等情况' }
+    ],
+    documents: [
+      { icon: '🌱', title: '生态环保排查资料', description: '农村生活污水处理设施排查、黑臭水体排查、秸秆焚烧排查台账' }
+    ]
+  },
+  {
     leaderId: 5,
     workIndex: 0,
     leaderName: '于鼎馨',
