@@ -161,15 +161,15 @@ const leaders = ref([
       { name: '基层党建', hasDetail: false },
       { name: '组织人事', hasDetail: false },
       { name: '党务公开', hasDetail: false },
-      { name: '宣传思想文化', hasDetail: false },
-      { name: '新时代文明实践', hasDetail: false },
-      { name: '意识形态', hasDetail: false },
-      { name: '文化', hasDetail: false },
-      { name: '科协', hasDetail: false },
-      { name: '关工委', hasDetail: false },
-      { name: '妇联', hasDetail: false },
-      { name: '共青团', hasDetail: false },
-      { name: '工会', hasDetail: false }
+      { name: '宣传思想文化', hasDetail: true },
+      { name: '新时代文明实践', hasDetail: true },
+      { name: '意识形态', hasDetail: true },
+      { name: '文化', hasDetail: true },
+      { name: '科协', hasDetail: true },
+      { name: '关工委', hasDetail: true },
+      { name: '妇联', hasDetail: true },
+      { name: '共青团', hasDetail: true },
+      { name: '工会', hasDetail: true }
     ]
   },
   {

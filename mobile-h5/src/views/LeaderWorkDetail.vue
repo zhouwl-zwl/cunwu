@@ -640,6 +640,259 @@ const workDetails = ref([
     documents: [
       { icon: '👤', title: '招工招聘资料', description: '招工信息登记表、招聘人员花名册等' }
     ]
+  },
+  {
+    leaderId: 4,
+    workIndex: 3,
+    leaderName: '张芷馨',
+    workName: '宣传思想文化',
+    children: [
+      { 
+        name: '农村电影播放',
+        icon: '🎬',
+        responsible: '涂金萍',
+        documents: [
+          '农村流动电影播放记录表',
+          '老放映员补贴发放系统审核表'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🎬', text: '农村电影播放：开展农村流动电影播放，每月审核老放映员补贴发放系统' }
+    ],
+    documents: [
+      { icon: '🎬', title: '农村电影播放资料', description: '农村流动电影播放记录、老放映员补贴审核等' }
+    ]
+  },
+  {
+    leaderId: 4,
+    workIndex: 4,
+    leaderName: '张芷馨',
+    workName: '新时代文明实践',
+    children: [
+      { 
+        name: '文明实践计划',
+        icon: '🌟',
+        responsible: '涂金萍',
+        documents: [
+          '新时代文明实践（所、站）计划表',
+          '新时代实践活动方案和计划表'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🌟', text: '文明实践计划：每月上报新时代文明实践（所、站）计划和安排，按月填写新时代实践活动方案和计划表' }
+    ],
+    documents: [
+      { icon: '🌟', title: '文明实践计划表', description: '新时代文明实践所、站计划安排及活动方案' }
+    ]
+  },
+  {
+    leaderId: 4,
+    workIndex: 5,
+    leaderName: '张芷馨',
+    workName: '意识形态',
+    children: [
+      { 
+        name: '网络意识形态',
+        icon: '🌐',
+        responsible: '涂金萍',
+        documents: [
+          '网络意识形态工作台账',
+          '网络安全检查记录表'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🌐', text: '网络意识形态（网络意识形态、网络安全）' }
+    ],
+    documents: [
+      { icon: '🌐', title: '网络意识形态资料', description: '网络意识形态工作台账、网络安全检查记录等' }
+    ]
+  },
+  {
+    leaderId: 4,
+    workIndex: 6,
+    leaderName: '张芷馨',
+    workName: '文化',
+    children: [
+      { 
+        name: '文化年报',
+        icon: '📊',
+        responsible: '涂金萍',
+        documents: [
+          '乡镇文化年报表'
+        ]
+      },
+      { 
+        name: '农家书屋管理',
+        icon: '📚',
+        responsible: '涂金萍',
+        documents: [
+          '农家书屋管理台账'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '📊', text: '文化年报：上报乡镇文化年报' },
+      { icon: '📚', text: '农家书屋管理：对农家书屋进行管理' }
+    ],
+    documents: [
+      { icon: '📊', title: '文化年报表', description: '乡镇文化年报表' },
+      { icon: '📚', title: '农家书屋管理', description: '农家书屋管理台账' }
+    ]
+  },
+  {
+    leaderId: 4,
+    workIndex: 7,
+    leaderName: '张芷馨',
+    workName: '科协',
+    children: [
+      { 
+        name: '老科协老健协',
+        icon: '🔬',
+        responsible: '涂金萍',
+        documents: [
+          '老科协活动记录',
+          '老健协活动记录'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🔬', text: '科协（老科协、老健协）：老科协、老健协相关工作' }
+    ],
+    documents: [
+      { icon: '🔬', title: '老科协老健协资料', description: '老科协、老健协活动记录等' }
+    ]
+  },
+  {
+    leaderId: 4,
+    workIndex: 8,
+    leaderName: '张芷馨',
+    workName: '关工委',
+    children: [
+      { 
+        name: '关工委工作',
+        icon: '👴',
+        responsible: '涂金萍',
+        documents: [
+          '关工委工作台账'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '👴', text: '关工委：关心下一代工作相关事务' }
+    ],
+    documents: [
+      { icon: '👴', title: '关工委资料', description: '关工委工作台账等' }
+    ]
+  },
+  {
+    leaderId: 4,
+    workIndex: 9,
+    leaderName: '张芷馨',
+    workName: '妇联',
+    children: [
+      { 
+        name: '妇女儿童排查',
+        icon: '👩',
+        responsible: '涂金萍',
+        documents: [
+          '妇女儿童矛盾纠纷排查表'
+        ]
+      },
+      { 
+        name: '儿童关爱服务',
+        icon: '❤️',
+        responsible: '涂金萍',
+        documents: [
+          '寒暑假儿童关爱服务记录表'
+        ]
+      },
+      { 
+        name: '两癌宣传',
+        icon: '🎗️',
+        responsible: '涂金萍',
+        documents: [
+          '两癌宣传活动记录表'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '👩', text: '妇女儿童排查：开展妇女儿童矛盾纠纷专项排查，按月进行排查，及时跟进' },
+      { icon: '❤️', text: '儿童关爱服务：开展寒暑假儿童关爱服务，对有需要的儿童进行关系服务' },
+      { icon: '🎗️', text: '两癌宣传：进行两癌宣传，对各村妇女进行两癌宣传' }
+    ],
+    documents: [
+      { icon: '👩', title: '妇女儿童排查表', description: '妇女儿童矛盾纠纷专项排查表' },
+      { icon: '❤️', title: '儿童关爱服务', description: '寒暑假儿童关爱服务记录表' },
+      { icon: '🎗️', title: '两癌宣传资料', description: '两癌（宫颈癌、乳腺癌）宣传活动记录' }
+    ]
+  },
+  {
+    leaderId: 4,
+    workIndex: 10,
+    leaderName: '张芷馨',
+    workName: '共青团',
+    children: [
+      { 
+        name: '共青团工作',
+        icon: '🧑',
+        responsible: '涂金萍',
+        documents: [
+          '共青团工作台账'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🧑', text: '共青团：共青团相关工作事务' }
+    ],
+    documents: [
+      { icon: '🧑', title: '共青团资料', description: '共青团工作台账等' }
+    ]
+  },
+  {
+    leaderId: 4,
+    workIndex: 11,
+    leaderName: '张芷馨',
+    workName: '工会',
+    children: [
+      { 
+        name: '会费及慰问',
+        icon: '💰',
+        responsible: '涂金萍',
+        documents: [
+          '会费收缴记录表',
+          '节假日慰问表'
+        ]
+      },
+      { 
+        name: '工会活动',
+        icon: '🎉',
+        responsible: '涂金萍',
+        documents: [
+          '工会活动记录表'
+        ]
+      },
+      { 
+        name: '会员福利',
+        icon: '🎁',
+        responsible: '涂金萍',
+        documents: [
+          '会员福利发放表'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '💰', text: '会费及慰问：收集会费、节假日慰问，罗卜田乡共有38名会员，每年会员2100元节日慰问' },
+      { icon: '🎉', text: '工会活动：开展工会活动，开展七一唱歌比赛' },
+      { icon: '🎁', text: '会员福利：保障工会会员各种福利，会员住院、生育看望福利' }
+    ],
+    documents: [
+      { icon: '💰', title: '会费及慰问', description: '会费收缴记录、节假日慰问表' },
+      { icon: '🎉', title: '工会活动', description: '工会活动记录表（含七一唱歌比赛等）' },
+      { icon: '🎁', title: '会员福利', description: '会员福利发放表（住院、生育看望等）' }
+    ]
   }
 ])
 

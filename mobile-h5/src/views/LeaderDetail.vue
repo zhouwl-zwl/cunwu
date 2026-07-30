@@ -108,15 +108,15 @@ const leadersData = ref([
       { name: '基层党建', icon: '🚩', color: 'linear-gradient(135deg, #E53935, #B71C1C)', hasDetail: false },
       { name: '组织人事', icon: '👥', color: 'linear-gradient(135deg, #7E57C2, #4527A0)', hasDetail: false },
       { name: '党务公开', icon: '📢', color: 'linear-gradient(135deg, #BA68C8, #6A1B9A)', hasDetail: false },
-      { name: '宣传思想文化', icon: '📣', color: 'linear-gradient(135deg, #CE93D8, #6A1B9A)', hasDetail: false },
-      { name: '新时代文明实践', icon: '🌟', color: 'linear-gradient(135deg, #D4E157, #827717)', hasDetail: false },
-      { name: '意识形态', icon: '🧠', color: 'linear-gradient(135deg, #9575CD, #4527A0)', hasDetail: false },
-      { name: '文化', icon: '🎭', color: 'linear-gradient(135deg, #F06292, #880E4F)', hasDetail: false },
-      { name: '科协', icon: '🔬', color: 'linear-gradient(135deg, #4DD0E1, #006064)', hasDetail: false },
-      { name: '关工委', icon: '👴', color: 'linear-gradient(135deg, #BCAAA4, #4E342E)', hasDetail: false },
-      { name: '妇联', icon: '👩', color: 'linear-gradient(135deg, #F48FB1, #AD1457)', hasDetail: false },
-      { name: '共青团', icon: '🧑', color: 'linear-gradient(135deg, #81D4FA, #01579B)', hasDetail: false },
-      { name: '工会', icon: '👷', color: 'linear-gradient(135deg, #FFB74D, #E65100)', hasDetail: false }
+      { name: '宣传思想文化', icon: '📣', color: 'linear-gradient(135deg, #CE93D8, #6A1B9A)', hasDetail: true },
+      { name: '新时代文明实践', icon: '🌟', color: 'linear-gradient(135deg, #D4E157, #827717)', hasDetail: true },
+      { name: '意识形态', icon: '🧠', color: 'linear-gradient(135deg, #9575CD, #4527A0)', hasDetail: true },
+      { name: '文化', icon: '🎭', color: 'linear-gradient(135deg, #F06292, #880E4F)', hasDetail: true },
+      { name: '科协', icon: '🔬', color: 'linear-gradient(135deg, #4DD0E1, #006064)', hasDetail: true },
+      { name: '关工委', icon: '👴', color: 'linear-gradient(135deg, #BCAAA4, #4E342E)', hasDetail: true },
+      { name: '妇联', icon: '👩', color: 'linear-gradient(135deg, #F48FB1, #AD1457)', hasDetail: true },
+      { name: '共青团', icon: '🧑', color: 'linear-gradient(135deg, #81D4FA, #01579B)', hasDetail: true },
+      { name: '工会', icon: '👷', color: 'linear-gradient(135deg, #FFB74D, #E65100)', hasDetail: true }
     ]
   },
   {
