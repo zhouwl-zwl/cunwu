@@ -138,8 +138,8 @@ const leaders = ref([
     name: '龙君屹',
     color: 'linear-gradient(135deg, #4CAF50 0%, #388E3C 100%)',
     works: [
-      { name: '武装', hasDetail: false },
-      { name: '国防动员教育', hasDetail: false },
+      { name: '武装', hasDetail: true },
+      { name: '国防动员教育', hasDetail: true },
       { name: '退役军人', hasDetail: false },
       { name: '农业农村', hasDetail: false },
       { name: '依法行政', hasDetail: false },

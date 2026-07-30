@@ -357,6 +357,80 @@ const workDetails = ref([
     ]
   },
   {
+    leaderId: 3,
+    workIndex: 0,
+    leaderName: '龙君屹',
+    workName: '武装',
+    children: [
+      { 
+        name: '乡基干民兵花名册',
+        icon: '🔒',
+        responsible: '龙君屹',
+        documents: [
+          '乡基干民兵花名册（保密）'
+        ]
+      },
+      { 
+        name: '村民兵花名册',
+        icon: '🔒',
+        responsible: '龙君屹',
+        documents: [
+          '村民兵花名册（保密）'
+        ]
+      },
+      { 
+        name: '潜力调查表',
+        icon: '🔒',
+        responsible: '龙君屹',
+        documents: [
+          '潜力调查表（保密）'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🔒', text: '乡基干民兵花名册（保密，不公开）' },
+      { icon: '🔒', text: '村民兵花名册（保密，不公开）' },
+      { icon: '🔒', text: '潜力调查表（保密，不公开）' }
+    ],
+    documents: [
+      { icon: '🔒', title: '乡基干民兵花名册', description: '保密内容，不公开' },
+      { icon: '🔒', title: '村民兵花名册', description: '保密内容，不公开' },
+      { icon: '🔒', title: '潜力调查表', description: '保密内容，不公开' }
+    ]
+  },
+  {
+    leaderId: 3,
+    workIndex: 1,
+    leaderName: '龙君屹',
+    workName: '国防动员教育',
+    children: [
+      { 
+        name: '年度计划',
+        icon: '🔒',
+        responsible: '龙君屹',
+        documents: [
+          '国防教育年度计划（保密）'
+        ]
+      },
+      { 
+        name: '教案',
+        icon: '🔒',
+        responsible: '龙君屹',
+        documents: [
+          '国防教育教案（保密）'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🔒', text: '年度计划（保密，不公开）' },
+      { icon: '🔒', text: '教案（保密，不公开）' }
+    ],
+    documents: [
+      { icon: '🔒', title: '年度计划', description: '保密内容，不公开' },
+      { icon: '🔒', title: '教案', description: '保密内容，不公开' }
+    ]
+  },
+  {
     leaderId: 5,
     workIndex: 0,
     leaderName: '于鼎馨',
