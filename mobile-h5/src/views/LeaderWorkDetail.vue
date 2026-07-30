@@ -790,19 +790,40 @@ const workDetails = ref([
     workName: '卫生健康',
     children: [
       { 
-        name: '卫生健康工作',
-        icon: '💊',
+        name: '医保缴费表',
+        icon: '🏥',
         responsible: '龙君屹',
         documents: [
-          '卫生健康工作台账'
+          '医保缴费情况表'
+        ]
+      },
+      { 
+        name: '大病救助表',
+        icon: '❤️',
+        responsible: '龙君屹',
+        documents: [
+          '大病救助情况表'
+        ]
+      },
+      { 
+        name: '计生补贴表',
+        icon: '💰',
+        responsible: '龙君屹',
+        documents: [
+          '两女户计生补贴发放情况表',
+          '独生子女户计生补贴发放情况表'
         ]
       }
     ],
     workItems: [
-      { icon: '💊', text: '卫生健康：卫生健康相关工作管理' }
+      { icon: '🏥', text: '医保缴费情况表' },
+      { icon: '❤️', text: '大病救助情况表' },
+      { icon: '💰', text: '两女户、独生子女户等计生补贴发放情况表' }
     ],
     documents: [
-      { icon: '💊', title: '卫生健康资料', description: '卫生健康工作台账等' }
+      { icon: '🏥', title: '医保缴费表', description: '医保缴费情况表' },
+      { icon: '❤️', title: '大病救助表', description: '大病救助情况表' },
+      { icon: '💰', title: '计生补贴表', description: '两女户、独生子女户等计生补贴发放情况表' }
     ]
   },
   {
@@ -835,19 +856,59 @@ const workDetails = ref([
     workName: '教育',
     children: [
       { 
-        name: '教育工作',
+        name: '重点学生名单',
         icon: '🎓',
         responsible: '龙君屹',
         documents: [
-          '教育工作台账'
+          '重点学生名单（保密）'
+        ]
+      },
+      { 
+        name: '防溺水统计',
+        icon: '🌊',
+        responsible: '龙君屹',
+        documents: [
+          '防溺水重点水域统计表'
+        ]
+      },
+      { 
+        name: '入学人员名单',
+        icon: '📋',
+        responsible: '龙君屹',
+        documents: [
+          '入学人员名单（必须和县里统一）'
+        ]
+      },
+      { 
+        name: '教职工名单',
+        icon: '👩‍🏫',
+        responsible: '龙君屹',
+        documents: [
+          '教职工人员名单（不宜上传）'
+        ]
+      },
+      { 
+        name: '学生补贴表',
+        icon: '💰',
+        responsible: '龙君屹',
+        documents: [
+          '学生补贴领取情况表（必须与县里统一）'
         ]
       }
     ],
     workItems: [
-      { icon: '🎓', text: '教育：教育相关工作管理' }
+      { icon: '🎓', text: '重点学生名单（保密）' },
+      { icon: '🌊', text: '防溺水重点水域统计' },
+      { icon: '📋', text: '入学人员名单（必须和县里统一）' },
+      { icon: '👩‍🏫', text: '教职工人员名单（不宜上传）' },
+      { icon: '💰', text: '学生补贴领取情况表（必须与县里统一）' }
     ],
     documents: [
-      { icon: '🎓', title: '教育资料', description: '教育工作台账等' }
+      { icon: '🎓', title: '重点学生名单', description: '重点学生名单（保密）' },
+      { icon: '🌊', title: '防溺水统计', description: '防溺水重点水域统计表' },
+      { icon: '📋', title: '入学人员名单', description: '入学人员名单（必须和县里统一）' },
+      { icon: '👩‍🏫', title: '教职工名单', description: '教职工人员名单（不宜上传）' },
+      { icon: '💰', title: '学生补贴表', description: '学生补贴领取情况表（必须与县里统一）' }
     ]
   },
   {
