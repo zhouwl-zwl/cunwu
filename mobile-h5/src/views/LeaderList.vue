@@ -143,14 +143,14 @@ const leaders = ref([
       { name: '退役军人', hasDetail: true },
       { name: '农业农村', hasDetail: true },
       { name: '畜牧水产', hasDetail: true },
-      { name: '依法行政', hasDetail: false },
-      { name: '统计', hasDetail: false },
-      { name: '民政', hasDetail: false },
-      { name: '残联', hasDetail: false },
-      { name: '医疗保障', hasDetail: false },
-      { name: '卫生健康', hasDetail: false },
-      { name: '食品安全', hasDetail: false },
-      { name: '教育', hasDetail: false }
+      { name: '依法行政', hasDetail: true },
+      { name: '统计', hasDetail: true },
+      { name: '民政', hasDetail: true },
+      { name: '残联', hasDetail: true },
+      { name: '医疗保障', hasDetail: true },
+      { name: '卫生健康', hasDetail: true },
+      { name: '食品安全', hasDetail: true },
+      { name: '教育', hasDetail: true }
     ]
   },
   {

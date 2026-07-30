@@ -639,6 +639,218 @@ const workDetails = ref([
     ]
   },
   {
+    leaderId: 3,
+    workIndex: 5,
+    leaderName: '龙君屹',
+    workName: '依法行政',
+    children: [
+      { 
+        name: '法律顾问信息',
+        icon: '⚖️',
+        responsible: '龙君屹',
+        documents: [
+          '法律顾问信息表（不宜公开）',
+          '规范性文件统计表'
+        ]
+      },
+      { 
+        name: '普法宣传',
+        icon: '📚',
+        responsible: '龙君屹',
+        documents: [
+          '年度普法及法治宣传计划方案',
+          '普法考试人员名单及完成情况'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '⚖️', text: '法律顾问信息表（不宜公开）、规范性文件统计表（一般为无）' },
+      { icon: '📚', text: '年度普法及法治宣传计划方案（一般为材料），普法考试人员名单及完成情况' }
+    ],
+    documents: [
+      { icon: '⚖️', title: '法律顾问信息表', description: '法律顾问信息表（不宜公开）、规范性文件统计表' },
+      { icon: '📚', title: '普法宣传资料', description: '年度普法及法治宣传计划方案、普法考试人员名单及完成情况' }
+    ]
+  },
+  {
+    leaderId: 3,
+    workIndex: 6,
+    leaderName: '龙君屹',
+    workName: '统计',
+    children: [
+      { 
+        name: '统计工作',
+        icon: '📊',
+        responsible: '龙君屹',
+        documents: [
+          '统计工作台账'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '📊', text: '统计：各项统计工作数据收集与上报' }
+    ],
+    documents: [
+      { icon: '📊', title: '统计资料', description: '统计工作台账等' }
+    ]
+  },
+  {
+    leaderId: 3,
+    workIndex: 7,
+    leaderName: '龙君屹',
+    workName: '民政',
+    children: [
+      { 
+        name: '低保五保名单',
+        icon: '🏘️',
+        responsible: '龙君屹',
+        documents: [
+          '低保存名册',
+          '五保存名册',
+          '低保人员花名册',
+          '五保人员花名册'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🏘️', text: '民政：低五保、低保等人员名单（注意保密，上传请隐藏关键信息）' }
+    ],
+    documents: [
+      { icon: '🏘️', title: '低五保名单（保密）', description: '低保存名册、五保存名册（注意保密，隐藏关键信息）' }
+    ]
+  },
+  {
+    leaderId: 3,
+    workIndex: 8,
+    leaderName: '龙君屹',
+    workName: '残联',
+    children: [
+      { 
+        name: '残疾人名单',
+        icon: '♿',
+        responsible: '龙君屹',
+        documents: [
+          '残疾人花名册'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '♿', text: '残联：残疾人名单（注意保密）' }
+    ],
+    documents: [
+      { icon: '♿', title: '残疾人名单（保密）', description: '残疾人花名册（注意保密）' }
+    ]
+  },
+  {
+    leaderId: 3,
+    workIndex: 9,
+    leaderName: '龙君屹',
+    workName: '医疗保障',
+    children: [
+      { 
+        name: '医保缴费表',
+        icon: '🏥',
+        responsible: '龙君屹',
+        documents: [
+          '医保缴费情况表'
+        ]
+      },
+      { 
+        name: '大病救助表',
+        icon: '❤️',
+        responsible: '龙君屹',
+        documents: [
+          '大病救助情况表'
+        ]
+      },
+      { 
+        name: '生计补贴表',
+        icon: '💰',
+        responsible: '龙君屹',
+        documents: [
+          '两户子女生计补贴发放情况表'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🏥', text: '医保缴费情况表' },
+      { icon: '❤️', text: '大病救助情况表' },
+      { icon: '💰', text: '两户子女、独生子女户等生计补贴发放情况表' }
+    ],
+    documents: [
+      { icon: '🏥', title: '医保缴费表', description: '医保缴费情况表' },
+      { icon: '❤️', title: '大病救助表', description: '大病救助情况表' },
+      { icon: '💰', title: '生计补贴表', description: '两户子女、独生子女户等生计补贴发放情况表' }
+    ]
+  },
+  {
+    leaderId: 3,
+    workIndex: 10,
+    leaderName: '龙君屹',
+    workName: '卫生健康',
+    children: [
+      { 
+        name: '卫生健康工作',
+        icon: '💊',
+        responsible: '龙君屹',
+        documents: [
+          '卫生健康工作台账'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '💊', text: '卫生健康：卫生健康相关工作管理' }
+    ],
+    documents: [
+      { icon: '💊', title: '卫生健康资料', description: '卫生健康工作台账等' }
+    ]
+  },
+  {
+    leaderId: 3,
+    workIndex: 11,
+    leaderName: '龙君屹',
+    workName: '食品安全',
+    children: [
+      { 
+        name: '商户企业清单',
+        icon: '🍎',
+        responsible: '龙君屹',
+        documents: [
+          '商户统计表',
+          '企业统计表'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🍎', text: '食品安全：商户、企业等统计清单' }
+    ],
+    documents: [
+      { icon: '🍎', title: '商户企业清单', description: '商户、企业等统计清单' }
+    ]
+  },
+  {
+    leaderId: 3,
+    workIndex: 12,
+    leaderName: '龙君屹',
+    workName: '教育',
+    children: [
+      { 
+        name: '教育工作',
+        icon: '🎓',
+        responsible: '龙君屹',
+        documents: [
+          '教育工作台账'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🎓', text: '教育：教育相关工作管理' }
+    ],
+    documents: [
+      { icon: '🎓', title: '教育资料', description: '教育工作台账等' }
+    ]
+  },
+  {
     leaderId: 5,
     workIndex: 0,
     leaderName: '于鼎馨',

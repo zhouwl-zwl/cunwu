@@ -90,14 +90,14 @@ const leadersData = ref([
       { name: '退役军人', icon: '🪖', color: 'linear-gradient(135deg, #5D4037, #1B0000)', hasDetail: true },
       { name: '农业农村', icon: '🌾', color: 'linear-gradient(135deg, #66BB6A, #1B5E20)', hasDetail: true },
       { name: '畜牧水产', icon: '🐄', color: 'linear-gradient(135deg, #FFA726, #E65100)', hasDetail: true },
-      { name: '依法行政', icon: '⚖️', color: 'linear-gradient(135deg, #42A5F5, #0D47A1)', hasDetail: false },
-      { name: '统计', icon: '📊', color: 'linear-gradient(135deg, #26A69A, #004D40)', hasDetail: false },
-      { name: '民政', icon: '🏘️', color: 'linear-gradient(135deg, #EF9A9A, #C62828)', hasDetail: false },
-      { name: '残联', icon: '♿', color: 'linear-gradient(135deg, #90CAF9, #1565C0)', hasDetail: false },
-      { name: '医疗保障', icon: '🏥', color: 'linear-gradient(135deg, #A5D6A7, #2E7D32)', hasDetail: false },
-      { name: '卫生健康', icon: '💊', color: 'linear-gradient(135deg, #80CBC4, #00695C)', hasDetail: false },
-      { name: '食品安全', icon: '🍎', color: 'linear-gradient(135deg, #EF5350, #C62828)', hasDetail: false },
-      { name: '教育', icon: '🎓', color: 'linear-gradient(135deg, #9575CD, #4527A0)', hasDetail: false }
+      { name: '依法行政', icon: '⚖️', color: 'linear-gradient(135deg, #42A5F5, #0D47A1)', hasDetail: true },
+      { name: '统计', icon: '📊', color: 'linear-gradient(135deg, #26A69A, #004D40)', hasDetail: true },
+      { name: '民政', icon: '🏘️', color: 'linear-gradient(135deg, #EF9A9A, #C62828)', hasDetail: true },
+      { name: '残联', icon: '♿', color: 'linear-gradient(135deg, #90CAF9, #1565C0)', hasDetail: true },
+      { name: '医疗保障', icon: '🏥', color: 'linear-gradient(135deg, #A5D6A7, #2E7D32)', hasDetail: true },
+      { name: '卫生健康', icon: '💊', color: 'linear-gradient(135deg, #80CBC4, #00695C)', hasDetail: true },
+      { name: '食品安全', icon: '🍎', color: 'linear-gradient(135deg, #EF5350, #C62828)', hasDetail: true },
+      { name: '教育', icon: '🎓', color: 'linear-gradient(135deg, #9575CD, #4527A0)', hasDetail: true }
     ]
   },
   {
