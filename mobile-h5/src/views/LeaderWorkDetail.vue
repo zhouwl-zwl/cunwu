@@ -172,6 +172,98 @@ const workDetails = ref([
   },
   {
     leaderId: 1,
+    workIndex: 1,
+    leaderName: '欧阳付群',
+    workName: '统战',
+    children: [
+      { 
+        name: '统战工作',
+        icon: '🌐',
+        responsible: '涂金萍',
+        documents: [
+          '统战工作台账',
+          '党外人士花名册'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🌐', text: '统战工作：统一战线相关工作，党外人士联络等' }
+    ],
+    documents: [
+      { icon: '🌐', title: '统战工作资料', description: '统战工作台账、党外人士花名册等' }
+    ]
+  },
+  {
+    leaderId: 1,
+    workIndex: 2,
+    leaderName: '欧阳付群',
+    workName: '民族宗教',
+    children: [
+      { 
+        name: '民族宗教事务',
+        icon: '🕌',
+        responsible: '涂金萍',
+        documents: [
+          '民族宗教工作台账',
+          '宗教活动场所登记表'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🕌', text: '民族宗教：民族宗教事务管理，宗教活动场所登记等' }
+    ],
+    documents: [
+      { icon: '🕌', title: '民族宗教资料', description: '民族宗教工作台账、宗教活动场所登记表等' }
+    ]
+  },
+  {
+    leaderId: 1,
+    workIndex: 3,
+    leaderName: '欧阳付群',
+    workName: '社会工作',
+    children: [
+      { 
+        name: '社会工作服务',
+        icon: '💝',
+        responsible: '涂金萍',
+        documents: [
+          '社会工作服务台账',
+          '社工人员花名册'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '💝', text: '社会工作：社会工作服务，社工队伍建设等' }
+    ],
+    documents: [
+      { icon: '💝', title: '社会工作资料', description: '社会工作服务台账、社工人员花名册等' }
+    ]
+  },
+  {
+    leaderId: 1,
+    workIndex: 5,
+    leaderName: '欧阳付群',
+    workName: '营商环境',
+    children: [
+      { 
+        name: '营商环境优化',
+        icon: '🏢',
+        responsible: '涂金萍',
+        documents: [
+          '营商环境考核表',
+          '企业诉求办理台账'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🏢', text: '营商环境：优化营商环境，企业诉求办理等' }
+    ],
+    documents: [
+      { icon: '🏢', title: '营商环境资料', description: '营商环境考核表、企业诉求办理台账等' }
+    ]
+  },
+  {
+    leaderId: 1,
     workIndex: 4,
     leaderName: '欧阳付群',
     workName: '乡村振兴',

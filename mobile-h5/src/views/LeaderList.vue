@@ -110,11 +110,11 @@ const leaders = ref([
     color: 'linear-gradient(135deg, #D22630 0%, #B01A26 100%)',
     works: [
       { name: '政协联络', hasDetail: true },
-      { name: '统战', hasDetail: false },
-      { name: '民族宗教', hasDetail: false },
-      { name: '社会工作', hasDetail: false },
+      { name: '统战', hasDetail: true },
+      { name: '民族宗教', hasDetail: true },
+      { name: '社会工作', hasDetail: true },
       { name: '乡村振兴', hasDetail: true },
-      { name: '营商环境', hasDetail: false },
+      { name: '营商环境', hasDetail: true },
       { name: '经管（三资）', hasDetail: true },
       { name: '农村人居环境治理', hasDetail: true },
       { name: '生态环保', hasDetail: true }

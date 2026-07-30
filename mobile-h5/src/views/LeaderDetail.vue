@@ -57,11 +57,11 @@ const leadersData = ref([
     color: 'linear-gradient(135deg, #D22630 0%, #B01A26 100%)',
     works: [
       { name: '政协联络', icon: '🤝', color: 'linear-gradient(135deg, #E57373, #C62828)', hasDetail: true },
-      { name: '统战', icon: '🌐', color: 'linear-gradient(135deg, #BA68C8, #7B1FA2)', hasDetail: false },
-      { name: '民族宗教', icon: '🕌', color: 'linear-gradient(135deg, #4DD0E1, #00838F)', hasDetail: false },
-      { name: '社会工作', icon: '💝', color: 'linear-gradient(135deg, #F06292, #AD1457)', hasDetail: false },
+      { name: '统战', icon: '🌐', color: 'linear-gradient(135deg, #BA68C8, #7B1FA2)', hasDetail: true },
+      { name: '民族宗教', icon: '🕌', color: 'linear-gradient(135deg, #4DD0E1, #00838F)', hasDetail: true },
+      { name: '社会工作', icon: '💝', color: 'linear-gradient(135deg, #F06292, #AD1457)', hasDetail: true },
       { name: '乡村振兴', icon: '🌾', color: 'linear-gradient(135deg, #66BB6A, #2E7D32)', hasDetail: true },
-      { name: '营商环境', icon: '🏢', color: 'linear-gradient(135deg, #42A5F5, #1565C0)', hasDetail: false },
+      { name: '营商环境', icon: '🏢', color: 'linear-gradient(135deg, #42A5F5, #1565C0)', hasDetail: true },
       { name: '经管（三资）', icon: '💼', color: 'linear-gradient(135deg, #FFA726, #E65100)', hasDetail: true },
       { name: '农村人居环境治理', icon: '🌿', color: 'linear-gradient(135deg, #81C784, #388E3C)', hasDetail: true },
       { name: '生态环保', icon: '♻️', color: 'linear-gradient(135deg, #26C6DA, #00695C)', hasDetail: true }
