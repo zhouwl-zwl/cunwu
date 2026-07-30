@@ -298,7 +298,7 @@ const workDetails = ref([
       { 
         name: '环境整治宣传',
         icon: '📢',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '门前三包表',
           '一单四制表'
@@ -307,7 +307,7 @@ const workDetails = ref([
       { 
         name: '垃圾清运督查',
         icon: '🗑️',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '农村垃圾生活收设施摸底排查表'
         ]
@@ -315,7 +315,7 @@ const workDetails = ref([
       { 
         name: '固废排查',
         icon: '🔍',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '固体废物规范点位清单'
         ]
@@ -341,7 +341,7 @@ const workDetails = ref([
       { 
         name: '生态问题排查',
         icon: '🌱',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '农村生活污水处理设施排查表',
           '农村黑臭水体排查表',
@@ -365,7 +365,7 @@ const workDetails = ref([
       { 
         name: '乡基干民兵花名册',
         icon: '🔒',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '乡基干民兵花名册（保密）'
         ]
@@ -373,7 +373,7 @@ const workDetails = ref([
       { 
         name: '村民兵花名册',
         icon: '🔒',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '村民兵花名册（保密）'
         ]
@@ -381,7 +381,7 @@ const workDetails = ref([
       { 
         name: '潜力调查表',
         icon: '🔒',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '潜力调查表（保密）'
         ]
@@ -407,7 +407,7 @@ const workDetails = ref([
       { 
         name: '年度计划',
         icon: '🔒',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '国防教育年度计划（保密）'
         ]
@@ -415,7 +415,7 @@ const workDetails = ref([
       { 
         name: '教案',
         icon: '🔒',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '国防教育教案（保密）'
         ]
@@ -439,7 +439,7 @@ const workDetails = ref([
       { 
         name: '优抚对象花名册',
         icon: '🪖',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '优抚对象花名册'
         ]
@@ -461,7 +461,7 @@ const workDetails = ref([
       { 
         name: '粮食大豆油菜任务表',
         icon: '🌾',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '粮食任务分配及完成表',
           '大豆任务分配及完成表',
@@ -471,7 +471,7 @@ const workDetails = ref([
       { 
         name: '农业补贴发放表',
         icon: '💰',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '地力补贴发放表',
           '农机补贴发放表'
@@ -480,7 +480,7 @@ const workDetails = ref([
       { 
         name: '农机统计表',
         icon: '🚜',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '农机统计表'
         ]
@@ -506,7 +506,7 @@ const workDetails = ref([
       { 
         name: '禁捕退捕摸排表',
         icon: '📋',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '禁捕退捕摸排表',
           '退捕渔民安置保障表'
@@ -515,7 +515,7 @@ const workDetails = ref([
       { 
         name: '生猪牛羊任务表',
         icon: '🐖',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '生猪任务分配及完成表',
           '牛羊任务分配及完成表',
@@ -526,7 +526,7 @@ const workDetails = ref([
       { 
         name: '鸡鸭水产任务表',
         icon: '🐔',
-        responsible: '涂金萍',
+        responsible: '龙君屹',
         documents: [
           '鸡鸭任务分配及完成表',
           '水产养殖任务表',
