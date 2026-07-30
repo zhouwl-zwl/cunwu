@@ -179,7 +179,7 @@ const workDetails = ref([
       { 
         name: '统战工作',
         icon: '🌐',
-        responsible: '涂金萍',
+        responsible: '欧阳付群',
         documents: [
           '统战工作台账',
           '党外人士花名册'
