@@ -365,7 +365,7 @@ const workDetails = ref([
       { 
         name: '乡基干民兵花名册',
         icon: '🔒',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '乡基干民兵花名册（保密）'
         ]
@@ -373,7 +373,7 @@ const workDetails = ref([
       { 
         name: '村民兵花名册',
         icon: '🔒',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '村民兵花名册（保密）'
         ]
@@ -381,7 +381,7 @@ const workDetails = ref([
       { 
         name: '潜力调查表',
         icon: '🔒',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '潜力调查表（保密）'
         ]
@@ -407,7 +407,7 @@ const workDetails = ref([
       { 
         name: '年度计划',
         icon: '🔒',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '国防教育年度计划（保密）'
         ]
@@ -415,7 +415,7 @@ const workDetails = ref([
       { 
         name: '教案',
         icon: '🔒',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '国防教育教案（保密）'
         ]
@@ -439,7 +439,7 @@ const workDetails = ref([
       { 
         name: '优抚对象花名册',
         icon: '🪖',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '优抚对象花名册'
         ]
@@ -461,7 +461,7 @@ const workDetails = ref([
       { 
         name: '粮食大豆任务表',
         icon: '🌾',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '粮食任务分配及完成表',
           '大豆任务分配及完成表'
@@ -470,7 +470,7 @@ const workDetails = ref([
       { 
         name: '农业补贴发放表',
         icon: '💰',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '地力补贴发放表',
           '农机补贴发放表'
@@ -479,7 +479,7 @@ const workDetails = ref([
       { 
         name: '农机统计表',
         icon: '🚜',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '农机统计表'
         ]
