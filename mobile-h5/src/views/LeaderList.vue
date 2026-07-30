@@ -113,9 +113,9 @@ const leaders = ref([
       { name: '统战', hasDetail: false },
       { name: '民族宗教', hasDetail: false },
       { name: '社会工作', hasDetail: false },
-      { name: '乡村振兴', hasDetail: false },
+      { name: '乡村振兴', hasDetail: true },
       { name: '营商环境', hasDetail: false },
-      { name: '经管（三资）', hasDetail: false },
+      { name: '经管（三资）', hasDetail: true },
       { name: '农村人居环境治理', hasDetail: false },
       { name: '生态环保', hasDetail: false }
     ]

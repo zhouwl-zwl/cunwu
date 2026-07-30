@@ -62,7 +62,7 @@ const leadersData = ref([
       { name: '社会工作', icon: '💝', color: 'linear-gradient(135deg, #F06292, #AD1457)', hasDetail: false },
       { name: '乡村振兴', icon: '🌾', color: 'linear-gradient(135deg, #66BB6A, #2E7D32)', hasDetail: true },
       { name: '营商环境', icon: '🏢', color: 'linear-gradient(135deg, #42A5F5, #1565C0)', hasDetail: false },
-      { name: '经管（三资）', icon: '💼', color: 'linear-gradient(135deg, #FFA726, #E65100)', hasDetail: false },
+      { name: '经管（三资）', icon: '💼', color: 'linear-gradient(135deg, #FFA726, #E65100)', hasDetail: true },
       { name: '农村人居环境治理', icon: '🌿', color: 'linear-gradient(135deg, #81C784, #388E3C)', hasDetail: false },
       { name: '生态环保', icon: '♻️', color: 'linear-gradient(135deg, #26C6DA, #00695C)', hasDetail: false }
     ]

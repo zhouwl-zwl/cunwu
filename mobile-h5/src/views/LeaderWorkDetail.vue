@@ -258,6 +258,38 @@ const workDetails = ref([
     ]
   },
   {
+    leaderId: 1,
+    workIndex: 6,
+    leaderName: '欧阳付群',
+    workName: '经管（三资）',
+    children: [
+      { 
+        name: '清查整治',
+        icon: '📋',
+        responsible: '黄楚珂',
+        documents: [
+          '2026年罗卜田乡农村集体"三资"管理突出问题专项整治工作资料汇编'
+        ]
+      },
+      { 
+        name: '资金合同',
+        icon: '📄',
+        responsible: '黄楚珂',
+        documents: [
+          '各村集体资金承包合同'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '📋', text: '清查整治：开展农村集体"三资"管理突出问题专项整治，整理汇编相关工作资料' },
+      { icon: '📄', text: '资金合同：管理各村集体资金承包合同，确保合同规范合规' }
+    ],
+    documents: [
+      { icon: '📋', title: '清查整治资料汇编', description: '2026年罗卜田乡农村集体"三资"管理突出问题专项整治工作资料汇编' },
+      { icon: '📄', title: '资金承包合同', description: '各村集体资金承包合同' }
+    ]
+  },
+  {
     leaderId: 5,
     workIndex: 0,
     leaderName: '于鼎馨',
