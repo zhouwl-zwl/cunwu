@@ -358,14 +358,9 @@ const villageMembers = ref([
     villageName: '新店村',
     members: [
       { position: '党总支书记、村委会主任', name: '张露海', phone: '18874588691' },
-      { position: '党总支副书记', name: '杨铁', phone: '17722635960' },
       { position: '党总支纪检委员', name: '张小华', phone: '19918453755' },
       { position: '党总支组织委员、村文书', name: '杨堃', phone: '18796229401' },
-      { position: '党总支宣传委员、村妇联主席', name: '龙小梅', phone: '17774523109' },
-      { position: '党支部书记、村委会主任', name: '彭开红', phone: '15115254832' },
-      { position: '党支部组织、宣传委员、村文书', name: '彭兵', phone: '18273853514' },
-      { position: '党支部纪检委员', name: '唐昌齐', phone: '17774592207' },
-      { position: '村妇联主席', name: '潘金花', phone: '18474525661' }
+      { position: '党总支宣传委员、村妇联主席', name: '龙小梅', phone: '17774523109' }
     ]
   },
   {
@@ -373,7 +368,6 @@ const villageMembers = ref([
     villageName: '罗卜田村',
     members: [
       { position: '党总支书记、村委会主任', name: '钦山', phone: '13874417046' },
-      { position: '党总支副书记', name: '刘锋', phone: '13647457437' },
       { position: '党总支纪检委员', name: '李利华', phone: '13787544708' },
       { position: '党总支组织委员、村妇联主席', name: '邓京南', phone: '18074525378' },
       { position: '党总支宣传委员、村文书', name: '李艳琪', phone: '15226463734' }
@@ -384,12 +378,12 @@ const villageMembers = ref([
     villageName: '兴无村',
     members: [
       { position: '党支部书记、村委会主任', name: '向勇', phone: '18174586399' },
-      { position: '党支部组织、宣传委员村妇联主席', name: '向艾红', phone: '17769245689' },
+      { position: '党支部组织、宣传委员、村妇联主席', name: '艾艾红', phone: '17769245689' },
       { position: '党支部纪检委员', name: '张跃', phone: '19918537956' },
       { position: '村文书', name: '杨雪玲', phone: '13874560743' },
       { position: '乡村振兴第一书记、队长', name: '杨英涛', phone: '13769247711' },
       { position: '乡村振兴队员', name: '张绍平', phone: '13874464265' },
-      { position: '乡村振兴队员', name: '刘绍军', phone: '13873080528' }
+      { position: '乡村振兴队员', name: '刘文军', phone: '13973080528' }
     ]
   },
   {
@@ -409,10 +403,10 @@ const villageMembers = ref([
     members: [
       { position: '党支部书记、村委会主任', name: '彭开红', phone: '15115254832' },
       { position: '党支部组织、宣传委员、村文书', name: '彭兵', phone: '18273853514' },
-      { position: '党支部纪检委员', name: '唐昌齐', phone: '17774592207' },
-      { position: '村妇联主席', name: '潘金花', phone: '18474525661' },
+      { position: '党支部纪检委员', name: '唐眉齐', phone: '17774592207' },
+      { position: '村妇联主席', name: '蒲金花', phone: '18474525661' },
       { position: '乡村振兴第一书记、队长', name: '陈东', phone: '13807457766' },
-      { position: '乡村振兴队员', name: '李承长', phone: '18574519627' },
+      { position: '乡村振兴队员', name: '李永存', phone: '18574519627' },
       { position: '乡村振兴队员', name: '陈真', phone: '18974516158' }
     ]
   },
@@ -420,7 +414,7 @@ const villageMembers = ref([
     villageId: 6,
     villageName: '冬瓜坡村',
     members: [
-      { position: '党支部书记、村委会主任', name: '李复艳', phone: '18374555056' },
+      { position: '党支部书记、村委会主任', name: '李夏艳', phone: '18374555056' },
       { position: '党支部组织、宣传委员、村文书', name: '李静', phone: '17788897515' },
       { position: '党支部纪检委员', name: '刘宗荣', phone: '18075996242' },
       { position: '村委会副主任', name: '李培健', phone: '19918451108' },
