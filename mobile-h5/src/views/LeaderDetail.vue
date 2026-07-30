@@ -87,8 +87,8 @@ const leadersData = ref([
     works: [
       { name: '武装', icon: '🎖️', color: 'linear-gradient(135deg, #8D6E63, #3E2723)', hasDetail: true },
       { name: '国防动员教育', icon: '🛡️', color: 'linear-gradient(135deg, #795548, #3E2723)', hasDetail: true },
-      { name: '退役军人', icon: '🪖', color: 'linear-gradient(135deg, #5D4037, #1B0000)', hasDetail: false },
-      { name: '农业农村', icon: '🌾', color: 'linear-gradient(135deg, #66BB6A, #1B5E20)', hasDetail: false },
+      { name: '退役军人', icon: '🪖', color: 'linear-gradient(135deg, #5D4037, #1B0000)', hasDetail: true },
+      { name: '农业农村', icon: '🌾', color: 'linear-gradient(135deg, #66BB6A, #1B5E20)', hasDetail: true },
       { name: '依法行政', icon: '⚖️', color: 'linear-gradient(135deg, #42A5F5, #0D47A1)', hasDetail: false },
       { name: '统计', icon: '📊', color: 'linear-gradient(135deg, #26A69A, #004D40)', hasDetail: false },
       { name: '民政', icon: '🏘️', color: 'linear-gradient(135deg, #EF9A9A, #C62828)', hasDetail: false },

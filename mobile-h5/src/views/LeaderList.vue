@@ -140,8 +140,8 @@ const leaders = ref([
     works: [
       { name: '武装', hasDetail: true },
       { name: '国防动员教育', hasDetail: true },
-      { name: '退役军人', hasDetail: false },
-      { name: '农业农村', hasDetail: false },
+      { name: '退役军人', hasDetail: true },
+      { name: '农业农村', hasDetail: true },
       { name: '依法行政', hasDetail: false },
       { name: '统计', hasDetail: false },
       { name: '民政', hasDetail: false },

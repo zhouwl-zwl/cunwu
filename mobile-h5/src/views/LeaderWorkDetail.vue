@@ -431,6 +431,72 @@ const workDetails = ref([
     ]
   },
   {
+    leaderId: 3,
+    workIndex: 2,
+    leaderName: '龙君屹',
+    workName: '退役军人',
+    children: [
+      { 
+        name: '优抚对象花名册',
+        icon: '🪖',
+        responsible: '龙君屹',
+        documents: [
+          '优抚对象花名册'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🪖', text: '优抚对象花名册：登记优抚对象信息，包括各类优抚人员的基本情况和动态管理' }
+    ],
+    documents: [
+      { icon: '🪖', title: '优抚对象花名册', description: '优抚对象信息登记与动态管理台账' }
+    ]
+  },
+  {
+    leaderId: 3,
+    workIndex: 3,
+    leaderName: '龙君屹',
+    workName: '农业农村',
+    children: [
+      { 
+        name: '粮食大豆任务表',
+        icon: '🌾',
+        responsible: '龙君屹',
+        documents: [
+          '粮食任务分配及完成表',
+          '大豆任务分配及完成表'
+        ]
+      },
+      { 
+        name: '农业补贴发放表',
+        icon: '💰',
+        responsible: '龙君屹',
+        documents: [
+          '地力补贴发放表',
+          '农机补贴发放表'
+        ]
+      },
+      { 
+        name: '农机统计表',
+        icon: '🚜',
+        responsible: '龙君屹',
+        documents: [
+          '农机统计表'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🌾', text: '粮食大豆任务表：粮食、大豆等农作物生产任务分配及完成情况统计' },
+      { icon: '💰', text: '农业补贴发放表：地力补贴、农机补贴等各项农业补贴发放情况登记' },
+      { icon: '🚜', text: '农机统计表：农业机械保有量及使用情况统计' }
+    ],
+    documents: [
+      { icon: '🌾', title: '粮食大豆任务表', description: '粮食、大豆任务分配及完成情况表' },
+      { icon: '💰', title: '农业补贴发放表', description: '地力补贴、农机补贴等发放情况表' },
+      { icon: '🚜', title: '农机统计表', description: '农业机械保有量及使用情况统计表' }
+    ]
+  },
+  {
     leaderId: 5,
     workIndex: 0,
     leaderName: '于鼎馨',
