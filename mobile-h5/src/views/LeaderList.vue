@@ -142,6 +142,7 @@ const leaders = ref([
       { name: '国防动员教育', hasDetail: true },
       { name: '退役军人', hasDetail: true },
       { name: '农业农村', hasDetail: true },
+      { name: '畜牧水产', hasDetail: true },
       { name: '依法行政', hasDetail: false },
       { name: '统计', hasDetail: false },
       { name: '民政', hasDetail: false },

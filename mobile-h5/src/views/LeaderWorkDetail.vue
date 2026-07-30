@@ -459,12 +459,13 @@ const workDetails = ref([
     workName: '农业农村',
     children: [
       { 
-        name: '粮食大豆任务表',
+        name: '粮食大豆油菜任务表',
         icon: '🌾',
         responsible: '涂金萍',
         documents: [
           '粮食任务分配及完成表',
-          '大豆任务分配及完成表'
+          '大豆任务分配及完成表',
+          '油菜任务分配及完成表'
         ]
       },
       { 
@@ -486,14 +487,63 @@ const workDetails = ref([
       }
     ],
     workItems: [
-      { icon: '🌾', text: '粮食大豆任务表：粮食、大豆等农作物生产任务分配及完成情况统计' },
+      { icon: '🌾', text: '粮食大豆油菜任务表：粮食、大豆、油菜等农作物生产任务分配及完成情况统计' },
       { icon: '💰', text: '农业补贴发放表：地力补贴、农机补贴等各项农业补贴发放情况登记' },
       { icon: '🚜', text: '农机统计表：农业机械保有量及使用情况统计' }
     ],
     documents: [
-      { icon: '🌾', title: '粮食大豆任务表', description: '粮食、大豆任务分配及完成情况表' },
+      { icon: '🌾', title: '粮食大豆油菜任务表', description: '粮食、大豆、油菜任务分配及完成情况表' },
       { icon: '💰', title: '农业补贴发放表', description: '地力补贴、农机补贴等发放情况表' },
       { icon: '🚜', title: '农机统计表', description: '农业机械保有量及使用情况统计表' }
+    ]
+  },
+  {
+    leaderId: 3,
+    workIndex: 4,
+    leaderName: '龙君屹',
+    workName: '畜牧水产',
+    children: [
+      { 
+        name: '禁捕退捕摸排表',
+        icon: '📋',
+        responsible: '涂金萍',
+        documents: [
+          '禁捕退捕摸排表',
+          '退捕渔民安置保障表'
+        ]
+      },
+      { 
+        name: '生猪牛羊任务表',
+        icon: '🐖',
+        responsible: '涂金萍',
+        documents: [
+          '生猪任务分配及完成表',
+          '牛羊任务分配及完成表',
+          '生猪检疫表',
+          '牛羊检疫表'
+        ]
+      },
+      { 
+        name: '鸡鸭水产任务表',
+        icon: '🐔',
+        responsible: '涂金萍',
+        documents: [
+          '鸡鸭任务分配及完成表',
+          '水产养殖任务表',
+          '鸡鸭检疫表',
+          '水产养殖检疫表'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '📋', text: '禁捕退捕摸排表：禁捕退捕情况摸排登记，退捕渔民安置保障等相关表格（不含执法）' },
+      { icon: '🐖', text: '生猪牛羊任务表：生猪、牛羊养殖任务分配及完成情况，检疫等相关表格' },
+      { icon: '🐔', text: '鸡鸭水产任务表：鸡鸭、水产养殖任务分配及完成情况，检疫等相关表格' }
+    ],
+    documents: [
+      { icon: '📋', title: '禁捕退捕摸排表', description: '禁捕退捕摸排、退捕渔民安置等相关表格（不含执法）' },
+      { icon: '🐖', title: '生猪牛羊任务表', description: '生猪、牛羊任务分配完成及检疫情况表' },
+      { icon: '🐔', title: '鸡鸭水产任务表', description: '鸡鸭、水产任务分配完成及检疫情况表' }
     ]
   },
   {
