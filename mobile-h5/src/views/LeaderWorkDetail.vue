@@ -559,6 +559,87 @@ const workDetails = ref([
       { name: '廉政教育', icon: '🎓', documents: ['廉政风险排查表', '谈心谈话记录', '警示教育台账'] },
       { name: '队伍建设和监督', icon: '👥', documents: ['纪检干部花名册', '培训会议'] }
     ]
+  },
+  {
+    leaderId: 7,
+    workIndex: 1,
+    leaderName: '杨成',
+    workName: '政务服务',
+    children: [
+      { 
+        name: '帮办事项上报',
+        icon: '📋',
+        responsible: '涂金萍',
+        documents: [
+          '每月帮办事项上报表',
+          '帮办代办台账'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '📋', text: '帮办事项上报：每月上报帮办事项，1-7月乡本级帮代办42件，其中代办10件' }
+    ],
+    documents: [
+      { icon: '📋', title: '帮办事项上报表', description: '每月帮办事项上报及帮办代办情况台账' }
+    ]
+  },
+  {
+    leaderId: 7,
+    workIndex: 2,
+    leaderName: '杨成',
+    workName: '政务公开',
+    children: [
+      { 
+        name: '政务公开更新',
+        icon: '📢',
+        responsible: '涂金萍',
+        documents: [
+          '领导信息更新表',
+          '工作总结',
+          '规划计划'
+        ]
+      },
+      { 
+        name: '政务公开服务',
+        icon: '🏛️',
+        responsible: '涂金萍',
+        documents: [
+          '政务公开服务活动记录',
+          '政策宣传资料'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '📢', text: '政务公开更新：按县里要求进行政务公开更新，更新领导信息，半年更新工作总结，更新规划计划' },
+      { icon: '🏛️', text: '政务公开服务：一年开展一次政务公开服务，在赶集日开展政务公开服务活动，宣传相关政策' }
+    ],
+    documents: [
+      { icon: '📢', title: '政务公开更新资料', description: '领导信息更新、工作总结、规划计划等公开资料' },
+      { icon: '🏛️', title: '政务公开服务记录', description: '赶集日政务公开服务活动记录及政策宣传资料' }
+    ]
+  },
+  {
+    leaderId: 7,
+    workIndex: 7,
+    leaderName: '杨成',
+    workName: '人力资源和社会保障',
+    children: [
+      { 
+        name: '招工招聘',
+        icon: '👤',
+        responsible: '涂金萍',
+        documents: [
+          '招工信息登记表',
+          '招聘人员花名册'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '👤', text: '招工招聘：人力资源和社会保障招工工作，招工信息登记及招聘人员管理' }
+    ],
+    documents: [
+      { icon: '👤', title: '招工招聘资料', description: '招工信息登记表、招聘人员花名册等' }
+    ]
   }
 ])
 
