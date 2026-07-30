@@ -390,7 +390,7 @@ const workDetails = ref([
       { 
         name: '环境整治宣传',
         icon: '📢',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '门前三包表',
           '一单四制表'
@@ -399,7 +399,7 @@ const workDetails = ref([
       { 
         name: '垃圾清运督查',
         icon: '🗑️',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '农村垃圾生活收设施摸底排查表'
         ]
@@ -407,7 +407,7 @@ const workDetails = ref([
       { 
         name: '固废排查',
         icon: '🔍',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '固体废物规范点位清单'
         ]
@@ -433,7 +433,7 @@ const workDetails = ref([
       { 
         name: '生态问题排查',
         icon: '🌱',
-        responsible: '龙君屹',
+        responsible: '涂金萍',
         documents: [
           '农村生活污水处理设施排查表',
           '农村黑臭水体排查表',
@@ -748,39 +748,40 @@ const workDetails = ref([
     workName: '医疗保障',
     children: [
       { 
-        name: '医保缴费表',
-        icon: '🏥',
+        name: '医疗救助申请',
+        icon: '📋',
         responsible: '龙君屹',
         documents: [
-          '医保缴费情况表'
+          '医疗救助申请表',
+          '医疗救助审批表'
         ]
       },
       { 
-        name: '大病救助表',
-        icon: '❤️',
+        name: '临时救助花名册',
+        icon: '📋',
         responsible: '龙君屹',
         documents: [
-          '大病救助情况表'
+          '临时救助对象花名册'
         ]
       },
       { 
-        name: '生计补贴表',
-        icon: '💰',
+        name: '医保报销统计',
+        icon: '📊',
         responsible: '龙君屹',
         documents: [
-          '两户子女生计补贴发放情况表'
+          '医保报销情况统计表'
         ]
       }
     ],
     workItems: [
-      { icon: '🏥', text: '医保缴费情况表' },
-      { icon: '❤️', text: '大病救助情况表' },
-      { icon: '💰', text: '两户子女、独生子女户等生计补贴发放情况表' }
+      { icon: '📋', text: '医疗救助申请表、审批表' },
+      { icon: '📋', text: '临时救助对象花名册' },
+      { icon: '📊', text: '医保报销情况统计表' }
     ],
     documents: [
-      { icon: '🏥', title: '医保缴费表', description: '医保缴费情况表' },
-      { icon: '❤️', title: '大病救助表', description: '大病救助情况表' },
-      { icon: '💰', title: '生计补贴表', description: '两户子女、独生子女户等生计补贴发放情况表' }
+      { icon: '📋', title: '医疗救助申请', description: '医疗救助申请表、审批表' },
+      { icon: '📋', title: '临时救助花名册', description: '临时救助对象花名册' },
+      { icon: '📊', title: '医保报销统计', description: '医保报销情况统计表' }
     ]
   },
   {
