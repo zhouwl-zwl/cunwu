@@ -753,6 +753,16 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = `${to.meta.title} - 村级智慧村务平台`
   }
+  
+  const leaderRoutes = ['LeaderList', 'LeaderDetail', 'LeaderWorkDetail']
+  if (leaderRoutes.includes(to.name)) {
+    const unlocked = sessionStorage.getItem('leader_unlocked')
+    if (unlocked !== 'true') {
+      next('/')
+      return
+    }
+  }
+  
   next()
 })
 
