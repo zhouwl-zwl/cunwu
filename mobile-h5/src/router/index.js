@@ -55,6 +55,15 @@ const routes = [
         }
       },
       {
+        path: 'thought-study',
+        name: 'ThoughtStudy',
+        component: () => import('../views/ThoughtStudy.vue'),
+        meta: {
+          title: '学习最新思想',
+          requireAuth: false
+        }
+      },
+      {
         path: 'village-detail/:id',
         name: 'VillageDetail',
         component: () => import('../views/VillageDetail.vue'),

@@ -140,6 +140,41 @@
       </div>
     </div>
 
+    <div class="module-card thought-module animate-slide-up" style="animation-delay: 0.15s">
+      <div class="thought-header">
+        <div class="thought-header-left">
+          <div class="thought-emblem">☭</div>
+          <div>
+            <h3 class="thought-title">学习最新思想</h3>
+            <div class="thought-subtitle">学思想 · 强党性 · 重实践 · 建新功</div>
+          </div>
+        </div>
+        <a href="/thought-study" class="more-link" @click.prevent="goThoughtStudy">进入 →</a>
+      </div>
+      <div class="thought-featured" @click="goThoughtStudy">
+        <div class="featured-tag">学习专题</div>
+        <div class="featured-title">习近平新时代中国特色社会主义思想</div>
+        <div class="featured-quote">"人民对美好生活的向往，就是我们的奋斗目标。"</div>
+        <div class="thought-stars">
+          <span>📖 6大专题</span>
+          <span>✨ 30+金句</span>
+          <span>🚩 核心要点</span>
+        </div>
+      </div>
+      <div class="thought-mini-grid">
+        <div
+          v-for="(t, i) in thoughtTopics"
+          :key="i"
+          class="mini-card"
+          :style="{ background: t.bg }"
+          @click="goThoughtStudy"
+        >
+          <div class="mini-icon">{{ t.icon }}</div>
+          <div class="mini-name">{{ t.name }}</div>
+        </div>
+      </div>
+    </div>
+
     <van-dialog
       v-model:show="showPasswordDialog"
       title="访问验证"
@@ -210,6 +245,19 @@ const leaders = ref([
   { id: 6, name: '杨承明', icon: 'user-o', color: 'linear-gradient(135deg, #00BCD4 0%, #0097A7 100%)', workCount: 5 },
   { id: 7, name: '杨成', icon: 'user-o', color: 'linear-gradient(135deg, #E91E63 0%, #C2185B 100%)', workCount: 14 }
 ])
+
+const thoughtTopics = ref([
+  { icon: '🚩', name: '二十大精神', bg: 'linear-gradient(135deg, #C62828 0%, #7F0000 100%)' },
+  { icon: '🌾', name: '乡村振兴', bg: 'linear-gradient(135deg, #E65100 0%, #BF360C 100%)' },
+  { icon: '🌟', name: '中国式现代化', bg: 'linear-gradient(135deg, #B71C1C 0%, #880E4F 100%)' },
+  { icon: '🤝', name: '共同富裕', bg: 'linear-gradient(135deg, #D84315 0%, #BF360C 100%)' },
+  { icon: '💡', name: '新发展理念', bg: 'linear-gradient(135deg, #C62828 0%, #4A148C 100%)' },
+  { icon: '📖', name: '新思想', bg: 'linear-gradient(135deg, #D22630 0%, #8B0000 100%)' }
+])
+
+const goThoughtStudy = () => {
+  router.push('/thought-study')
+}
 
 const formatAssets = computed(() => {
   const total = villageInfo.value?.totalAssets || 0
@@ -662,5 +710,196 @@ onMounted(() => {
   background: linear-gradient(135deg, #D22630 0%, #B01A26 100%);
   border: none;
   border-radius: 24px;
+}
+
+.thought-module {
+  background: linear-gradient(135deg, #FFFAFA 0%, #FFF8F0 100%);
+  border: 1px solid rgba(210, 38, 48, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.thought-module::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(40%, -40%);
+  pointer-events: none;
+}
+
+.thought-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.thought-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.thought-emblem {
+  font-size: 28px;
+  color: #D22630;
+  text-shadow: 0 2px 6px rgba(210, 38, 48, 0.3);
+  animation: emblemPulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes emblemPulse {
+  from { text-shadow: 0 2px 6px rgba(210, 38, 48, 0.3); }
+  to { text-shadow: 0 2px 12px rgba(210, 38, 48, 0.6), 0 0 20px rgba(255, 215, 0, 0.4); }
+}
+
+.thought-title {
+  font-size: 17px;
+  font-weight: bold;
+  color: #5D0000;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.thought-subtitle {
+  font-size: 10px;
+  color: #B01A26;
+  opacity: 0.7;
+  margin-top: 2px;
+  letter-spacing: 0.5px;
+}
+
+.thought-featured {
+  background: linear-gradient(135deg, #D22630 0%, #8B0000 100%);
+  border-radius: 14px;
+  padding: 16px;
+  color: #fff;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.thought-featured:active {
+  transform: scale(0.98);
+}
+
+.thought-featured::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(30%, -30%);
+}
+
+.thought-featured::after {
+  content: '★ ★ ★ ★ ★';
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 8px;
+  color: rgba(255, 215, 0, 0.4);
+  letter-spacing: 2px;
+}
+
+.featured-tag {
+  display: inline-block;
+  background: rgba(255, 215, 0, 0.25);
+  color: #FFD700;
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.featured-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.featured-quote {
+  font-size: 12px;
+  color: rgba(255, 215, 0, 0.95);
+  line-height: 1.6;
+  font-style: italic;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.thought-stars {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.thought-stars span {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.15);
+  padding: 3px 8px;
+  border-radius: 8px;
+}
+
+.thought-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.mini-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 6px;
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 8px rgba(210, 38, 48, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.mini-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+}
+
+.mini-card:active {
+  transform: scale(0.95);
+}
+
+.mini-icon {
+  font-size: 22px;
+  margin-bottom: 4px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.mini-name {
+  font-size: 11px;
+  font-weight: 500;
+  z-index: 1;
 }
 </style>
