@@ -1048,7 +1048,6 @@ const workDetails = ref([
       { 
         name: '志愿者管理',
         icon: '👥',
-        responsible: '涂金萍',
         documents: [
           '新时代文明实践站所志愿者花名册',
           '志愿者服务时长台账',
@@ -1058,7 +1057,6 @@ const workDetails = ref([
       { 
         name: '活动策划执行',
         icon: '📋',
-        responsible: '涂金萍',
         documents: [
           '活动方案审批表',
           '活动执行记录表',
@@ -1068,7 +1066,6 @@ const workDetails = ref([
       { 
         name: '阵地建设管理',
         icon: '🏛️',
-        responsible: '涂金萍',
         documents: [
           '阵地设施设备台账',
           '阵地开放使用登记表',
@@ -1078,7 +1075,6 @@ const workDetails = ref([
       { 
         name: '志愿服务队伍',
         icon: '🤝',
-        responsible: '涂金萍',
         documents: [
           '志愿服务队伍人员名单',
           '志愿服务项目台账',
