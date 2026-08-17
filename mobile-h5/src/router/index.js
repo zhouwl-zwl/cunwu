@@ -64,6 +64,15 @@ const routes = [
         }
       },
       {
+        path: 'party-roster/:type',
+        name: 'PartyRosterView',
+        component: () => import('../views/PartyRosterView.vue'),
+        meta: {
+          title: '党员台账',
+          requireAuth: false
+        }
+      },
+      {
         path: 'village-detail/:id',
         name: 'VillageDetail',
         component: () => import('../views/VillageDetail.vue'),

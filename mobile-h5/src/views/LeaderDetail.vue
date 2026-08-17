@@ -105,7 +105,7 @@ const leadersData = ref([
     name: '张芷馨',
     color: 'linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%)',
     works: [
-      { name: '基层党建', icon: '🚩', color: 'linear-gradient(135deg, #E53935, #B71C1C)', hasDetail: false },
+      { name: '基层党建', icon: '🚩', color: 'linear-gradient(135deg, #E53935, #B71C1C)', hasDetail: true },
       { name: '组织人事', icon: '👥', color: 'linear-gradient(135deg, #7E57C2, #4527A0)', hasDetail: false },
       { name: '党务公开', icon: '📢', color: 'linear-gradient(135deg, #BA68C8, #6A1B9A)', hasDetail: false },
       { name: '宣传思想文化', icon: '📣', color: 'linear-gradient(135deg, #CE93D8, #6A1B9A)', hasDetail: true },

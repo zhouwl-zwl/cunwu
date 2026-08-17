@@ -51,7 +51,8 @@
                 </div>
               </div>
               <div class="child-arrow" :class="{ expanded: expandedIndex === idx }">
-                <van-icon name="arrow" size="16" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#D22630'" />
+                <span v-if="child.route" class="enter-hint">进入</span>
+                <van-icon v-else name="arrow" size="16" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#D22630'" />
               </div>
             </div>
             
@@ -1009,6 +1010,45 @@ const workDetails = ref([
   },
   {
     leaderId: 4,
+    workIndex: 0,
+    leaderName: '张芷馨',
+    workName: '基层党建',
+    children: [
+      {
+        name: '党员系统动态管理',
+        icon: '📋',
+        responsible: '涂金萍',
+        route: '/party-roster/member-roster',
+        documents: ['党员花名册']
+      },
+      {
+        name: '50年党龄党员',
+        icon: '🎖️',
+        responsible: '涂金萍',
+        route: '/party-roster/50year',
+        documents: ['50年党龄摸底台账']
+      },
+      {
+        name: '60年以上党龄困难党员',
+        icon: '💝',
+        responsible: '涂金萍',
+        route: '/party-roster/60year-aid',
+        documents: ['60年以上党龄困难党员补助台账（半年更新）']
+      }
+    ],
+    workItems: [
+      { icon: '📋', text: '党员系统动态管理：党员花名册动态更新维护，党员组织关系转接' },
+      { icon: '🎖️', text: '50年党龄党员：50年党龄党员摸底登记台账' },
+      { icon: '💝', text: '60年以上党龄困难党员：60年以上党龄困难党员补助台账（半年更新）' }
+    ],
+    documents: [
+      { icon: '📋', title: '党员花名册', description: '党员系统动态管理 - 全乡党员花名册' },
+      { icon: '🎖️', title: '50年党龄摸底台账', description: '50年党龄党员摸底登记台账' },
+      { icon: '💝', title: '60年以上党龄困难党员补助台账', description: '60年以上党龄困难党员生活补助发放台账（半年更新）' }
+    ]
+  },
+  {
+    leaderId: 4,
     workIndex: 3,
     leaderName: '张芷馨',
     workName: '宣传思想文化',
@@ -1290,6 +1330,11 @@ const goRoster = () => {
 }
 
 const toggleChild = (idx) => {
+  const child = workDetail.value?.children?.[idx]
+  if (child && child.route) {
+    router.push(child.route)
+    return
+  }
   expandedIndex.value = expandedIndex.value === idx ? -1 : idx
 }
 
@@ -1452,6 +1497,15 @@ onMounted(() => {
 
 .child-arrow.expanded {
   transform: rotate(90deg);
+}
+
+.enter-hint {
+  font-size: 11px;
+  color: #D22630;
+  background: rgba(210, 38, 48, 0.1);
+  padding: 3px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(210, 38, 48, 0.2);
 }
 
 .child-detail {

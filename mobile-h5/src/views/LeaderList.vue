@@ -158,7 +158,7 @@ const leaders = ref([
     name: '张芷馨',
     color: 'linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%)',
     works: [
-      { name: '基层党建', hasDetail: false },
+      { name: '基层党建', hasDetail: true },
       { name: '组织人事', hasDetail: false },
       { name: '党务公开', hasDetail: false },
       { name: '宣传思想文化', hasDetail: true },
