@@ -48,7 +48,7 @@ import { showToast } from 'vant'
 const router = useRouter()
 const route = useRoute()
 
-const leaderId = ref(parseInt(route.params.id) || 1)
+const leaderId = ref(parseInt(route.params.leaderId) || 1)
 
 const leadersData = ref([
   {
