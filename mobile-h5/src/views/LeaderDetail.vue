@@ -188,6 +188,10 @@ const goWorkDetail = (leaderId, workIndex) => {
 }
 
 onMounted(() => {
+  if (sessionStorage.getItem('leader_unlocked') !== 'true') {
+    router.replace('/')
+    return
+  }
   if (leader.value) {
     document.title = `${leader.value.name} - 分管工作`
   }

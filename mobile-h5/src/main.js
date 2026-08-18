@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import 'vant/lib/index.css'
 import './styles/index.scss'
+import lazyLoad from './directives/lazyLoad'
 
 import {
   NavBar,
@@ -34,6 +35,8 @@ import {
   Skeleton,
   Steps,
   Step,
+  Radio,
+  RadioGroup,
   showToast,
   showDialog
 } from 'vant'
@@ -43,6 +46,7 @@ const pinia = createPinia()
 
 app.use(pinia)
 app.use(router)
+app.directive('lazy', lazyLoad)
 
 app.use(NavBar)
 app.use(Tabs)
@@ -72,6 +76,8 @@ app.use(List)
 app.use(Skeleton)
 app.use(Steps)
 app.use(Step)
+app.use(Radio)
+app.use(RadioGroup)
 
 app.mount('#app')
 

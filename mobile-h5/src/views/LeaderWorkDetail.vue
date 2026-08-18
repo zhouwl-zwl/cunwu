@@ -1564,6 +1564,10 @@ const goBack = () => {
 }
 
 onMounted(() => {
+  if (sessionStorage.getItem('leader_unlocked') !== 'true') {
+    router.replace('/')
+    return
+  }
   if (workDetail.value) {
     document.title = `${workDetail.value.workName} - 工作详情`
   }
