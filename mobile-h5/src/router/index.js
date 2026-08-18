@@ -774,6 +774,15 @@ const routes = [
           title: '思想学习',
           requireAuth: false
         }
+      },
+      {
+        path: 'hazardous-house-stats',
+        name: 'HazardousHouseStats',
+        component: () => import('../views/HazardousHouseStats.vue'),
+        meta: {
+          title: '危房统计表',
+          requireAuth: false
+        }
       }
     ]
   },

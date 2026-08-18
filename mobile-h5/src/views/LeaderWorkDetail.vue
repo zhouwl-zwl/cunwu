@@ -1501,6 +1501,7 @@ const workDetails = ref([
       {
         name: '危房统计',
         icon: '🏚️',
+        route: '/hazardous-house-stats',
         documents: [
           '罗卜田乡危房统计表'
         ]
