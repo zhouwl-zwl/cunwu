@@ -95,11 +95,6 @@
     <div class="card">
       <div class="section-title">设置</div>
       <div class="setting-list">
-        <div class="setting-item ripple" @click="goChangePassword">
-          <van-icon name="lock" size="18" color="#D22630" />
-          <span class="setting-label">修改密码</span>
-          <van-icon name="arrow-right" size="18" color="#999" />
-        </div>
         <div class="setting-item ripple" @click="goProfile">
           <van-icon name="user-o" size="18" color="#D22630" />
           <span class="setting-label">编辑资料</span>
@@ -229,10 +224,6 @@ const goHelp = () => {
 
 const goAbout = () => {
   router.push('/about')
-}
-
-const goChangePassword = () => {
-  router.push('/change-password')
 }
 
 const uploadAvatar = () => {
