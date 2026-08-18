@@ -83,6 +83,7 @@
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { showToast } from 'vant'
+import * as XLSX from 'xlsx'
 
 const route = useRoute()
 const router = useRouter()
@@ -211,7 +212,26 @@ const maskValue = (val) => val || ''
 const goBack = () => router.back()
 
 const handleExport = () => {
-  showToast('导出功能开发中')
+  if (filteredData.value.length === 0) {
+    showToast('暂无可导出数据')
+    return
+  }
+
+  const cols = columns.value
+  const data = filteredData.value.map((row, index) => {
+    const obj = { '序号': index + 1 }
+    cols.forEach(col => {
+      obj[col.label] = row[col.key]
+    })
+    return obj
+  })
+
+  const ws = XLSX.utils.json_to_sheet(data)
+  ws['!cols'] = [{ wch: 8 }, ...cols.map(() => ({ wch: 14 }))]
+  const wb = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb, ws, pageTitle.value)
+  XLSX.writeFile(wb, `${pageTitle.value}.xlsx`)
+  showToast('导出成功')
 }
 </script>
 
