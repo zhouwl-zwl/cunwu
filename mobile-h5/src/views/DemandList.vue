@@ -27,7 +27,7 @@
               </div>
             </div>
             <div v-if="item.images && item.images.length > 0" class="news-image-wrapper">
-              <img :src="getFirstImage(item.images)" class="news-image" loading="lazy" />
+              <img :src="getFirstImage(item.images)" class="news-image" />
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
               </div>
             </div>
             <div v-if="item.images && item.images.length > 0" class="news-image-wrapper">
-              <img :src="getFirstImage(item.images)" class="news-image" loading="lazy" />
+              <img :src="getFirstImage(item.images)" class="news-image" />
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@
               </div>
             </div>
             <div v-if="item.images && item.images.length > 0" class="news-image-wrapper">
-              <img :src="getFirstImage(item.images)" class="news-image" loading="lazy" />
+              <img :src="getFirstImage(item.images)" class="news-image" />
             </div>
           </div>
         </div>

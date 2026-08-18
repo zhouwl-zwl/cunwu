@@ -32,7 +32,7 @@
           <div class="photos-section">
             <div class="photos-title">问题照片</div>
             <div class="inspection-photos">
-              <img v-for="(photo, idx) in item.photos" :key="idx" :src="photo" class="photo-item" @click="previewImage(photo)" loading="lazy" />
+              <img v-for="(photo, idx) in item.photos" :key="idx" :src="photo" class="photo-item" @click="previewImage(photo)" />
               <div v-if="item.photos.length === 0" class="no-photo">暂无照片</div>
             </div>
           </div>
@@ -42,13 +42,13 @@
             <div class="compare-row">
               <div class="compare-item">
                 <div class="compare-label">整改前</div>
-                <img v-if="item.beforePhoto" :src="item.beforePhoto" class="compare-photo" @click="previewImage(item.beforePhoto)" loading="lazy" />
+                <img v-if="item.beforePhoto" :src="item.beforePhoto" class="compare-photo" @click="previewImage(item.beforePhoto)" />
                 <div v-else class="no-photo">暂无</div>
               </div>
               <div class="compare-arrow">→</div>
               <div class="compare-item">
                 <div class="compare-label">整改后</div>
-                <img v-if="item.afterPhoto" :src="item.afterPhoto" class="compare-photo" @click="previewImage(item.afterPhoto)" loading="lazy" />
+                <img v-if="item.afterPhoto" :src="item.afterPhoto" class="compare-photo" @click="previewImage(item.afterPhoto)" />
                 <div v-else class="no-photo">暂无</div>
               </div>
             </div>
@@ -91,7 +91,7 @@
           <div v-for="item in courtyardList" :key="item.id" class="courtyard-card" :class="{ black: courtyardTab === 'black' }">
             <div class="courtyard-rank">{{ item.rank === '优秀' ? '🏆' : '⚠️' }}</div>
             <div class="courtyard-photo">
-              <img :src="item.photo" :alt="item.name" loading="lazy" />
+              <img :src="item.photo" :alt="item.name" />
             </div>
             <div class="courtyard-info">
               <div class="courtyard-name">{{ item.name }}</div>

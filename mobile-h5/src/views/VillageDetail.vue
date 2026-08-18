@@ -2,13 +2,10 @@
   <div class="village-detail page-container">
     <div class="header-banner">
       <div class="banner-image">
-        <img :src="village.image" :alt="village.name" loading="eager" />
+        <img :src="village.image" :alt="village.name" />
         <div class="banner-overlay"></div>
         <div class="banner-title">{{ village.name }}</div>
         <div class="banner-subtitle">{{ village.desc }}</div>
-        <div class="banner-share" @click="handleShare">
-          <van-icon name="share-o" size="22" color="#fff" />
-        </div>
       </div>
     </div>
 
@@ -47,55 +44,6 @@
             <div class="card-value">{{ village.groups }}个</div>
             <div class="card-label">村民组</div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="module-card">
-      <div class="module-header">
-        <div class="header-left">
-          <van-icon name="phone" size="20" color="#00BCD4" />
-          <h3>支两委人员</h3>
-        </div>
-        <div class="header-right">
-          <span class="export-link" @click="exportMembers">
-            <van-icon name="down" size="14" />
-            导出
-          </span>
-          <span class="separator">|</span>
-          <span @click="goContactList">
-            查看全部
-            <van-icon name="arrow-right" size="16" />
-          </span>
-        </div>
-      </div>
-      <div class="member-list">
-        <div 
-          v-for="(member, idx) in currentVillageMembers" 
-          :key="idx" 
-          class="member-item"
-        >
-          <div class="member-avatar">{{ member.name.charAt(0) }}</div>
-          <div class="member-info" @click="showMemberDetail(member)">
-            <div class="member-name">{{ member.name }}</div>
-            <div class="member-position">{{ member.position }}</div>
-          </div>
-          <div class="member-actions">
-            <a 
-              v-if="member.phone"
-              :href="`tel:${member.phone}`" 
-              class="call-btn"
-              @click.prevent="callPhone(member)"
-            >
-              <van-icon name="phone" size="16" color="#fff" />
-            </a>
-            <div class="share-btn" @click="shareMember(member)">
-              <van-icon name="share-o" size="14" color="#4CAF50" />
-            </div>
-          </div>
-        </div>
-        <div v-if="currentVillageMembers.length === 0" class="empty-member">
-          暂无人员信息
         </div>
       </div>
     </div>
@@ -263,16 +211,12 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { showDialog, showToast } from 'vant'
-import * as XLSX from 'xlsx'
-import { showSharePanel } from '@/utils/share'
 
 const router = useRouter()
 const route = useRoute()
@@ -352,184 +296,12 @@ const villagesData = ref([
   }
 ])
 
-const villageMembers = ref([
-  {
-    villageId: 1,
-    villageName: '新店村',
-    members: [
-      { position: '党总支书记、村委会主任', name: '张露海', phone: '18874588691' },
-      { position: '党总支纪检委员', name: '张小华', phone: '19918453755' },
-      { position: '党总支组织委员、村文书', name: '杨堃', phone: '18796229401' },
-      { position: '党总支宣传委员、村妇联主席', name: '龙小梅', phone: '17774523109' }
-    ]
-  },
-  {
-    villageId: 2,
-    villageName: '罗卜田村',
-    members: [
-      { position: '党总支书记、村委会主任', name: '钦山', phone: '13874417046' },
-      { position: '党总支副书记', name: '刘锋', phone: '13647457437' },
-      { position: '党总支纪检委员', name: '李利华', phone: '13787544708' },
-      { position: '党总支组织委员、村妇联主席', name: '邓京南', phone: '18074525378' },
-      { position: '党总支宣传委员、村文书', name: '李艳琪', phone: '15226463734' }
-    ]
-  },
-  {
-    villageId: 3,
-    villageName: '兴无村',
-    members: [
-      { position: '党支部书记、村委会主任', name: '向勇', phone: '18174586399' },
-      { position: '党支部组织、宣传委员村妇联主席', name: '向艾红', phone: '17769245689' },
-      { position: '党支部纪检委员', name: '张跃', phone: '19918537956' },
-      { position: '村文书', name: '杨雪玲', phone: '13874560743' },
-      { position: '乡村振兴第一书记、队长', name: '杨英涛', phone: '13769247711' },
-      { position: '乡村振兴队员', name: '张绍平', phone: '13874464265' },
-      { position: '乡村振兴队员', name: '刘文军', phone: '13973080528' }
-    ]
-  },
-  {
-    villageId: 4,
-    villageName: '马坡村',
-    members: [
-      { position: '党支部书记、村委会主任', name: '李友香', phone: '18075598897' },
-      { position: '党支部组织、宣传委员', name: '李小洲', phone: '18075595377' },
-      { position: '党支部纪检委员', name: '李复胜', phone: '19974521375' },
-      { position: '村文书', name: '李华', phone: '18273199594' },
-      { position: '村妇联主席', name: '郑卫芳', phone: '19375089447' }
-    ]
-  },
-  {
-    villageId: 5,
-    villageName: '半冲村',
-    members: [
-      { position: '党支部书记、村委会主任', name: '彭开红', phone: '15115254832' },
-      { position: '党支部组织、宣传委员、村文书', name: '彭兵', phone: '18273853514' },
-      { position: '党支部纪检委员', name: '唐昌齐', phone: '17774592207' },
-      { position: '村妇联主席', name: '蒲金花', phone: '18474525661' },
-      { position: '乡村振兴第一书记、队长', name: '陈东', phone: '13807457766' },
-      { position: '乡村振兴队员', name: '李承长', phone: '18574519627' },
-      { position: '乡村振兴队员', name: '陈真', phone: '18974516158' }
-    ]
-  },
-  {
-    villageId: 6,
-    villageName: '冬瓜坡村',
-    members: [
-      { position: '党支部书记、村委会主任', name: '李复艳', phone: '18374555056' },
-      { position: '党支部组织、宣传委员、村文书', name: '李静', phone: '17788897515' },
-      { position: '党支部纪检委员', name: '刘宗荣', phone: '18075996242' },
-      { position: '村委会副主任', name: '李培健', phone: '19918451108' },
-      { position: '村妇联主席', name: '张小芳', phone: '17769225569' }
-    ]
-  },
-  {
-    villageId: 7,
-    villageName: '枣子山村',
-    members: [
-      { position: '党支部书记、村委会主任', name: '郑明明', phone: '13467404567' },
-      { position: '党支部组织、宣传委员、村妇联', name: '刘正玉', phone: '17365760232' },
-      { position: '党支部纪检委员', name: '杨群', phone: '17308459456' },
-      { position: '村委会副主任', name: '郑芳', phone: '18974591799' },
-      { position: '村文书', name: '郑邱方', phone: '18707456651' }
-    ]
-  }
-])
-
 const village = computed(() => {
   return villagesData.value.find(v => v.id === villageId.value) || villagesData.value[0]
 })
 
-const currentVillageMembers = computed(() => {
-  const data = villageMembers.value.find(v => v.villageId === villageId.value)
-  return data ? data.members : []
-})
-
 const goPage = (path) => {
   router.push(path)
-}
-
-const goContactList = () => {
-  router.push('/contact-list')
-}
-
-const exportMembers = () => {
-  const members = currentVillageMembers.value
-  if (members.length === 0) {
-    showToast('暂无可导出数据')
-    return
-  }
-  const data = members.map(m => ({
-    '村名': village.value.name,
-    '姓名': m.name,
-    '职务': m.position,
-    '联系电话': m.phone
-  }))
-  const ws = XLSX.utils.json_to_sheet(data)
-  ws['!cols'] = [
-    { wch: 14 },
-    { wch: 12 },
-    { wch: 32 },
-    { wch: 16 }
-  ]
-  const wb = XLSX.utils.book_new()
-  XLSX.utils.book_append_sheet(wb, ws, '支两委人员')
-  XLSX.writeFile(wb, `${village.value.name}支两委人员.xlsx`)
-  showToast(`已导出 ${data.length} 条数据`)
-}
-
-const showMemberDetail = (member) => {
-  if (!member.phone) {
-    showDialog({
-      title: member.name,
-      message: `职务：${member.position}`,
-      confirmButtonText: '确定'
-    })
-    return
-  }
-  showDialog({
-    title: member.name,
-    message: `职务：${member.position}\n电话：${member.phone}`,
-    confirmButtonText: '拨打电话',
-    confirmButtonColor: '#4CAF50',
-    cancelButtonText: '关闭'
-  }).then(() => {
-    doCall(member.phone)
-  }).catch(() => {})
-}
-
-const callPhone = (member) => {
-  if (!member.phone) {
-    showToast('暂无电话号码')
-    return
-  }
-  doCall(member.phone)
-}
-
-const doCall = (phone) => {
-  showDialog({
-    title: '拨打电话',
-    message: `确定要拨打 ${phone} 吗？`,
-    confirmButtonText: '拨打',
-    confirmButtonColor: '#4CAF50',
-    cancelButtonText: '取消'
-  }).then(() => {
-    window.location.href = `tel:${phone}`
-  }).catch(() => {})
-}
-
-const handleShare = () => {
-  showSharePanel({
-    title: `${village.value.name} - 罗卜田乡`,
-    text: `${village.value.name}村务信息，点击查看详情`
-  })
-}
-
-const shareMember = (member) => {
-  showSharePanel({
-    title: `${member.name} - ${member.position}`,
-    text: `${village.value.name} ${member.position}：${member.name}\n电话：${member.phone || '暂无'}`,
-    url: window.location.href
-  })
 }
 
 onMounted(() => {
@@ -559,27 +331,6 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.banner-share {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s;
-  z-index: 10;
-}
-
-.banner-share:active {
-  background: rgba(255, 255, 255, 0.4);
 }
 
 .banner-overlay {
@@ -815,152 +566,5 @@ onMounted(() => {
 
 .card-icon.danger-bg {
   background: linear-gradient(135deg, #FF9800 0%, #F44336 100%);
-}
-
-.card-icon.contact-bg {
-  background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
-}
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.card-sub {
-  font-size: 11px;
-  color: #999;
-  margin-top: 2px;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 13px;
-  color: #00BCD4;
-  cursor: pointer;
-}
-
-.export-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  color: #4CAF50;
-  padding: 2px 4px;
-}
-
-.separator {
-  color: #ddd;
-  margin: 0 4px;
-}
-
-.member-list {
-  padding: 4px 0;
-}
-
-.member-item {
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-  border-bottom: 1px solid #f5f5f5;
-  cursor: default;
-  transition: background 0.2s;
-}
-
-.member-item:last-child {
-  border-bottom: none;
-}
-
-.call-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--gradient-success);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
-.call-btn:active {
-  transform: scale(0.92);
-}
-
-.no-phone {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.member-actions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-}
-
-.share-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--gradient-blue);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.share-btn:active {
-  transform: scale(0.92);
-}
-
-.member-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: bold;
-  margin-right: 12px;
-}
-
-.member-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.member-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 2px;
-}
-
-.member-position {
-  font-size: 12px;
-  color: #999;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.empty-member {
-  text-align: center;
-  padding: 20px;
-  color: #999;
-  font-size: 13px;
 }
 </style>
