@@ -242,7 +242,7 @@ const workDetails = ref([
   },
   {
     leaderId: 1,
-    workIndex: 5,
+    workIndex: 4,
     leaderName: '欧阳付群',
     workName: '营商环境',
     children: [
@@ -265,7 +265,7 @@ const workDetails = ref([
   },
   {
     leaderId: 1,
-    workIndex: 4,
+    workIndex: 5,
     leaderName: '欧阳付群',
     workName: '乡村振兴',
     children: [
