@@ -1345,6 +1345,7 @@ const workDetails = ref([
       {
         name: '行政村减灾能力',
         icon: '🛡️',
+        route: '/disaster-reduction',
         documents: [
           '罗卜田乡社区（行政村）减灾能力'
         ]
@@ -1389,6 +1390,7 @@ const workDetails = ref([
       {
         name: '重点敲门对象',
         icon: '🚪',
+        route: '/knock-door-roster',
         documents: [
           '罗卜田乡重点敲门对象花名册'
         ]
@@ -1396,6 +1398,7 @@ const workDetails = ref([
       {
         name: '重点部位统计',
         icon: '📍',
+        route: '/key-area-stats',
         documents: [
           '罗卜田乡重点部位统计表'
         ]
@@ -1425,6 +1428,7 @@ const workDetails = ref([
       {
         name: '人饮工程',
         icon: '🚰',
+        route: '/water-supply-stats',
         documents: [
           '农村供水工程现状摸底表'
         ]
@@ -1494,6 +1498,7 @@ const workDetails = ref([
       {
         name: '餐饮燃气',
         icon: '🔥',
+        route: '/gas-inspection',
         documents: [
           '罗卜田乡燃气"百日行动"排查台账'
         ]

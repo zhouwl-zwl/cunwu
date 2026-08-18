@@ -783,6 +783,51 @@ const routes = [
           title: '危房统计表',
           requireAuth: false
         }
+      },
+      {
+        path: 'gas-inspection',
+        name: 'GasInspection',
+        component: () => import('../views/GasInspection.vue'),
+        meta: {
+          title: '燃气排查台账',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'disaster-reduction',
+        name: 'DisasterReductionCapacity',
+        component: () => import('../views/DisasterReductionCapacity.vue'),
+        meta: {
+          title: '行政村减灾能力',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'key-area-stats',
+        name: 'KeyAreaStats',
+        component: () => import('../views/KeyAreaStats.vue'),
+        meta: {
+          title: '重点部位统计表',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'knock-door-roster',
+        name: 'KnockDoorRoster',
+        component: () => import('../views/KnockDoorRoster.vue'),
+        meta: {
+          title: '重点敲门对象花名册',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'water-supply-stats',
+        name: 'WaterSupplyStats',
+        component: () => import('../views/WaterSupplyStats.vue'),
+        meta: {
+          title: '农村供水工程',
+          requireAuth: false
+        }
       }
     ]
   },
