@@ -1328,6 +1328,192 @@ const workDetails = ref([
       { icon: '🎉', title: '工会活动', description: '工会活动记录表（含七一唱歌比赛等）' },
       { icon: '🎁', title: '会员福利', description: '会员福利发放表（住院、生育看望等）' }
     ]
+  },
+  {
+    leaderId: 6,
+    workIndex: 0,
+    leaderName: '杨承明',
+    workName: '应急管理',
+    children: [
+      {
+        name: '避险转移责任人',
+        icon: '🏃',
+        documents: [
+          '罗卜田乡避险转移网格化责任人台账'
+        ]
+      },
+      {
+        name: '行政村减灾能力',
+        icon: '🛡️',
+        documents: [
+          '罗卜田乡社区（行政村）减灾能力'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🏃', text: '避险转移责任人：建立避险转移网格化责任体系，明确各级责任人' },
+      { icon: '🛡️', text: '行政村减灾能力：评估并提升行政村综合减灾能力' }
+    ],
+    documents: [
+      { icon: '📋', title: '避险转移网格化责任人台账', description: '罗卜田乡避险转移网格化责任人台账' },
+      { icon: '📋', title: '行政村减灾能力', description: '罗卜田乡社区（行政村）减灾能力评估表' }
+    ]
+  },
+  {
+    leaderId: 6,
+    workIndex: 1,
+    leaderName: '杨承明',
+    workName: '安全生产（消防）',
+    children: [
+      {
+        name: '多合一场所',
+        icon: '🏪',
+        documents: [
+          '2026年多合一场所整治清单'
+        ]
+      },
+      {
+        name: '有限空间',
+        icon: '🕳️',
+        documents: [
+          '有限空间隐患整治台账'
+        ]
+      },
+      {
+        name: '消防特殊人群',
+        icon: '👥',
+        documents: [
+          '罗卜田乡消防特殊人群台账'
+        ]
+      },
+      {
+        name: '重点敲门对象',
+        icon: '🚪',
+        documents: [
+          '罗卜田乡重点敲门对象花名册'
+        ]
+      },
+      {
+        name: '重点部位统计',
+        icon: '📍',
+        documents: [
+          '罗卜田乡重点部位统计表'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🏪', text: '多合一场所：排查整治多合一场所消防隐患，建立整治清单' },
+      { icon: '🕳️', text: '有限空间：有限空间隐患排查整治，建立整治台账' },
+      { icon: '👥', text: '消防特殊人群：摸排消防特殊人群，建立台账管理' },
+      { icon: '🚪', text: '重点敲门对象：确定重点敲门对象，建立花名册定期走访' },
+      { icon: '📍', text: '重点部位统计：统计全乡重点部位，建立统计表' }
+    ],
+    documents: [
+      { icon: '🏪', title: '多合一场所整治清单', description: '2026年多合一场所整治清单' },
+      { icon: '🕳️', title: '有限空间隐患整治台账', description: '有限空间隐患整治台账' },
+      { icon: '👥', title: '消防特殊人群台账', description: '罗卜田乡消防特殊人群台账' },
+      { icon: '🚪', title: '重点敲门对象花名册', description: '罗卜田乡重点敲门对象花名册' },
+      { icon: '📍', title: '重点部位统计表', description: '罗卜田乡重点部位统计表' }
+    ]
+  },
+  {
+    leaderId: 6,
+    workIndex: 2,
+    leaderName: '杨承明',
+    workName: '水利',
+    children: [
+      {
+        name: '人饮工程',
+        icon: '🚰',
+        documents: [
+          '农村供水工程现状摸底表'
+        ]
+      },
+      {
+        name: '水库台账',
+        icon: '🏞️',
+        documents: [
+          '罗卜田乡水库台账'
+        ]
+      },
+      {
+        name: '骨干山塘台账',
+        icon: '💧',
+        documents: [
+          '2023-2025山塘清淤台账'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🚰', text: '人饮工程：摸底农村供水工程现状，保障村民饮水安全' },
+      { icon: '🏞️', text: '水库台账：建立全乡水库台账，加强水库安全管理' },
+      { icon: '💧', text: '骨干山塘台账：骨干山塘清淤整治，2023-2025年清淤台账管理' }
+    ],
+    documents: [
+      { icon: '🚰', title: '农村供水工程现状摸底表', description: '农村供水工程现状摸底表' },
+      { icon: '🏞️', title: '水库台账', description: '罗卜田乡水库台账' },
+      { icon: '💧', title: '山塘清淤台账', description: '2023-2025山塘清淤台账' }
+    ]
+  },
+  {
+    leaderId: 6,
+    workIndex: 3,
+    leaderName: '杨承明',
+    workName: '防汛抗旱',
+    children: [
+      {
+        name: '防汛抢险队伍',
+        icon: '🚑',
+        documents: [
+          '罗卜田乡镇防汛抢险队伍统计表及花名册'
+        ]
+      },
+      {
+        name: '防汛应急预案',
+        icon: '📜',
+        documents: [
+          '罗卜田乡2026防汛应急预案'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🚑', text: '防汛抢险队伍：组建防汛抢险队伍，建立统计表及花名册' },
+      { icon: '📜', text: '防汛应急预案：制定2026年防汛应急预案，确保安全度汛' }
+    ],
+    documents: [
+      { icon: '🚑', title: '防汛抢险队伍统计表及花名册', description: '罗卜田乡镇防汛抢险队伍统计表及花名册' },
+      { icon: '📜', title: '2026防汛应急预案', description: '罗卜田乡2026防汛应急预案' }
+    ]
+  },
+  {
+    leaderId: 6,
+    workIndex: 4,
+    leaderName: '杨承明',
+    workName: '住建（燃气）',
+    children: [
+      {
+        name: '餐饮燃气',
+        icon: '🔥',
+        documents: [
+          '罗卜田乡燃气"百日行动"排查台账'
+        ]
+      },
+      {
+        name: '危房统计',
+        icon: '🏚️',
+        documents: [
+          '罗卜田乡危房统计表'
+        ]
+      }
+    ],
+    workItems: [
+      { icon: '🔥', text: '餐饮燃气：开展燃气"百日行动"排查，建立排查台账' },
+      { icon: '🏚️', text: '危房统计：排查全乡危房，建立危房统计表' }
+    ],
+    documents: [
+      { icon: '🔥', title: '燃气"百日行动"排查台账', description: '罗卜田乡燃气"百日行动"排查台账' },
+      { icon: '🏚️', title: '危房统计表', description: '罗卜田乡危房统计表' }
+    ]
   }
 ])
 

@@ -145,11 +145,11 @@ const leadersData = ref([
     name: '杨承明',
     color: 'linear-gradient(135deg, #00BCD4 0%, #0097A7 100%)',
     works: [
-      { name: '应急管理', icon: '🚨', color: 'linear-gradient(135deg, #EF5350, #B71C1C)', hasDetail: false },
-      { name: '安全生产', icon: '⛑️', color: 'linear-gradient(135deg, #FFA726, #E65100)', hasDetail: false },
-      { name: '水利', icon: '💧', color: 'linear-gradient(135deg, #29B6F6, #01579B)', hasDetail: false },
-      { name: '防汛抗旱', icon: '🌊', color: 'linear-gradient(135deg, #4FC3F7, #01579B)', hasDetail: false },
-      { name: '住建', icon: '🏗️', color: 'linear-gradient(135deg, #8D6E63, #3E2723)', hasDetail: false }
+      { name: '应急管理', icon: '🚨', color: 'linear-gradient(135deg, #EF5350, #B71C1C)', hasDetail: true },
+      { name: '安全生产（消防）', icon: '⛑️', color: 'linear-gradient(135deg, #FFA726, #E65100)', hasDetail: true },
+      { name: '水利', icon: '💧', color: 'linear-gradient(135deg, #29B6F6, #01579B)', hasDetail: true },
+      { name: '防汛抗旱', icon: '🌊', color: 'linear-gradient(135deg, #4FC3F7, #01579B)', hasDetail: true },
+      { name: '住建（燃气）', icon: '🏗️', color: 'linear-gradient(135deg, #8D6E63, #3E2723)', hasDetail: true }
     ]
   },
   {
