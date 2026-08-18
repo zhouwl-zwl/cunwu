@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <van-nav-bar title="罗卜田乡纪检干部花名册" left-arrow @click-left="goBack">
+    <van-nav-bar title="罗卜田乡农家书屋管理员名单" left-arrow @click-left="goBack">
       <template #right>
         <van-icon name="share-o" size="20" color="#fff" @click="handleShare" />
       </template>
@@ -9,15 +9,15 @@
     <div class="stats-card">
       <div class="stats-item">
         <span class="stats-num">{{ roster.length }}</span>
-        <span class="stats-label">纪检干部</span>
+        <span class="stats-label">管理员数</span>
       </div>
       <div class="stats-item">
         <span class="stats-num">{{ villageCount }}</span>
         <span class="stats-label">覆盖村落</span>
       </div>
       <div class="stats-item">
-        <span class="stats-num">{{ filteredList.length }}</span>
-        <span class="stats-label">当前筛选</span>
+        <span class="stats-num">{{ totalBooks }}</span>
+        <span class="stats-label">藏书总量</span>
       </div>
     </div>
 
@@ -33,7 +33,7 @@
         <van-radio-group v-model="searchField" direction="horizontal">
           <van-radio name="all">全部</van-radio>
           <van-radio name="name">姓名</van-radio>
-          <van-radio name="position">职务</van-radio>
+          <van-radio name="village">村名</van-radio>
           <van-radio name="phone">电话</van-radio>
         </van-radio-group>
       </div>
@@ -61,12 +61,16 @@
         class="roster-card"
       >
         <div class="roster-index">{{ index + 1 }}</div>
-        <div class="roster-avatar">
+        <div class="roster-avatar library-avatar">
           {{ item.name.charAt(0) }}
         </div>
         <div class="roster-info">
           <div class="roster-name">{{ item.name }}</div>
-          <div class="roster-position">{{ item.position }}</div>
+          <div class="roster-position">{{ item.village }} · {{ item.position }}</div>
+          <div class="roster-meta">
+            <span class="meta-tag book-tag">藏书 {{ item.bookCount }} 册</span>
+            <span class="meta-tag year-tag">管理 {{ item.manageSince }} 年</span>
+          </div>
           <div class="roster-phone" @click="handleCall(item)">
             <van-icon name="phone" size="14" color="#4CAF50" />
             <span>{{ item.phone }}</span>
@@ -85,7 +89,7 @@
 
     <div class="empty-state" v-else>
       <van-icon name="search" size="48" color="#ddd" />
-      <p>未找到匹配的纪检干部</p>
+      <p>未找到匹配的管理员</p>
       <van-button type="primary" size="small" @click="resetFilter">重置筛选</van-button>
     </div>
   </div>
@@ -103,55 +107,38 @@ const searchKeyword = ref('')
 const searchField = ref('all')
 const activeTab = ref('all')
 
+const villages = ['罗卜田村', '新店村', '马坡村', '冬瓜坡村', '枣子山村', '半冲村', '兴无村']
+
 const searchPlaceholder = computed(() => {
   const map = {
-    all: '搜索姓名、职务、电话...',
+    all: '搜索姓名、村名、电话...',
     name: '输入姓名搜索...',
-    position: '输入职务搜索...',
+    village: '输入村名搜索...',
     phone: '输入电话号码搜索...'
   }
   return map[searchField.value] || map.all
 })
 
 const roster = ref([
-  { id: 1, name: '于鼎馨', position: '罗卜田乡纪检委员、纪委书记', phone: '15574589507', village: '罗卜田乡', remark: '' },
-  { id: 2, name: '张婉堎', position: '罗卜田乡纪检委员、纪委副书记', phone: '15717457502', village: '罗卜田乡', remark: '' },
-  { id: 3, name: '向平安', position: '罗卜田乡纪检委员、纪检专干', phone: '15074561234', village: '罗卜田乡', remark: '' },
-  { id: 4, name: '龙海发', position: '罗卜田乡纪检委员', phone: '15364447890', village: '罗卜田乡', remark: '' },
-  { id: 5, name: '李利华', position: '罗卜田乡罗卜田村纪检主任', phone: '13787541234', village: '罗卜田村', remark: '' },
-  { id: 6, name: '周光炳', position: '罗卜田乡罗卜田村纪检委员', phone: '19372384567', village: '罗卜田村', remark: '' },
-  { id: 7, name: '龙向军', position: '罗卜田乡罗卜田村纪检委员', phone: '13874487890', village: '罗卜田村', remark: '' },
-  { id: 8, name: '张卧芯', position: '罗卜田乡罗卜田村纪检委员', phone: '18374551234', village: '罗卜田村', remark: '' },
-  { id: 9, name: '李高东', position: '罗卜田乡罗卜田村纪检委员', phone: '13469364567', village: '罗卜田村', remark: '' },
-  { id: 10, name: '李复胜', position: '罗卜田乡马坡村纪检主任', phone: '19974527890', village: '马坡村', remark: '' },
-  { id: 12, name: '李泽春', position: '罗卜田乡马坡村纪检委员', phone: '19892961234', village: '马坡村', remark: '' },
-  { id: 13, name: '邓长兵', position: '罗卜田乡马坡村纪检委员', phone: '17375554567', village: '马坡村', remark: '' },
-  { id: 14, name: '刘宗荣', position: '罗卜田乡冬瓜坡村纪检主任', phone: '18076007890', village: '冬瓜坡村', remark: '' },
-  { id: 15, name: '李复君', position: '罗卜田乡冬瓜坡村纪检委员', phone: '17308461234', village: '冬瓜坡村', remark: '' },
-  { id: 16, name: '李复银', position: '罗卜田乡冬瓜坡村纪检委员', phone: '15580774567', village: '冬瓜坡村', remark: '' },
-  { id: 17, name: '杨群', position: '罗卜田乡枣子山村纪检主任', phone: '17308467890', village: '枣子山村', remark: '' },
-  { id: 18, name: '郑复均', position: '罗卜田乡枣子山村纪检委员', phone: '14760731234', village: '枣子山村', remark: '' },
-  { id: 19, name: '刘正兵', position: '罗卜田乡枣子山村纪检委员', phone: '18797604567', village: '枣子山村', remark: '' },
-  { id: 20, name: '郑秀忠', position: '罗卜田乡枣子山村纪检委员', phone: '18797637890', village: '枣子山村', remark: '' },
-  { id: 21, name: '李成贵', position: '罗卜田乡枣子山村纪检委员', phone: '19311531234', village: '枣子山村', remark: '' },
-  { id: 22, name: '张小华', position: '罗卜田乡新店村纪检主任', phone: '19918457890', village: '新店村', remark: '' },
-  { id: 23, name: '杨志国', position: '罗卜田乡新店村纪检委员', phone: '15111501234', village: '新店村', remark: '' },
-  { id: 24, name: '张家洪', position: '罗卜田乡新店村纪检委员', phone: '19918584567', village: '新店村', remark: '' },
-  { id: 25, name: '唐昌齐', position: '罗卜田乡半冲村纪检主任', phone: '17774597890', village: '半冲村', remark: '' },
-  { id: 26, name: '伍代红', position: '罗卜田乡半冲村纪检委员', phone: '18274561234', village: '半冲村', remark: '' },
-  { id: 27, name: '张秀腾', position: '罗卜田乡半冲村纪检委员', phone: '17774604567', village: '半冲村', remark: '' },
-  { id: 28, name: '张跃', position: '罗卜田乡兴无村纪检主任', phone: '19918547890', village: '兴无村', remark: '' },
-  { id: 29, name: '王成国', position: '罗卜田乡兴无村纪检委员', phone: '13874561234', village: '兴无村', remark: '' },
-  { id: 30, name: '郑学松', position: '罗卜田乡兴无村纪检委员', phone: '17769244567', village: '兴无村', remark: '' }
+  { id: 1, name: '李桂英', village: '罗卜田村', position: '农家书屋管理员', phone: '13874520101', bookCount: 3280, manageSince: 8 },
+  { id: 2, name: '王建国', village: '新店村', position: '农家书屋管理员', phone: '13974520102', bookCount: 2856, manageSince: 6 },
+  { id: 3, name: '张淑芬', village: '马坡村', position: '农家书屋管理员', phone: '13774520103', bookCount: 2640, manageSince: 5 },
+  { id: 4, name: '杨振山', village: '冬瓜坡村', position: '农家书屋管理员', phone: '13674520104', bookCount: 2180, manageSince: 4 },
+  { id: 5, name: '周玉兰', village: '枣子山村', position: '农家书屋管理员', phone: '13574520105', bookCount: 2430, manageSince: 7 },
+  { id: 6, name: '刘承祖', village: '半冲村', position: '农家书屋管理员', phone: '15874520106', bookCount: 1960, manageSince: 3 },
+  { id: 7, name: '陈慧敏', village: '兴无村', position: '农家书屋管理员', phone: '15974520107', bookCount: 2215, manageSince: 5 }
 ])
 
 const villageTabs = computed(() => {
-  const villages = [...new Set(roster.value.map(r => r.village))]
-  return villages
+  return [...new Set(roster.value.map(r => r.village))]
 })
 
 const villageCount = computed(() => {
   return new Set(roster.value.map(r => r.village)).size
+})
+
+const totalBooks = computed(() => {
+  return roster.value.reduce((sum, item) => sum + item.bookCount, 0)
 })
 
 const filteredList = computed(() => {
@@ -166,14 +153,15 @@ const filteredList = computed(() => {
     result = result.filter(item => {
       if (searchField.value === 'name') {
         return item.name.toLowerCase().includes(keyword)
-      } else if (searchField.value === 'position') {
-        return item.position.toLowerCase().includes(keyword)
+      } else if (searchField.value === 'village') {
+        return item.village.toLowerCase().includes(keyword)
       } else if (searchField.value === 'phone') {
         return item.phone.includes(keyword)
       } else {
         return item.name.toLowerCase().includes(keyword) ||
-               item.position.toLowerCase().includes(keyword) ||
-               item.phone.includes(keyword)
+               item.village.toLowerCase().includes(keyword) ||
+               item.phone.includes(keyword) ||
+               item.position.toLowerCase().includes(keyword)
       }
     })
   }
@@ -200,16 +188,16 @@ const handleCall = (item) => {
 
 const handleShare = () => {
   showSharePanel({
-    title: '罗卜田乡纪检干部花名册',
-    description: `共${roster.value.length}位纪检干部，覆盖${villageCount.value}个村落`,
+    title: '罗卜田乡农家书屋管理员名单',
+    description: `共${roster.value.length}位管理员，覆盖${villageCount.value}个村落，藏书${totalBooks.value}册`,
     url: window.location.href
   })
 }
 
 const handleShareItem = (item) => {
   showSharePanel({
-    title: `${item.name} - 纪检干部`,
-    description: `${item.position}\n电话：${item.phone}`,
+    title: `${item.name} - 农家书屋管理员`,
+    description: `${item.village}\n藏书量：${item.bookCount}册\n管理年限：${item.manageSince}年\n电话：${item.phone}`,
     url: window.location.href
   })
 }
@@ -218,10 +206,11 @@ const exportExcel = () => {
   const data = filteredList.value.map((item, index) => ({
     '序号': index + 1,
     '姓名': item.name,
+    '所属村': item.village,
     '职务': item.position,
     '联系电话': item.phone,
-    '所属村落': item.village,
-    '备注': item.remark || '-'
+    '藏书量': item.bookCount,
+    '管理年限': item.manageSince
   }))
 
   if (data.length === 0) {
@@ -233,14 +222,15 @@ const exportExcel = () => {
   ws['!cols'] = [
     { wch: 8 },
     { wch: 12 },
-    { wch: 32 },
-    { wch: 16 },
     { wch: 12 },
+    { wch: 20 },
+    { wch: 16 },
+    { wch: 10 },
     { wch: 10 }
   ]
   const wb = XLSX.utils.book_new()
-  XLSX.utils.book_append_sheet(wb, ws, '纪检干部花名册')
-  XLSX.writeFile(wb, '罗卜田乡纪检干部花名册.xlsx')
+  XLSX.utils.book_append_sheet(wb, ws, '农家书屋管理员')
+  XLSX.writeFile(wb, '罗卜田乡农家书屋管理员名单.xlsx')
   showToast('导出成功')
 }
 
@@ -249,7 +239,7 @@ const goBack = () => {
 }
 
 onMounted(() => {
-  document.title = '罗卜田乡纪检干部花名册'
+  document.title = '罗卜田乡农家书屋管理员名单'
 })
 </script>
 
@@ -390,6 +380,10 @@ onMounted(() => {
   flex-shrink: 0;
 }
 
+.library-avatar {
+  background: linear-gradient(135deg, #8B4513, #D2691E);
+}
+
 .roster-info {
   flex: 1;
   min-width: 0;
@@ -407,6 +401,32 @@ onMounted(() => {
   color: #666;
   margin-bottom: 6px;
   line-height: 1.4;
+}
+
+.roster-meta {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.meta-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #f0f4ff;
+  color: #5b7bd5;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+.book-tag {
+  background: #fff8e1;
+  color: #f57c00;
+}
+
+.year-tag {
+  background: #e8f5e9;
+  color: #2e7d32;
 }
 
 .roster-phone {

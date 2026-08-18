@@ -55,24 +55,6 @@ const routes = [
         }
       },
       {
-        path: 'thought-study',
-        name: 'ThoughtStudy',
-        component: () => import('../views/ThoughtStudy.vue'),
-        meta: {
-          title: '学习最新思想',
-          requireAuth: false
-        }
-      },
-      {
-        path: 'party-roster/:type',
-        name: 'PartyRosterView',
-        component: () => import('../views/PartyRosterView.vue'),
-        meta: {
-          title: '党员台账',
-          requireAuth: false
-        }
-      },
-      {
         path: 'village-detail/:id',
         name: 'VillageDetail',
         component: () => import('../views/VillageDetail.vue'),
@@ -659,24 +641,6 @@ const routes = [
         }
       },
       {
-        path: 'drowning-education',
-        name: 'DrowningEducation',
-        component: () => import('../views/DrowningEducation.vue'),
-        meta: {
-          title: '防溺水教育',
-          requireAuth: false
-        }
-      },
-      {
-        path: 'drowning-promotion',
-        name: 'DrowningPromotion',
-        component: () => import('../views/DrowningPromotion.vue'),
-        meta: {
-          title: '防溺水宣传',
-          requireAuth: false
-        }
-      },
-      {
         path: 'key-personnel',
         name: 'KeyPersonnel',
         component: () => import('../views/KeyPersonnel.vue'),
@@ -704,29 +668,20 @@ const routes = [
         }
       },
       {
-        path: 'contact-list',
-        name: 'ContactList',
-        component: () => import('../views/ContactList.vue'),
-        meta: {
-          title: '通讯录',
-          requireAuth: false
-        }
-      },
-      {
         path: 'leader-list',
         name: 'LeaderList',
         component: () => import('../views/LeaderList.vue'),
         meta: {
-          title: '乡镇主要事务负责人',
+          title: '领导列表',
           requireAuth: false
         }
       },
       {
-        path: 'leader-detail/:id',
+        path: 'leader-detail/:leaderId',
         name: 'LeaderDetail',
         component: () => import('../views/LeaderDetail.vue'),
         meta: {
-          title: '分管工作',
+          title: '领导详情',
           requireAuth: false
         }
       },
@@ -740,11 +695,83 @@ const routes = [
         }
       },
       {
+        path: 'volunteer-roster',
+        name: 'VolunteerRoster',
+        component: () => import('../views/VolunteerRoster.vue'),
+        meta: {
+          title: '新时代文明实践站志愿者花名册',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'library-admin-list',
+        name: 'LibraryAdminList',
+        component: () => import('../views/LibraryAdminList.vue'),
+        meta: {
+          title: '农家书屋管理员名单',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'cultural-volunteer-list',
+        name: 'CulturalVolunteerList',
+        component: () => import('../views/CulturalVolunteerList.vue'),
+        meta: {
+          title: '文化志愿服务队伍人员名单',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'women-volunteer-roster',
+        name: 'WomenVolunteerRoster',
+        component: () => import('../views/WomenVolunteerRoster.vue'),
+        meta: {
+          title: '巾帼志愿服务队名单',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'cancer-publicity',
+        name: 'CancerPublicity',
+        component: () => import('../views/CancerPublicity.vue'),
+        meta: {
+          title: '两癌宣传资料',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'youth-league-roster',
+        name: 'YouthLeagueRoster',
+        component: () => import('../views/YouthLeagueRoster.vue'),
+        meta: {
+          title: '团员花名册',
+          requireAuth: false
+        }
+      },
+      {
         path: 'discipline-roster',
         name: 'DisciplineRoster',
         component: () => import('../views/DisciplineRoster.vue'),
         meta: {
           title: '纪检干部花名册',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'party-roster/:type',
+        name: 'PartyRosterView',
+        component: () => import('../views/PartyRosterView.vue'),
+        meta: {
+          title: '党员花名册',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'thought-study',
+        name: 'ThoughtStudy',
+        component: () => import('../views/ThoughtStudy.vue'),
+        meta: {
+          title: '思想学习',
           requireAuth: false
         }
       }
@@ -771,16 +798,6 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = `${to.meta.title} - 村级智慧村务平台`
   }
-  
-  const leaderRoutes = ['LeaderList', 'LeaderDetail', 'LeaderWorkDetail']
-  if (leaderRoutes.includes(to.name)) {
-    const unlocked = sessionStorage.getItem('leader_unlocked')
-    if (unlocked !== 'true') {
-      next('/')
-      return
-    }
-  }
-  
   next()
 })
 

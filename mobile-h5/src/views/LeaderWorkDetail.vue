@@ -1017,21 +1017,18 @@ const workDetails = ref([
       {
         name: '党员系统动态管理',
         icon: '📋',
-        responsible: '涂金萍',
         route: '/party-roster/member-roster',
         documents: ['党员花名册']
       },
       {
         name: '50年党龄党员',
         icon: '🎖️',
-        responsible: '涂金萍',
         route: '/party-roster/50year',
         documents: ['50年党龄摸底台账']
       },
       {
         name: '60年以上党龄困难党员',
         icon: '💝',
-        responsible: '涂金萍',
         route: '/party-roster/60year-aid',
         documents: ['60年以上党龄困难党员补助台账（半年更新）']
       }
@@ -1079,18 +1076,25 @@ const workDetails = ref([
       { 
         name: '文明实践计划',
         icon: '🌟',
-        responsible: '涂金萍',
         documents: [
           '新时代文明实践（所、站）计划表',
           '新时代实践活动方案和计划表'
         ]
+      },
+      {
+        name: '新时代文明实践站志愿者',
+        icon: '🤝',
+        route: '/volunteer-roster',
+        documents: ['新时代文明实践站志愿者花名册']
       }
     ],
     workItems: [
-      { icon: '🌟', text: '文明实践计划：每月上报新时代文明实践（所、站）计划和安排，按月填写新时代实践活动方案和计划表' }
+      { icon: '🌟', text: '文明实践计划：每月上报新时代文明实践（所、站）计划和安排，按月填写新时代实践活动方案和计划表' },
+      { icon: '🤝', text: '新时代文明实践站志愿者：新时代文明实践站志愿者花名单动态管理，包括理论宣讲、文化服务、助学支教、扶贫帮困、环境保护、卫生整治等志愿队伍' }
     ],
     documents: [
-      { icon: '🌟', title: '文明实践计划表', description: '新时代文明实践所、站计划安排及活动方案' }
+      { icon: '🌟', title: '文明实践计划表', description: '新时代文明实践所、站计划安排及活动方案' },
+      { icon: '🤝', title: '志愿者花名册', description: '新时代文明实践站志愿者花名单' }
     ]
   },
   {
@@ -1125,7 +1129,6 @@ const workDetails = ref([
       { 
         name: '文化年报',
         icon: '📊',
-        responsible: '涂金萍',
         documents: [
           '乡镇文化年报表'
         ]
@@ -1133,19 +1136,34 @@ const workDetails = ref([
       { 
         name: '农家书屋管理',
         icon: '📚',
-        responsible: '涂金萍',
         documents: [
           '农家书屋管理台账'
         ]
+      },
+      {
+        name: '农家书屋管理员',
+        icon: '👤',
+        route: '/library-admin-list',
+        documents: ['罗卜田乡农家书屋管理员名单']
+      },
+      {
+        name: '文化志愿服务',
+        icon: '🎭',
+        route: '/cultural-volunteer-list',
+        documents: ['罗卜田乡文化志愿服务队伍人员名单']
       }
     ],
     workItems: [
       { icon: '📊', text: '文化年报：上报乡镇文化年报' },
-      { icon: '📚', text: '农家书屋管理：对农家书屋进行管理' }
+      { icon: '📚', text: '农家书屋管理：对农家书屋进行管理' },
+      { icon: '👤', text: '农家书屋管理员：各村农家书屋管理员名单动态管理' },
+      { icon: '🎭', text: '文化志愿服务：罗卜田乡文化志愿服务队伍人员名单管理，包括文艺演出、书画创作、摄影摄像、非遗传承、民俗文化、体育健身等服务队伍' }
     ],
     documents: [
       { icon: '📊', title: '文化年报表', description: '乡镇文化年报表' },
-      { icon: '📚', title: '农家书屋管理', description: '农家书屋管理台账' }
+      { icon: '📚', title: '农家书屋管理', description: '农家书屋管理台账' },
+      { icon: '👤', title: '农家书屋管理员名单', description: '罗卜田乡各村农家书屋管理员名单' },
+      { icon: '🎭', title: '文化志愿服务队伍名单', description: '罗卜田乡文化志愿服务队伍人员名单' }
     ]
   },
   {
@@ -1202,7 +1220,6 @@ const workDetails = ref([
       { 
         name: '妇女儿童排查',
         icon: '👩',
-        responsible: '涂金萍',
         documents: [
           '妇女儿童矛盾纠纷排查表'
         ]
@@ -1210,29 +1227,34 @@ const workDetails = ref([
       { 
         name: '儿童关爱服务',
         icon: '❤️',
-        responsible: '涂金萍',
         documents: [
           '寒暑假儿童关爱服务记录表'
         ]
       },
-      { 
+      {
+        name: '乡巾帼志愿服务队',
+        icon: '🌸',
+        route: '/women-volunteer-roster',
+        documents: ['罗卜田乡巾帼志愿服务队名单']
+      },
+      {
         name: '两癌宣传',
         icon: '🎗️',
-        responsible: '涂金萍',
-        documents: [
-          '两癌宣传活动记录表'
-        ]
+        route: '/cancer-publicity',
+        documents: ['两癌宣传资料（根据上级下发）']
       }
     ],
     workItems: [
       { icon: '👩', text: '妇女儿童排查：开展妇女儿童矛盾纠纷专项排查，按月进行排查，及时跟进' },
       { icon: '❤️', text: '儿童关爱服务：开展寒暑假儿童关爱服务，对有需要的儿童进行关系服务' },
-      { icon: '🎗️', text: '两癌宣传：进行两癌宣传，对各村妇女进行两癌宣传' }
+      { icon: '🌸', text: '乡巾帼志愿服务队：罗卜田乡巾帼志愿服务队名单动态管理，包括政策宣传、创业就业、家庭建设、权益维护、文化体育、关爱帮扶等服务队伍' },
+      { icon: '🎗️', text: '两癌宣传：两癌（宫颈癌、乳腺癌）宣传资料管理，根据上级妇联统一下发' }
     ],
     documents: [
       { icon: '👩', title: '妇女儿童排查表', description: '妇女儿童矛盾纠纷专项排查表' },
       { icon: '❤️', title: '儿童关爱服务', description: '寒暑假儿童关爱服务记录表' },
-      { icon: '🎗️', title: '两癌宣传资料', description: '两癌（宫颈癌、乳腺癌）宣传活动记录' }
+      { icon: '🌸', title: '巾帼志愿服务队名单', description: '罗卜田乡巾帼志愿服务队名单' },
+      { icon: '🎗️', title: '两癌宣传资料', description: '两癌（宫颈癌、乳腺癌）宣传资料（根据上级下发）' }
     ]
   },
   {
@@ -1244,17 +1266,24 @@ const workDetails = ref([
       { 
         name: '共青团工作',
         icon: '🧑',
-        responsible: '涂金萍',
         documents: [
           '共青团工作台账'
         ]
+      },
+      {
+        name: '团员花名册',
+        icon: '📋',
+        route: '/youth-league-roster',
+        documents: ['罗卜田乡团员花名册（7个村）']
       }
     ],
     workItems: [
-      { icon: '🧑', text: '共青团：共青团相关工作事务' }
+      { icon: '🧑', text: '共青团：共青团相关工作事务' },
+      { icon: '📋', text: '团员花名册：罗卜田乡 7 个行政村共青团员花名册动态管理' }
     ],
     documents: [
-      { icon: '🧑', title: '共青团资料', description: '共青团工作台账等' }
+      { icon: '🧑', title: '共青团资料', description: '共青团工作台账等' },
+      { icon: '📋', title: '团员花名册', description: '罗卜田乡 7 个行政村共青团员花名册' }
     ]
   },
   {

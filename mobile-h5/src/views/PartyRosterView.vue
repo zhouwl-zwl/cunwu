@@ -183,7 +183,6 @@ const mockData = computed(() => {
     { name: '杨堃', gender: '男', village: '新店村', branch: '新店村党总支', joinDate: '2012-07', partyYears: '13年', phone: '187****9401' },
     { name: '龙小梅', gender: '女', village: '新店村', branch: '新店村党总支', joinDate: '2015-03', partyYears: '10年', phone: '177****3109' },
     { name: '欧阳付群', gender: '男', village: '罗卜田村', branch: '乡机关支部', joinDate: '2001-07', partyYears: '24年', phone: '138****0001' },
-    { name: '涂金萍', gender: '女', village: '罗卜田村', branch: '乡机关支部', joinDate: '2010-05', partyYears: '15年', phone: '139****0002' },
     { name: '黄楚珂', gender: '女', village: '罗卜田村', branch: '乡机关支部', joinDate: '2013-07', partyYears: '12年', phone: '137****0003' },
     { name: '龙君屹', gender: '男', village: '兴无村', branch: '兴无村党支部', joinDate: '2006-07', partyYears: '19年', phone: '136****0004' },
     { name: '张芷馨', gender: '女', village: '马坡村', branch: '马坡村党支部', joinDate: '2009-07', partyYears: '16年', phone: '135****0005' },
