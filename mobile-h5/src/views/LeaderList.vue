@@ -70,13 +70,7 @@ const router = useRouter()
 const searchKeyword = ref('')
 const activeCategory = ref('all')
 
-const LEADER_AUTH_KEY = 'leader_unlocked'
-
 onMounted(() => {
-  if (sessionStorage.getItem(LEADER_AUTH_KEY) !== 'true') {
-    router.replace('/')
-    return
-  }
   document.title = '乡镇主要事务负责人 - 村级智慧村务平台'
 })
 

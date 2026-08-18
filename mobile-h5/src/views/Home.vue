@@ -175,34 +175,6 @@
       </div>
     </div>
 
-    <van-dialog
-      v-model:show="showPasswordDialog"
-      title="访问验证"
-      :show-confirm-button="false"
-      :show-cancel-button="true"
-      @cancel="onPasswordCancel"
-    >
-      <div class="password-dialog">
-        <div class="password-icon">🔒</div>
-        <div class="password-desc">请输入访问密码查看乡镇主要事务负责人信息</div>
-        <van-field
-          v-model="passwordInput"
-          type="password"
-          placeholder="请输入密码"
-          maxlength="20"
-          class="password-input"
-          @keyup.enter="verifyPassword"
-        />
-        <div v-if="passwordError" class="password-error">{{ passwordError }}</div>
-        <van-button
-          type="primary"
-          block
-          class="password-btn"
-          @click="verifyPassword"
-        >确认</van-button>
-      </div>
-    </van-dialog>
-
   </div>
 </template>
 
@@ -214,14 +186,6 @@ import request from '../utils/request'
 
 const router = useRouter()
 const route = useRoute()
-
-const LEADER_PASSWORD = 'lbt98765'
-const LEADER_AUTH_KEY = 'leader_unlocked'
-
-const showPasswordDialog = ref(false)
-const passwordInput = ref('')
-const passwordError = ref('')
-const pendingLeaderId = ref(null)
 
 const searchKeyword = ref('')
 const villageInfo = ref(null)
@@ -276,41 +240,7 @@ const goVillageDetail = (id) => {
 }
 
 const goLeaderDetail = (id) => {
-  if (sessionStorage.getItem(LEADER_AUTH_KEY) === 'true') {
-    router.push(`/leader-detail/${id}`)
-  } else {
-    pendingLeaderId.value = id
-    passwordInput.value = ''
-    passwordError.value = ''
-    showPasswordDialog.value = true
-  }
-}
-
-const verifyPassword = () => {
-  if (!passwordInput.value) {
-    passwordError.value = '请输入密码'
-    return
-  }
-  if (passwordInput.value === LEADER_PASSWORD) {
-    sessionStorage.setItem(LEADER_AUTH_KEY, 'true')
-    showPasswordDialog.value = false
-    passwordError.value = ''
-    if (pendingLeaderId.value !== null) {
-      const id = pendingLeaderId.value
-      pendingLeaderId.value = null
-      router.push(`/leader-detail/${id}`)
-    }
-  } else {
-    passwordError.value = '密码错误，请重新输入'
-    passwordInput.value = ''
-  }
-}
-
-const onPasswordCancel = () => {
-  showPasswordDialog.value = false
-  passwordInput.value = ''
-  passwordError.value = ''
-  pendingLeaderId.value = null
+  router.push(`/leader-detail/${id}`)
 }
 
 const goSearch = () => {
@@ -668,48 +598,6 @@ onMounted(() => {
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-.password-dialog {
-  padding: 20px 16px 10px;
-}
-
-.password-icon {
-  font-size: 40px;
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-.password-desc {
-  font-size: 13px;
-  color: #666;
-  text-align: center;
-  margin-bottom: 16px;
-  line-height: 1.5;
-}
-
-.password-input {
-  margin-bottom: 12px;
-}
-
-.password-input :deep(.van-field__control) {
-  text-align: center;
-  font-size: 16px;
-  letter-spacing: 4px;
-}
-
-.password-error {
-  color: #D22630;
-  font-size: 12px;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.password-btn {
-  margin-top: 8px;
-  background: linear-gradient(135deg, #D22630 0%, #B01A26 100%);
-  border: none;
-  border-radius: 24px;
 }
 
 .thought-module {
