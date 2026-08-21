@@ -1,0 +1,1 @@
+import{u as e,w as o}from"./xlsx-Cy304ReC.js";function t(t,a,s="export.xlsx"){const p=a.map(e=>e.title),x=t.map(e=>a.map(o=>e[o.key]||"")),m=e.aoa_to_sheet([p,...x]),n=e.book_new();e.book_append_sheet(n,m,"Sheet1"),o(n,s)}export{t as e};
