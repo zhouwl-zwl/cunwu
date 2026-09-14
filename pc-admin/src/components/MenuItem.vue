@@ -23,7 +23,7 @@ const router = useRouter()
 const route = useRoute()
 
 const isActive = computed(() => {
-  return route.path.startsWith(props.item.route)
+  return route.path === props.item.route
 })
 
 const handleClick = () => {

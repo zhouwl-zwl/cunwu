@@ -73,9 +73,9 @@ const currentPath = ref('/')
 
 const navItems = [
   { path: '/dashboard', icon: '🏠', text: '首页' },
-  { path: '/demand', icon: '📋', text: '诉求' },
-  { path: '/notification', icon: '📢', text: '通知' },
-  { path: '/users', icon: '👤', text: '管理' }
+  { path: '/public-notice', icon: '📜', text: '村务公开' },
+  { path: '/notification', icon: '📢', text: '通知公告' },
+  { path: '/users', icon: '👤', text: '用户管理' }
 ]
 
 const isLoggedIn = computed(() => {

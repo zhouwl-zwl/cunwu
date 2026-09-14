@@ -16,14 +16,6 @@
       </div>
     </div>
 
-    <!-- 紧急联系条 -->
-    <div class="emergency-bar" @click="showEmergency">
-      <span class="emergency-icon">🔔</span>
-      <span class="emergency-text">紧急联系 · 24小时</span>
-      <span class="emergency-desc">村委会 138-0013-8000</span>
-      <van-icon name="arrow" size="14" color="#C8102E" />
-    </div>
-
     <!-- 基本村情 — 紧凑横条 -->
     <div class="stats-bar">
       <div class="stat-item" @click="goPage('/village-info')">
@@ -106,7 +98,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { showDialog } from 'vant'
 import request from '../utils/request'
 
 const router = useRouter()
@@ -137,7 +128,6 @@ const quickEntries = [
   { name: '村情概况', icon: 'friends-o', route: '/village-info', color: '#D22630' },
   { name: '三务公开', icon: 'eye-o', route: '/public-notices', color: '#4CAF50' },
   { name: '通知公告', icon: 'bell', route: '/notifications', color: '#FF9800' },
-  { name: '诉求上报', icon: 'edit', route: '/demand', color: '#2196F3' },
   { name: '惠民补贴', icon: 'gift-o', route: '/subsidy', color: '#9C27B0' },
   { name: '政策查询', icon: 'search', route: '/policy', color: '#00BCD4' },
   { name: '党建', icon: 'flag-o', route: '/party-member', color: '#F44336' },
@@ -148,18 +138,6 @@ const goPage = (path) => router.push(path)
 const goVillageDetail = (id) => router.push(`/village-detail/${id}`)
 const goLeaderDetail = (id) => router.push(`/leader-detail/${id}`)
 const goSearch = () => router.push('/search-result')
-
-const showEmergency = () => {
-  showDialog({
-    title: '紧急联系',
-    message: '村委会：138-0013-8000\n警务室：110\n火警：119\n急救：120',
-    confirmButtonText: '拨打村委会',
-    confirmButtonColor: '#C8102E',
-    cancelButtonText: '关闭'
-  }).then(() => {
-    window.location.href = 'tel:13800138000'
-  }).catch(() => {})
-}
 
 const fetchHomeData = async () => {
   try {
@@ -251,36 +229,6 @@ onMounted(() => {
 .search-placeholder {
   font-size: 13px;
   color: #999;
-}
-
-/* 紧急联系条 */
-.emergency-bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 8px 12px;
-  padding: 8px 14px;
-  background: #FFF5F5;
-  border-radius: 10px;
-  border: 1px solid rgba(200, 16, 46, 0.1);
-}
-
-.emergency-icon {
-  font-size: 16px;
-}
-
-.emergency-text {
-  font-size: 13px;
-  font-weight: 600;
-  color: #C8102E;
-  white-space: nowrap;
-}
-
-.emergency-desc {
-  flex: 1;
-  font-size: 11px;
-  color: #999;
-  text-align: right;
 }
 
 /* 基本村情 — 紧凑横条 */

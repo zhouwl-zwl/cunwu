@@ -96,12 +96,18 @@ const menuGroups = [
       { id: 62, name: '森林防火', route: '/forest-fire', icon: 'tree', color: '#4CAF50' },
       { id: 63, name: '食品安全', route: '/food-safety', icon: 'point-gift-o', color: '#FF9800' },
       { id: 64, name: '道路交通', route: '/road-traffic', icon: 'logistics', color: '#2196F3' },
-      { id: 65, name: '灾害防范', route: '/safety-hazard', icon: 'warning-o', color: '#9C27B0' },
-      { id: 66, name: '危房统计', route: '/hazardous-house-stats', icon: 'wap-home-o', color: '#FF5722' },
-      { id: 67, name: '燃气排查', route: '/gas-inspection', icon: 'fire-o', color: '#E91E63' },
-      { id: 68, name: '减灾能力', route: '/disaster-reduction', icon: 'shield-o', color: '#00BCD4' },
-      { id: 69, name: '重点部位', route: '/key-area-stats', icon: 'location-o', color: '#607D8B' },
-      { id: 70, name: '供水工程', route: '/water-supply-stats', icon: 'records', color: '#009688' }
+      { id: 65, name: '灾害防范', route: '/safety-hazard', icon: 'warning-o', color: '#9C27B0' }
+    ]
+  },
+  {
+    id: 7,
+    title: '安全台账',
+    children: [
+      { id: 71, name: '危房统计', route: '/hazardous-house-stats', icon: 'wap-home-o', color: '#FF5722' },
+      { id: 72, name: '燃气排查', route: '/gas-inspection', icon: 'fire-o', color: '#E91E63' },
+      { id: 73, name: '减灾能力', route: '/disaster-reduction', icon: 'shield-o', color: '#00BCD4' },
+      { id: 74, name: '重点部位', route: '/key-area-stats', icon: 'location-o', color: '#607D8B' },
+      { id: 75, name: '供水工程', route: '/water-supply-stats', icon: 'records', color: '#009688' }
     ]
   }
 ]

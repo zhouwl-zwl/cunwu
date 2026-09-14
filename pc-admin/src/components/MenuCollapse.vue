@@ -1,21 +1,8 @@
 <template>
   <div class="menu-collapse">
     <div class="collapse-header" @click="toggleCollapse">
-      <svg viewBox="0 0 24 24" class="header-icon" v-if="menu.icon === 'flag'">
-        <path d="M4 17h16v2H4zM4 12h16v2H4zM4 7h16v2H4z"/>
-        <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 16H8v-2h8v2zm0-4H8v-2h8v2zm0-4H8V8h8v2zm0-4H8V4h8v2z"/>
-      </svg>
-      <svg viewBox="0 0 24 24" class="header-icon" v-else-if="menu.icon === 'home'">
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-      </svg>
-      <svg viewBox="0 0 24 24" class="header-icon" v-else-if="menu.icon === 'wheat'">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
-      <svg viewBox="0 0 24 24" class="header-icon" v-else-if="menu.icon === 'users'">
-        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-      </svg>
-      <svg viewBox="0 0 24 24" class="header-icon" v-else-if="menu.icon === 'shield'">
-        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+      <svg viewBox="0 0 24 24" class="header-icon">
+        <path v-for="(d, i) in iconPaths" :key="i" :d="d" />
       </svg>
       <span class="header-title">{{ menu.title }}</span>
       <svg 
@@ -38,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import MenuItem from './MenuItem.vue'
 
 const props = defineProps({
@@ -48,8 +35,22 @@ const props = defineProps({
   }
 })
 
+// 各分组图标的 path 集合（24x24, stroke 风格）
+const ICON_PATHS = {
+  flag: ['M4 17h16v2H4zM4 12h16v2H4zM4 7h16v2H4z'],
+  document: ['M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z', 'M14 2v6h6', 'M8 13h8M8 17h5'],
+  money: ['M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z', 'M2 10h20'],
+  home: ['M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'],
+  shield: ['M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z'],
+  users: ['M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2', 'M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z', 'M23 21v-2a4 4 0 0 0-3-3.87', 'M16 3.13a4 4 0 0 1 0 7.75'],
+  chat: ['M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z'],
+  setting: ['M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6']
+}
+
+const iconPaths = computed(() => ICON_PATHS[props.menu.icon] || ICON_PATHS.flag)
+
 const isExpanded = ref(false)
-const storageKey = `menu_open_${props.menu.id}`
+const storageKey = `menu_open_v2_${props.menu.id}`
 
 const toggleCollapse = () => {
   isExpanded.value = !isExpanded.value
