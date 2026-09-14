@@ -1,19 +1,14 @@
 <template>
   <div class="page-container">
-    <van-nav-bar 
-      :title="workDetail?.workName || '工作详情'" 
-      :class="{ 'nav-bar-rural': workDetail?.workName === '乡村振兴' }"
-      left-arrow 
-      @click-left="goBack" 
+    <van-nav-bar
+      :title="workDetail?.workName || '工作详情'"
+      left-arrow
+      @click-left="goBack"
     />
     
-    <div 
-      class="detail-header" 
-      :class="{ 'detail-header-rural': workDetail?.workName === '乡村振兴' }" 
-      v-if="workDetail"
-    >
+    <div class="detail-header" v-if="workDetail">
       <div class="header-title">
-        <span v-if="workDetail.workName === '乡村振兴'" class="header-rural-icon">🌾</span>
+        <span v-if="workDetail.workName === '乡村振兴'" class="header-icon">🌾</span>
         {{ workDetail.workName }}
       </div>
       <div class="header-subtitle">
@@ -23,8 +18,8 @@
 
     <div class="detail-content" v-if="workDetail">
       <div class="section-card" v-if="workDetail.children">
-        <div class="section-title" :class="{ 'section-title-rural': workDetail.workName === '乡村振兴' }">
-          <van-icon name="file-text-o" size="16" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#D22630'" />
+        <div class="section-title">
+          <van-icon name="file-text-o" size="16" color="#D22630" />
           <span>分管事务</span>
         </div>
         
@@ -33,26 +28,25 @@
             v-for="(child, idx) in workDetail.children" 
             :key="idx" 
             class="child-card"
-            :class="{ 'child-card-rural': workDetail.workName === '乡村振兴' }"
             @click="toggleChild(idx)"
           >
             <div class="child-header">
               <div class="child-left">
                 <div 
-                  class="child-number" 
-                  :class="{ 'child-number-rural': workDetail.workName === '乡村振兴', 'child-number-icon': child.icon }"
+                  class="child-number"
+                  :class="{ 'child-number-icon': child.icon }"
                 >
                   <span v-if="child.icon" class="child-icon">{{ child.icon }}</span>
                   <span v-else>{{ idx + 1 }}</span>
                 </div>
                 <div class="child-name">
                   {{ child.name }}
-                  <span v-if="child.responsible" class="child-responsible" :class="{ 'child-responsible-rural': workDetail.workName === '乡村振兴' }">{{ child.responsible }}</span>
+                  <span v-if="child.responsible" class="child-responsible">{{ child.responsible }}</span>
                 </div>
               </div>
               <div class="child-arrow" :class="{ expanded: expandedIndex === idx }">
                 <span v-if="child.route" class="enter-hint">进入</span>
-                <van-icon v-else name="arrow" size="16" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#D22630'" />
+                <van-icon v-else name="arrow" size="16" color="#D22630" />
               </div>
             </div>
             
@@ -64,7 +58,7 @@
                     v-for="(doc, dIdx) in child.documents" 
                     :key="dIdx" 
                     class="doc-tag"
-                    :class="{ clickable: isRosterDoc(doc), 'doc-tag-rural': workDetail.workName === '乡村振兴' }"
+                    :class="{ clickable: isRosterDoc(doc) }"
                     @click.stop="handleDocClick(doc)"
                   >
                     {{ doc }}
@@ -91,8 +85,8 @@
       </div>
 
       <div class="section-card" v-if="workDetail.workItems">
-        <div class="section-title" :class="{ 'section-title-rural': workDetail.workName === '乡村振兴' }">
-          <van-icon name="description" size="16" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#D22630'" />
+        <div class="section-title">
+          <van-icon name="description" size="16" color="#D22630" />
           <span>工作内容</span>
         </div>
         <div class="work-items">
@@ -100,9 +94,8 @@
             v-for="(item, idx) in workDetail.workItems" 
             :key="idx" 
             class="work-item"
-            :class="{ 'work-item-rural': workDetail.workName === '乡村振兴' }"
           >
-            <div class="item-number" :class="{ 'item-number-rural': workDetail.workName === '乡村振兴', 'item-number-icon': typeof item === 'object' && item.icon }">
+            <div class="item-number" :class="{ 'item-number-icon': typeof item === 'object' && item.icon }">
               <span v-if="typeof item === 'object' && item.icon" class="item-icon">{{ item.icon }}</span>
               <span v-else>{{ idx + 1 }}</span>
             </div>
@@ -112,8 +105,8 @@
       </div>
 
       <div class="section-card" v-if="workDetail.documents && workDetail.documents.length > 0">
-        <div class="section-title" :class="{ 'section-title-rural': workDetail.workName === '乡村振兴' }">
-          <van-icon name="folder-o" size="16" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#4CAF50'" />
+        <div class="section-title">
+          <van-icon name="folder-o" size="16" color="#4CAF50" />
           <span>相关资料台账</span>
         </div>
         <div class="document-list">
@@ -121,11 +114,10 @@
             v-for="(doc, idx) in workDetail.documents" 
             :key="idx" 
             class="document-item"
-            :class="{ 'document-item-rural': workDetail.workName === '乡村振兴' }"
           >
             <div class="doc-icon" :class="{ 'doc-icon-emoji': doc.icon }">
               <span v-if="doc.icon" class="doc-emoji">{{ doc.icon }}</span>
-              <van-icon v-else name="file" size="20" :color="workDetail.workName === '乡村振兴' ? '#2E7D32' : '#666'" />
+              <van-icon v-else name="file" size="20" color="#666" />
             </div>
             <div class="doc-content">
               <div class="doc-title">{{ doc.title }}</div>
@@ -2115,102 +2107,5 @@ onMounted(() => {
   text-align: center;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-color);
-}
-
-/* ========== 乡村振兴绿色主题 ========== */
-:deep(.nav-bar-rural) {
-  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%) !important;
-  box-shadow: 0 2px 12px rgba(46, 125, 50, 0.2) !important;
-}
-
-.detail-header-rural {
-  background: linear-gradient(135deg, #66BB6A 0%, #43A047 40%, #2E7D32 80%, #1B5E20 100%) !important;
-  position: relative;
-  overflow: hidden;
-}
-
-/* 绿色主题光斑 - 右上 */
-.detail-header-rural::before {
-  content: '';
-  position: absolute;
-  top: -50px;
-  right: -30px;
-  width: 180px;
-  height: 180px;
-  background: radial-gradient(circle, rgba(200, 230, 201, 0.3) 0%, transparent 65%) !important;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-/* 绿色主题光斑 - 左下 */
-.detail-header-rural::after {
-  content: '';
-  position: absolute;
-  bottom: -60px;
-  left: -40px;
-  width: 160px;
-  height: 160px;
-  background: radial-gradient(circle, rgba(76, 175, 80, 0.25) 0%, transparent 60%) !important;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.header-rural-icon {
-  margin-right: var(--spacing-2);
-  font-size: var(--font-size-2xl);
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
-}
-
-.section-title-rural {
-  border-bottom-color: #E8F5E9 !important;
-}
-
-.child-card-rural {
-  border-left: 3px solid #4CAF50;
-  border-color: #C8E6C9;
-  background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E9 100%);
-}
-
-.child-number-rural {
-  background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%) !important;
-  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3) !important;
-}
-
-.child-card-rural .child-number-icon {
-  background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%) !important;
-}
-
-.child-responsible-rural {
-  background: linear-gradient(135deg, #66BB6A 0%, #2E7D32 100%) !important;
-  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.25) !important;
-}
-
-.doc-tag-rural {
-  background: rgba(76, 175, 80, 0.1) !important;
-  color: #2E7D32 !important;
-  border-color: rgba(76, 175, 80, 0.15) !important;
-}
-
-.work-item-rural {
-  background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E9 100%);
-  border-left: 3px solid #4CAF50;
-}
-
-.item-number-rural {
-  background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%) !important;
-  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3) !important;
-}
-
-.work-item-rural .item-number-icon {
-  background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%) !important;
-}
-
-.document-item-rural {
-  background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E9 100%);
-  border: 1px solid #C8E6C9;
-}
-
-.document-item-rural .doc-icon-emoji {
-  background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%) !important;
 }
 </style>

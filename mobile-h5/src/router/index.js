@@ -37,6 +37,24 @@ const routes = [
         }
       },
       {
+        path: 'village-affairs',
+        name: 'VillageAffairs',
+        component: () => import('../views/VillageAffairs.vue'),
+        meta: {
+          title: '村务中心',
+          requireAuth: false
+        }
+      },
+      {
+        path: 'services',
+        name: 'ServiceHub',
+        component: () => import('../views/ServiceHub.vue'),
+        meta: {
+          title: '服务大厅',
+          requireAuth: false
+        }
+      },
+      {
         path: 'org-members',
         name: 'OrgMembers',
         component: () => import('../views/OrgMembers.vue'),

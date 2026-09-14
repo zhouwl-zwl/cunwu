@@ -1,15 +1,14 @@
 <template>
   <div v-if="showBottomNav" class="bottom-nav safe-area-bottom">
-    <div 
-      v-for="item in navItems" 
-      :key="item.path" 
+    <div
+      v-for="item in navItems"
+      :key="item.path"
       class="nav-item"
       :class="{ active: isActive(item.path) }"
       @click="navigate(item.path)"
     >
       <div class="nav-icon-wrapper">
-        <van-icon :name="item.activeIcon" v-if="isActive(item.path)" size="24" color="#FFD700" />
-        <van-icon :name="item.icon" v-else size="24" color="rgba(255,255,255,0.7)" />
+        <van-icon :name="isActive(item.path) ? item.activeIcon : item.icon" size="22" :color="isActive(item.path) ? '#C8102E' : '#999'" />
       </div>
       <div class="nav-text" :class="{ active: isActive(item.path) }">{{ item.text }}</div>
       <div v-if="item.badge && item.badge > 0" class="nav-badge">
@@ -29,18 +28,24 @@ const currentPath = ref('/')
 const showBottomNav = ref(false)
 
 const navItems = [
-  { path: '/', icon: 'home-o', activeIcon: 'home', text: '首页', badge: 0 }
+  { path: '/', icon: 'home-o', activeIcon: 'home', text: '首页', badge: 0 },
+  { path: '/village-affairs', icon: 'apps-o', activeIcon: 'apps', text: '村务', badge: 0 },
+  { path: '/services', icon: 'service-o', activeIcon: 'service', text: '服务', badge: 0 },
+  { path: '/mine', icon: 'user-o', activeIcon: 'user', text: '我的', badge: 0 }
 ]
 
 const isActive = (path) => {
   if (path === '/') {
-    return currentPath.value === '/'
+    return currentPath.value === '/' || currentPath.value === ''
+  }
+  if (path === '/mine') {
+    return currentPath.value.startsWith('/mine') || currentPath.value.startsWith('/profile') || currentPath.value.startsWith('/archive') || currentPath.value.startsWith('/favorites') || currentPath.value.startsWith('/help') || currentPath.value.startsWith('/about') || currentPath.value.startsWith('/notification-settings')
   }
   return currentPath.value.startsWith(path)
 }
 
 const navigate = (path) => {
-  if (currentPath.value === path) return
+  if (isActive(path)) return
   router.push(path)
 }
 
@@ -53,10 +58,10 @@ const checkScreenWidth = () => {
 }
 
 const updateBadge = () => {
-  const notificationItem = navItems.find(item => item.path === '/notifications')
-  if (notificationItem) {
+  const notifItem = navItems.find(item => item.path === '/services')
+  if (notifItem) {
     const unread = localStorage.getItem('unreadCount') || '0'
-    notificationItem.badge = parseInt(unread)
+    notifItem.badge = parseInt(unread)
   }
 }
 
@@ -83,33 +88,15 @@ watch(() => route.path, () => {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px;
-  background: linear-gradient(135deg, #C8102E 0%, #A80E28 50%, #8B0A1F 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  height: 56px;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  box-shadow: 
-    0 -4px 24px rgba(200, 16, 46, 0.3), 
-    0 -1px 0 rgba(255, 215, 0, 0.25),
-    0 -2px 0 rgba(255, 255, 255, 0.05) inset;
+  box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.06);
   z-index: 999;
-  padding-top: 3px;
   padding-bottom: env(safe-area-inset-bottom);
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      rgba(255, 215, 0, 0.3) 50%, 
-      transparent 100%);
-  }
+  border-top: 1px solid #f0f0f0;
 }
 
 .nav-item {
@@ -120,85 +107,56 @@ watch(() => route.path, () => {
   justify-content: center;
   flex: 1;
   height: 100%;
-  transition: all var(--transition-normal);
+  transition: all 0.2s ease;
   cursor: pointer;
-  padding-top: 4px;
 }
 
 .nav-item:active {
   transform: scale(0.92);
 }
 
-.nav-item.active {
-  transform: translateY(-4px);
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 6px;
-    width: 20px;
-    height: 3px;
-    background: var(--gradient-gold);
-    border-radius: 2px;
-    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
-  }
-}
-
 .nav-icon-wrapper {
   position: relative;
-  transition: all var(--transition-normal);
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-}
-
-.nav-item.active .nav-icon-wrapper {
-  filter: drop-shadow(0 2px 6px rgba(255, 215, 0, 0.5));
+  width: 26px;
+  height: 26px;
 }
 
 .nav-text {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.65);
+  font-size: 10px;
+  color: #999;
   margin-top: 2px;
-  transition: all var(--transition-normal);
-  font-weight: var(--font-weight-medium);
+  transition: all 0.2s ease;
 }
 
 .nav-text.active {
-  color: var(--gold-color);
-  font-weight: var(--font-weight-semibold);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-  font-size: 12px;
+  color: #C8102E;
+  font-weight: 600;
+}
+
+.nav-item.active .nav-icon-wrapper {
+  filter: drop-shadow(0 2px 4px rgba(200, 16, 46, 0.3));
 }
 
 .nav-badge {
   position: absolute;
-  top: -4px;
+  top: 2px;
   right: 50%;
-  transform: translateX(14px);
-  min-width: 18px;
-  height: 18px;
-  background: linear-gradient(135deg, #FF6B6B 0%, #EE5A5A 100%);
+  transform: translateX(16px);
+  min-width: 16px;
+  height: 16px;
+  background: #FF4D4F;
   color: #fff;
-  font-size: 10px;
-  font-weight: var(--font-weight-bold);
-  border-radius: 9px;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 5px;
-  box-shadow: 
-    0 2px 6px rgba(255, 71, 87, 0.4),
-    0 0 0 2px rgba(200, 16, 46, 0.9);
-  animation: badgePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding: 0 4px;
   z-index: 1;
-}
-
-@keyframes badgePop {
-  0% { transform: translateX(14px) scale(0); }
-  60% { transform: translateX(14px) scale(1.2); }
-  100% { transform: translateX(14px) scale(1); }
 }
 </style>
