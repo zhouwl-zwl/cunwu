@@ -53,7 +53,8 @@ const menuGroups = [
       { id: 23, name: '三务公开', route: '/public-notices', icon: 'eye-o', color: '#8BC34A' },
       { id: 24, name: '村会议事', route: '/governance', icon: 'comment-o', color: '#CDDC39' },
       { id: 25, name: '任务督办', route: '/task-supervision', icon: 'todo-list-o', color: '#FFC107' },
-      { id: 26, name: '土地管理', route: '/land-management', icon: 'location-o', color: '#FF9800' }
+      { id: 26, name: '土地管理', route: '/land-management', icon: 'location-o', color: '#FF9800' },
+      { id: 27, name: '表格查看', route: '/excel-import', icon: 'description', color: '#00BCD4' }
     ]
   },
   {

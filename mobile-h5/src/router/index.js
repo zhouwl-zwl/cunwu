@@ -837,6 +837,15 @@ const routes = [
           title: '农村供水工程',
           requireAuth: false
         }
+      },
+      {
+        path: 'excel-import',
+        name: 'ExcelImport',
+        component: () => import('../views/ExcelImport.vue'),
+        meta: {
+          title: '表格查看',
+          requireAuth: false
+        }
       }
     ]
   },

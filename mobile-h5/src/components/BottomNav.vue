@@ -19,27 +19,20 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const route = useRoute()
 const currentPath = ref('/')
 const showBottomNav = ref(false)
 
 const navItems = [
-  { path: '/', icon: 'home-o', activeIcon: 'home', text: '首页', badge: 0 },
-  { path: '/village-affairs', icon: 'apps-o', activeIcon: 'apps', text: '村务', badge: 0 },
-  { path: '/services', icon: 'service-o', activeIcon: 'service', text: '服务', badge: 0 },
-  { path: '/mine', icon: 'user-o', activeIcon: 'user', text: '我的', badge: 0 }
+  { path: '/', icon: 'home-o', activeIcon: 'home', text: '首页', badge: 0 }
 ]
 
 const isActive = (path) => {
   if (path === '/') {
     return currentPath.value === '/' || currentPath.value === ''
-  }
-  if (path === '/mine') {
-    return currentPath.value.startsWith('/mine') || currentPath.value.startsWith('/profile') || currentPath.value.startsWith('/archive') || currentPath.value.startsWith('/favorites') || currentPath.value.startsWith('/help') || currentPath.value.startsWith('/about') || currentPath.value.startsWith('/notification-settings')
   }
   return currentPath.value.startsWith(path)
 }
@@ -57,28 +50,15 @@ const checkScreenWidth = () => {
   showBottomNav.value = window.innerWidth <= 768
 }
 
-const updateBadge = () => {
-  const notifItem = navItems.find(item => item.path === '/services')
-  if (notifItem) {
-    const unread = localStorage.getItem('unreadCount') || '0'
-    notifItem.badge = parseInt(unread)
-  }
-}
-
 onMounted(() => {
   updatePath()
   checkScreenWidth()
-  updateBadge()
   router.afterEach(updatePath)
   window.addEventListener('resize', checkScreenWidth)
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', checkScreenWidth)
-})
-
-watch(() => route.path, () => {
-  updateBadge()
 })
 </script>
 
